@@ -1,0 +1,39 @@
+# Stage 3a — PPO Policy Optimization config
+#
+# PPO objective:
+#   L = E[min(ratio*A, clip(ratio,1-ε,1+ε)*A)] - β*KL(π_θ ‖ π_ref)
+#
+# Key tradeoffs:
+#   - Higher init_kl_coef → more conservative, slower reward improvement
+#   - Higher target_kl → allows more policy drift per step (reward hacking risk)
+#   - ppo_epochs: too many → overfitting to old rollouts; 4 is standard
+
+sft_checkpoint: checkpoints/sft
+reward_checkpoint: checkpoints/reward_model
+output_dir: checkpoints/ppo
+
+# Data
+num_train_samples: 5000
+max_prompt_length: 256
+max_new_tokens: 128           # response length during rollout generation
+
+# PPO hyperparameters
+batch_size: 16                # rollout batch size (prompts per step)
+mini_batch_size: 4            # gradient mini-batch size within PPO update
+gradient_accumulation_steps: 1
+ppo_epochs: 4                 # number of PPO update passes per rollout batch
+learning_rate: 1.41e-5
+
+# KL penalty
+kl_penalty: kl                # "kl" | "abs" | "mse"
+init_kl_coef: 0.2             # initial β
+adap_kl_ctrl: true            # adaptive KL controller (targets target_kl)
+target_kl: 6.0                # nats; typical range 3-10
+
+# Clipping
+clip_range: 0.2               # ε in clipped surrogate loss (standard PPO default)
+vf_coef: 0.1                  # value function loss weight
+
+# Hardware
+fp16: true
+log_every: 10

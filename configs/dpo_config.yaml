@@ -1,0 +1,46 @@
+# Stage 3b — DPO Policy Optimization config
+#
+# DPO loss:
+#   L = -E[log σ(β*(log π_θ(y_w|x) - log π_ref(y_w|x))
+#                - β*(log π_θ(y_l|x) - log π_ref(y_l|x)))]
+#
+# Key hyperparameter:
+#   beta (β): controls KL constraint strength
+#     β → 0 : ignores reference policy, pure preference learning
+#     β → ∞ : freezes policy at reference (no update)
+#   Typical range: 0.05 – 0.5  (paper uses 0.1)
+#
+# Note: DPO uses a *much* lower learning rate than SFT because we are making
+# small targeted adjustments, not learning from scratch.
+
+sft_checkpoint: checkpoints/sft
+output_dir: checkpoints/dpo
+
+# Data
+dataset: Anthropic/hh-rlhf
+subset: harmless-base
+num_train_samples: 10000
+num_eval_samples: 1000
+max_length: 512
+max_prompt_length: 256
+
+# DPO hyperparameters
+beta: 0.1                           # KL regularisation coefficient
+
+# Training
+num_train_epochs: 1
+per_device_train_batch_size: 2
+per_device_eval_batch_size: 4
+gradient_accumulation_steps: 8      # effective batch = 16
+learning_rate: 5.0e-7               # ~100x smaller than SFT
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+
+# Hardware
+fp16: true
+
+# Logging
+logging_steps: 50
+eval_steps: 200
+save_steps: 500
+report_to: none

@@ -1,0 +1,32 @@
+# Stage 1 — Supervised Fine-Tuning config
+# Trains GPT-2 on the "chosen" (preferred) responses from hh-rlhf
+
+model_name: gpt2-medium          # 355M params; use "gpt2" for free Colab T4
+output_dir: checkpoints/sft
+
+# Data
+dataset: Anthropic/hh-rlhf
+subset: harmless-base
+num_train_samples: 10000          # -1 to use full ~42k
+num_eval_samples: 1000
+max_length: 512
+
+# Training
+num_train_epochs: 3
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 8
+gradient_accumulation_steps: 4   # effective batch size = 16
+learning_rate: 2.0e-5
+weight_decay: 0.01
+warmup_ratio: 0.05
+lr_scheduler_type: cosine
+
+# Hardware
+fp16: true
+dataloader_num_workers: 2
+
+# Logging
+logging_steps: 50
+eval_steps: 200
+save_steps: 500
+report_to: none                   # set to "wandb" for experiment tracking
