@@ -1,0 +1,39 @@
+# PRM and ORM training config — GSM8K step-level vs outcome-level reward signal
+#
+# PRM (Process Reward Model): scores each reasoning step
+#   - Higher training signal density (K signals per example)
+#   - Catches correct-answer-wrong-steps failures
+#   - Requires step-boundary annotations in training data
+#
+# ORM (Outcome Reward Model): scores the final answer only
+#   - Simpler; same architecture as the hh-rlhf reward model
+#   - Misses faulty reasoning that happens to reach the right answer
+
+sft_checkpoint: checkpoints/sft
+
+prm:
+  output_dir: checkpoints/prm
+  aggregation_mode: mean      # mean | min | sum
+  num_epochs: 3
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  max_length: 512
+  num_train_samples: 5000
+  num_eval_samples: 500
+  fp16: true
+
+orm:
+  output_dir: checkpoints/orm
+  num_epochs: 3
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  max_length: 512
+  num_train_samples: 5000
+  num_eval_samples: 500
+  fp16: true

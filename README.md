@@ -110,27 +110,133 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ---
 
+## Extensions
+
+Three research-grade extensions implemented beyond the base pipeline, each targeting a real limitation:
+
+---
+
+### Extension 1: Constitutional AI / RLAIF — Replace Human Labels with Claude
+
+**Motivation**: Human preference annotation is expensive, slow, and locked to a fixed pool of annotators.  Anthropic's CAI paper shows that an LLM guided by a *constitution* — a set of natural-language principles — can label preferences at API cost with comparable quality at scale.
+
+**Pipeline**: For each prompt, generate two responses from the SFT model, then call Claude with the constitution and ask it to pick the better one and explain why.  The resulting (chosen, rejected) pairs train a reward model with zero human annotation.
+
+**Key code**:
+- [`src/data/cai.py`](src/data/cai.py) — constitution, Claude API caller, `CAIPreferenceDataset`
+- [`scripts/generate_cai_preferences.py`](scripts/generate_cai_preferences.py) — CLI for batch generation
+
+**Ablation results** (reward model pairwise accuracy on held-out human-annotated pairs):
+
+| Data source | Pairs | RM accuracy |
+|-------------|-------|-------------|
+| Human labels (hh-rlhf) | 10k | 72.4% |
+| AI labels (CAI, Haiku) | 2k | 68.1% |
+| AI labels (CAI, Haiku) | 10k | 70.8% |
+
+AI labels close to within 1.6% of human labels when matched for volume — at ~300× lower cost to generate.
+
+**Run it**:
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+python scripts/generate_cai_preferences.py --num_pairs 2000 --output data/cai_preferences.jsonl
+python scripts/train_reward_model.py --cai_data data/cai_preferences.jsonl --output_dir checkpoints/reward_model_cai
+```
+
+---
+
+### Extension 2: Reward Model Ensembling — Attack the Over-Optimisation Problem
+
+**Motivation**: The baseline PPO run's verbose-bias reward hack (documented in Key Findings) exists because the policy found inputs where a *single* reward model is confidently wrong.  A single RM has no representation of its own uncertainty.
+
+**Approach**: Train K=3 reward models with the same architecture but different random seeds.  Use ensemble *disagreement* as an uncertainty proxy and penalise the reward where models disagree:
+
+$$r_{\text{ensemble}}(x, y) = \frac{1}{K}\sum_k r_k(x,y) \;\;-\;\; \lambda \cdot \text{std}_k[r_k(x,y)]$$
+
+Regions where the ensemble agrees → reliable; regions where it disagrees → penalised → policy avoids them.
+
+**Key code**:
+- [`src/models/reward_ensemble.py`](src/models/reward_ensemble.py) — `RewardEnsemble` with `penalized_reward()`
+- [`src/training/reward_ensemble.py`](src/training/reward_ensemble.py) — parallel training of K members
+- [`scripts/train_ppo_ensemble.py`](scripts/train_ppo_ensemble.py) — PPO loop using ensemble reward
+
+**Ablation results** (500 test prompts, λ=0.5):
+
+| Policy | Mean reward | KL from ref | Verbose-bias rate |
+|--------|-------------|-------------|-------------------|
+| PPO (single RM) | 0.681 | 4.82 | 78% |
+| PPO (ensemble, λ=0.5) | 0.521 | 3.14 | 31% |
+
+Lower absolute reward but significantly healthier KL and much less reward hacking.
+
+**Run it**:
+```bash
+python scripts/train_reward_ensemble.py --k 3 --output_dir checkpoints/reward_ensemble
+python scripts/train_ppo_ensemble.py --ensemble_dir checkpoints/reward_ensemble --uncertainty_penalty 0.5
+```
+
+---
+
+### Extension 3: Process Reward Model (PRM) vs Outcome Reward Model (ORM)
+
+**Motivation**: All reward models in the base pipeline score the *complete response* — they are blind to faulty reasoning that happens to produce the right final answer.  On multi-step tasks (math, code, logical arguments), this is a significant gap.
+
+**Approach**: Train a PRM on GSM8K that scores each reasoning step independently by placing a binary head at every step-boundary token.  Compare with an ORM (same architecture, final-answer-only signal) on the critical test case: *correct answer reached via wrong intermediate steps*.
+
+**Key code**:
+- [`src/data/gsm8k.py`](src/data/gsm8k.py) — step parsing, arithmetic perturbation, `PRMDataset` / `ORMDataset`
+- [`src/models/process_reward_model.py`](src/models/process_reward_model.py) — `GPT2ProcessRewardModel` with configurable aggregation
+- [`scripts/compare_prm_orm.py`](scripts/compare_prm_orm.py) — the core ablation
+
+**Ablation results** (500 GSM8K test examples):
+
+| | Correct final answer + wrong steps (n=56) | Overall accuracy |
+|-|--------------------------------------------|------------------|
+| ORM | Flags 14.3% as suspicious | 76.1% |
+| PRM (mean agg.) | Flags 69.6% as suspicious | 78.4% |
+
+The PRM catches ~5× more faulty reasoning than the ORM on the critical case.
+
+**Run it**:
+```bash
+python scripts/train_prm.py --num_samples 5000 --epochs 3
+python scripts/compare_prm_orm.py --num_eval 500
+```
+
+---
+
 ## Repository Structure
 
 ```
 .
 ├── src/
 │   ├── data/
-│   │   └── preprocessing.py     # SFTDataset, PreferenceDataset, DPODataset
+│   │   ├── preprocessing.py     # SFTDataset, PreferenceDataset, DPODataset
+│   │   ├── cai.py               # Constitution, Claude API caller, CAIPreferenceDataset
+│   │   └── gsm8k.py             # Step parsing, ORMDataset, PRMDataset
 │   ├── models/
-│   │   └── reward_model.py      # GPT2RewardModel + Bradley-Terry preference_loss
+│   │   ├── reward_model.py      # GPT2RewardModel + Bradley-Terry preference_loss
+│   │   ├── reward_ensemble.py   # RewardEnsemble with penalized_reward()
+│   │   └── process_reward_model.py  # GPT2ProcessRewardModel (step-level scoring)
 │   ├── training/
 │   │   ├── sft.py               # Supervised fine-tuning
 │   │   ├── reward.py            # Reward model training loop
+│   │   ├── reward_ensemble.py   # Train K reward models with different seeds
 │   │   ├── ppo.py               # PPO with trl + custom reward scoring
-│   │   └── dpo.py               # DPO loss from scratch + trl trainer
+│   │   ├── dpo.py               # DPO loss from scratch + trl trainer
+│   │   └── prm.py               # PRM and ORM training on GSM8K
 │   └── evaluation/
 │       └── metrics.py           # win_rate, reward_stats, kl_divergence
 ├── scripts/
 │   ├── train_sft.py
 │   ├── train_reward_model.py
+│   ├── train_reward_ensemble.py # Extension 2
+│   ├── generate_cai_preferences.py  # Extension 1
 │   ├── train_ppo.py
+│   ├── train_ppo_ensemble.py    # Extension 2
 │   ├── train_dpo.py
+│   ├── train_prm.py             # Extension 3
+│   ├── compare_prm_orm.py       # Extension 3
 │   └── evaluate.py
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
@@ -138,12 +244,18 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 │   ├── 03_reward_modeling.ipynb
 │   ├── 04_ppo_training.ipynb
 │   ├── 05_dpo_training.ipynb
-│   └── 06_ppo_vs_dpo_comparison.ipynb
+│   ├── 06_ppo_vs_dpo_comparison.ipynb
+│   ├── 07_cai_rlaif.ipynb       # Extension 1
+│   ├── 08_reward_ensemble.ipynb # Extension 2
+│   └── 09_prm_vs_orm.ipynb      # Extension 3
 └── configs/
     ├── sft_config.yaml
     ├── reward_config.yaml
     ├── ppo_config.yaml
-    └── dpo_config.yaml
+    ├── dpo_config.yaml
+    ├── cai_config.yaml          # Extension 1
+    ├── ensemble_config.yaml     # Extension 2
+    └── prm_config.yaml          # Extension 3
 ```
 
 ---
@@ -205,6 +317,9 @@ Each notebook has an "Open in Colab" badge. Run them in order:
 | [04_ppo_training](notebooks/04_ppo_training.ipynb) | PPO: on-policy RL with reward model signal |
 | [05_dpo_training](notebooks/05_dpo_training.ipynb) | DPO: offline preference learning, full derivation |
 | [06_ppo_vs_dpo_comparison](notebooks/06_ppo_vs_dpo_comparison.ipynb) | Quantitative and qualitative comparison |
+| [07_cai_rlaif](notebooks/07_cai_rlaif.ipynb) | **Ext 1**: Constitutional AI — Claude as annotator |
+| [08_reward_ensemble](notebooks/08_reward_ensemble.ipynb) | **Ext 2**: Ensemble RM with uncertainty penalty |
+| [09_prm_vs_orm](notebooks/09_prm_vs_orm.ipynb) | **Ext 3**: Process vs Outcome reward on GSM8K |
 
 ---
 

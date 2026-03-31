@@ -1,0 +1,33 @@
+# Reward Ensemble Training config
+#
+# Trains K reward models with different random seeds.
+# Disagreement across models = uncertainty proxy.
+#
+# Penalised reward: r_ensemble = mean(r_k) - λ * std(r_k)
+#
+# λ trade-off:
+#   λ=0.0  →  plain mean ensemble (no uncertainty penalty)
+#   λ=0.5  →  moderate penalty — good balance of reward and safety
+#   λ=1.0  →  aggressive penalty — nearly freezes policy in uncertain regions
+
+sft_checkpoint: checkpoints/sft
+output_dir: checkpoints/reward_ensemble
+
+# Ensemble size
+k: 3               # 3 models: good uncertainty estimate at 3× training cost
+base_seed: 0       # model_i uses seed base_seed + i
+
+# Training args (applied to each member)
+num_epochs: 2
+batch_size: 4
+gradient_accumulation_steps: 4
+learning_rate: 1.0e-5
+weight_decay: 0.01
+warmup_ratio: 0.05
+num_train_samples: 10000
+num_eval_samples: 1000
+max_length: 512
+fp16: true
+
+# PPO uncertainty penalty
+uncertainty_penalty: 0.5

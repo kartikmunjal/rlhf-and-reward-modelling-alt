@@ -24,6 +24,9 @@ plotly>=5.18.0
 # Experiment tracking (optional)
 wandb>=0.16.0
 
+# Constitutional AI / RLAIF
+anthropic>=0.30.0      # Claude API for CAI preference generation
+
 # Utilities
 tqdm>=4.66.0
 pyyaml>=6.0.1

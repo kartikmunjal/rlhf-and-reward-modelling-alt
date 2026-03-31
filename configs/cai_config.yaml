@@ -1,0 +1,22 @@
+# CAI / RLAIF — Constitutional AI preference generation config
+#
+# Generates AI-labeled preference pairs using Claude as the annotator.
+# These can replace or augment human-labeled hh-rlhf pairs for reward model training.
+#
+# Cost estimate: ~$0.50 per 2,000 pairs with claude-haiku (as of 2025)
+
+sft_checkpoint: checkpoints/sft
+output_path: data/cai_preferences.jsonl
+
+# Volume
+num_pairs: 2000           # target number of labeled pairs
+requests_per_minute: 40   # rate limit headroom
+
+# Generation
+max_prompt_length: 256
+max_new_tokens: 128
+generation_temperature: 0.8   # higher → more diverse response pairs
+
+# Annotation
+annotator_model: claude-haiku-4-5-20251001  # cost-efficient; use sonnet for harder cases
+min_confidence: medium    # drop pairs where Claude is uncertain (reduces noise)
