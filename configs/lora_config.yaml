@@ -1,0 +1,80 @@
+# LoRA (Low-Rank Adaptation) configuration
+# Extension 4: Parameter-efficient fine-tuning via PEFT / LoRA
+#
+# Key insight: LoRA injects trainable low-rank decomposition matrices into
+# attention projection layers.  For GPT-2-medium (355M total params), rank-16
+# LoRA trains ~0.5% of parameters while matching full fine-tune quality on
+# preference alignment tasks.
+
+lora_sft:
+  model_name: "gpt2-medium"             # 355M-param baseline
+  output_dir: "checkpoints/sft_lora_r16"
+
+  # LoRA adapter config
+  lora_r: 16                            # rank; try 8 for even smaller footprint
+  lora_alpha: 32                        # scaling = alpha / r = 2.0
+  lora_dropout: 0.05
+  target_modules:                       # which linear projections to adapt
+    - "c_attn"                          # Q, K, V fused projection
+    - "c_proj"                          # attention output projection
+  bias: "none"                          # do not train bias terms
+
+  # Training (identical schedule to full SFT for fair comparison)
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4                 # LoRA tolerates higher LR than full fine-tune
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  lr_scheduler_type: "cosine"
+  max_length: 512
+  num_train_samples: 10000
+  num_eval_samples: 1000
+  fp16: true
+  report_to: "none"
+
+lora_sft_r8:
+  # Same as above but rank-8 — for the ablation table
+  model_name: "gpt2-medium"
+  output_dir: "checkpoints/sft_lora_r8"
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules: ["c_attn", "c_proj"]
+  bias: "none"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  lr_scheduler_type: "cosine"
+  max_length: 512
+  num_train_samples: 10000
+  num_eval_samples: 1000
+  fp16: true
+  report_to: "none"
+
+lora_dpo:
+  sft_checkpoint: "checkpoints/sft"    # initialise from full-SFT checkpoint
+  output_dir: "checkpoints/dpo_lora_r16"
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: ["c_attn", "c_proj"]
+  bias: "none"
+
+  # DPO training schedule (mirrors dpo_config.yaml)
+  beta: 0.1
+  learning_rate: 1.0e-4                # 200× larger than full-DPO because adapter params are tiny
+  num_train_epochs: 1
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  max_length: 512
+  max_prompt_length: 256
+  warmup_ratio: 0.1
+  lr_scheduler_type: "cosine"
+  num_train_samples: 10000
+  num_eval_samples: 1000
+  fp16: true
+  report_to: "none"
