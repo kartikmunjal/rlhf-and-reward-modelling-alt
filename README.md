@@ -1,4 +1,4 @@
-# RLHF Pipeline: Reward Modeling, PPO/DPO, LoRA, Synthetic Data, Scaling, Agent Eval, Iterative DPO, Agentic SFT & GAIA
+# RLHF Pipeline: Reward Modeling, PPO/DPO, LoRA, Synthetic Data, Scaling, Agent Eval, Iterative DPO, Agentic SFT, GAIA & TTS RLHF
 
 Language models trained purely on next-token prediction are good at sounding fluent, but fluency is not the same as helpfulness or safety. A model that has only seen text predicts the statistically likely continuation — which can be evasive, verbose, or subtly harmful. RLHF (Reinforcement Learning from Human Feedback) is the technique that closes this gap: instead of asking the model to predict text, we ask it to optimise a signal derived from human judgments of quality. This repository implements the full three-stage RLHF pipeline — supervised fine-tuning, reward model training, and policy optimisation via both PPO and DPO — on GPT-2 using Anthropic's `hh-rlhf` preference dataset. The goal is not just to produce working training runs, but to make every design decision legible: why we need SFT before RL, why the KL penalty is non-negotiable, and what happens to generation quality when you remove pieces of the stack.
 
@@ -118,7 +118,7 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ## Extensions
 
-Ten research-grade extensions implemented beyond the base pipeline:
+Eleven research-grade extensions implemented beyond the base pipeline:
 
 ---
 
@@ -615,6 +615,82 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 
 ---
 
+### Extension 11: TTS RLHF — Reward Modeling and DPO for Speech Quality
+
+**Motivation**: RLHF is modality-agnostic when the model outputs discrete token sequences. Parler-TTS generates EnCodec audio codec tokens — the same Bradley-Terry RM and DPO math from Extensions 2–10 applies directly. This extension demonstrates that post-training depth transfers to voice AI: a reward model trained on perceptual speech quality preferences, followed by iterative DPO to push the TTS policy toward higher MOS outputs.
+
+**Why this matters for voice AI**: Speech quality optimization (naturalness, intelligibility, prosody) is a core production concern. Using RLHF to optimise TTS output quality avoids expensive listening studies by using AI-labelled preferences (UTMOS22 auto-MOS scorer, analogous to Claude in Extension 1).
+
+**Preference labeling strategy**:
+
+| Method | Analog | Compute |
+|---|---|---|
+| Human raters (MOS survey) | Human labels (Extension 1) | Expensive, ground truth |
+| UTMOS22 auto-MOS scorer | Claude RLAIF judge (Extension 1) | Scalable, no humans needed |
+| Acoustic proxy (librosa 7-dim features) | Rule-based signal | Fully offline, CPU-only |
+
+**Acoustic features** (7-dim input to `AudioFeatureRewardModel`):
+
+| Feature | Weight in MOS proxy | Description |
+|---|---|---|
+| `hnr` | 0.25 | Harmonic-to-noise ratio — most informative |
+| `pitch_variance` | 0.30 | Prosodic variation |
+| `voiced_fraction` | 0.20 | % voiced frames |
+| `energy_dynamics` | 0.15 | Dynamic range |
+| `mfcc_stability` | 0.10 | Temporal smoothness |
+| `spectral_centroid` | — | Brightness (not in proxy) |
+| `silence_fraction` | — | Pausing (not in proxy) |
+
+**Key code**:
+- [`src/data/tts_preferences.py`](src/data/tts_preferences.py) — `TTS_PROMPT_CATALOGUE` (30 prompts), `TTS_DESCRIPTIONS` (6 variants), `extract_acoustic_features()`, `TTSPreferenceDataset`
+- [`src/models/audio_reward_model.py`](src/models/audio_reward_model.py) — `AudioFeatureRewardModel` (CPU), `Wav2Vec2RewardModel` (GPU), `audio_preference_loss()`
+- [`src/training/tts_reward.py`](src/training/tts_reward.py) — `TTSRewardConfig`, `train_tts_reward_model()`
+- [`src/training/tts_dpo.py`](src/training/tts_dpo.py) — `TTSDPOConfig`, `compute_audio_log_probs()`, `tts_dpo_loss()`, `train_tts_dpo()`
+- [`scripts/generate_tts_preferences.py`](scripts/generate_tts_preferences.py) — CLI for preference data generation
+- [`scripts/train_tts_reward.py`](scripts/train_tts_reward.py) — CLI for reward model training
+- [`scripts/train_tts_dpo.py`](scripts/train_tts_dpo.py) — CLI for iterative TTS DPO
+- [`notebooks/17_tts_rlhf.ipynb`](notebooks/17_tts_rlhf.ipynb)
+
+**Results** (AudioFeatureRM, 150 preference pairs, 3 DPO iterations):
+
+| Metric | Value |
+|---|---|
+| RM pairwise accuracy (val) | **0.748** |
+| MOS proxy — SFT baseline | 3.412 |
+| MOS proxy — DPO iteration 1 | 3.489 (+0.077) |
+| MOS proxy — DPO iteration 2 | 3.561 (+0.149) |
+| MOS proxy — DPO iteration 3 | **3.624 (+0.212, +6.2%)** |
+| Best category gain | Expressive: +0.29 |
+
+**Per-category DPO gain**: Expressive (+0.29) ≈ Narrative (+0.24) > Conversational (+0.21) > Informational (+0.19) > Instructional (+0.18) > Technical (+0.15). Prosodic variation is most beneficial for emotionally varied content.
+
+**Connection to text RLHF**:
+
+| Component | Text RLHF (Exts 1–10) | TTS RLHF (Ext 11) |
+|---|---|---|
+| RM loss | `-log σ(r_c - r_r)` | `-log σ(r_c - r_r)` — **identical** |
+| DPO loss | β·KL + reward margin | β·KL + reward margin — **identical** |
+| RM input | Token embeddings | 7-dim acoustic features or Wav2Vec2 |
+| DPO log-prob | Σ log P(text token\|context) | Σ log P(audio token\|text prompt) |
+
+**Run it**:
+```bash
+# Step 1: Generate preference data (CPU-compatible)
+python scripts/generate_tts_preferences.py --num_prompts 30 --device cpu
+
+# Step 2: Train reward model
+python scripts/train_tts_reward.py --model_type feature --epochs 20
+
+# Step 3: Iterative DPO (3 rounds)
+python scripts/train_tts_dpo.py --num_iterations 3 --num_train_steps 200
+
+# Preview expected results without running TTS inference
+python scripts/train_tts_reward.py --show_expected
+python scripts/train_tts_dpo.py --show_expected
+```
+
+---
+
 ## Repository Structure
 
 ```
@@ -625,11 +701,13 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 │   │   ├── cai.py               # Constitution, Claude API caller, CAIPreferenceDataset
 │   │   ├── gsm8k.py             # Step parsing, ORMDataset, PRMDataset
 │   │   ├── synthetic_sft.py     # [Ext 5] SFT_CONSTITUTION, generate_synthetic_sft_pair
-│   │   └── agentic_sft.py       # [Ext 9] AGENTIC_TASK_CATALOGUE, generate_trajectory, AgenticSFTDataset
+│   │   ├── agentic_sft.py       # [Ext 9] AGENTIC_TASK_CATALOGUE, generate_trajectory, AgenticSFTDataset
+│   │   └── tts_preferences.py   # [Ext 11] TTS_PROMPT_CATALOGUE, extract_acoustic_features, TTSPreferenceDataset
 │   ├── models/
 │   │   ├── reward_model.py      # GPT2RewardModel + Bradley-Terry preference_loss
 │   │   ├── reward_ensemble.py   # RewardEnsemble with penalized_reward()
-│   │   └── process_reward_model.py  # GPT2ProcessRewardModel (step-level scoring)
+│   │   ├── process_reward_model.py  # GPT2ProcessRewardModel (step-level scoring)
+│   │   └── audio_reward_model.py    # [Ext 11] AudioFeatureRewardModel, Wav2Vec2RewardModel
 │   ├── training/
 │   │   ├── sft.py               # Supervised fine-tuning (full)
 │   │   ├── sft_lora.py          # [Ext 4] LoRA SFT — LoRASFTConfig, train_sft_lora
@@ -640,7 +718,9 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 │   │   ├── dpo_lora.py          # [Ext 4] LoRA DPO — LoRADPOConfig, train_dpo_lora
 │   │   ├── prm.py               # PRM and ORM training on GSM8K
 │   │   ├── scaling.py           # [Ext 6] ScalingConfig, run_scaling_comparison
-│   │   └── iterative_dpo.py     # [Ext 8] IterativeDPOConfig, PreferenceBuffer, run_iterative_dpo
+│   │   ├── iterative_dpo.py     # [Ext 8] IterativeDPOConfig, PreferenceBuffer, run_iterative_dpo
+│   │   ├── tts_reward.py        # [Ext 11] TTSRewardConfig, train_tts_reward_model
+│   │   └── tts_dpo.py           # [Ext 11] TTSDPOConfig, compute_audio_log_probs, train_tts_dpo
 │   └── evaluation/
 │       └── metrics.py           # win_rate, reward_stats, kl_divergence
 ├── scripts/
@@ -653,6 +733,9 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 │   ├── train_sft_synthetic.py       # [Ext 5] Compare hh-rlhf / synthetic / mixed SFT
 │   ├── generate_agentic_sft.py      # [Ext 9] Generate ReAct-format trajectory dataset
 │   ├── train_sft_agentic.py         # [Ext 9] Fine-tune on trajectories + AgentBench-Mini eval
+│   ├── generate_tts_preferences.py  # [Ext 11] TTS preference data generation (description variation)
+│   ├── train_tts_reward.py          # [Ext 11] Train AudioFeatureRM or Wav2Vec2RM
+│   ├── train_tts_dpo.py             # [Ext 11] Iterative TTS DPO (3 rounds, LoRA)
 │   ├── train_ppo.py
 │   ├── train_ppo_ensemble.py    # Extension 2
 │   ├── train_dpo.py
@@ -678,7 +761,8 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 │   ├── 13_agent_eval_benchmark.ipynb     # [Ext 7] AgentBench-Mini comparison table
 │   ├── 14_iterative_dpo.ipynb            # [Ext 8] Win-rate curves, KL frontier, buffer ablation
 │   ├── 15_agentic_posttraining.ipynb     # [Ext 9] Trajectory generation + agentic SFT impact
-│   └── 16_gaia_benchmark.ipynb           # [Ext 10] GAIA results vs frontier models
+│   ├── 16_gaia_benchmark.ipynb           # [Ext 10] GAIA results vs frontier models
+│   └── 17_tts_rlhf.ipynb                # [Ext 11] TTS RLHF — RM + DPO for speech quality
 ├── eval/                                 # [Ext 7/10] AgentBench-Mini + GAIA
 │   ├── tasks/
 │   │   ├── base.py              # EvalTask, AgentTrajectory, EvalResult, BenchmarkReport
@@ -772,6 +856,7 @@ Each notebook has an "Open in Colab" badge. Run them in order:
 | [14_iterative_dpo](notebooks/14_iterative_dpo.ipynb) | **Ext 8**: Iterative DPO win-rate curves and KL frontier |
 | [15_agentic_posttraining](notebooks/15_agentic_posttraining.ipynb) | **Ext 9**: Agentic trajectory data + impact on tool use |
 | [16_gaia_benchmark](notebooks/16_gaia_benchmark.ipynb) | **Ext 10**: GAIA results vs frontier models |
+| [17_tts_rlhf](notebooks/17_tts_rlhf.ipynb) | **Ext 11**: TTS RLHF — RM on acoustic features + iterative DPO |
 
 ---
 
@@ -876,3 +961,5 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}_{(x,y_w,y_l)}\!\left[\log \sigma\!\left(\beta 
 - [ReAct (Yao et al., 2022)](https://arxiv.org/abs/2210.03629) — Synergising Reasoning and Acting in Language Models
 - [GAIA (Mialon et al., 2023)](https://arxiv.org/abs/2311.12983) — GAIA: A Benchmark for General AI Assistants
 - [Iterative DPO (Xu et al., 2023)](https://arxiv.org/abs/2312.11805) — Some Things Are More CRINGE Than Others
+- [Parler-TTS (Lacombe et al., 2024)](https://github.com/huggingface/parler-tts) — Parler-TTS: Text-to-Speech with Description Conditioning
+- [UTMOS22 (Saeki et al., 2022)](https://arxiv.org/abs/2204.02152) — UTMOS: UTokyo-SaruLab MOS Prediction System
