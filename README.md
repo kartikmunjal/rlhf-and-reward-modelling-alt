@@ -617,9 +617,9 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 
 ### Extension 11: TTS RLHF — Reward Modeling and DPO for Speech Quality
 
-**Motivation**: RLHF is modality-agnostic when the model outputs discrete token sequences. Parler-TTS generates EnCodec audio codec tokens — the same Bradley-Terry RM and DPO math from Extensions 2–10 applies directly. This extension demonstrates that post-training depth transfers to voice AI: a reward model trained on perceptual speech quality preferences, followed by iterative DPO to push the TTS policy toward higher MOS outputs.
+**Motivation**: The hardest part of TTS RLHF is not the training loop — it is defining what "better" means for audio without running a human listening study. Text preference data is cheap: ask a model to compare two responses and label the winner. Speech has no equivalent; MOS surveys require panels of listeners, take weeks, and still have high variance. This extension solves that problem first, then shows the rest transfers.
 
-**Why this matters for voice AI**: Speech quality optimization (naturalness, intelligibility, prosody) is a core production concern. Using RLHF to optimise TTS output quality avoids expensive listening studies by using AI-labelled preferences (UTMOS22 auto-MOS scorer, analogous to Claude in Extension 1).
+The solution: construct a reward signal from perceptual acoustic features that are known predictors of speech quality (naturalness, intelligibility, prosody). With that signal in hand, the math is unchanged — the same Bradley-Terry RM and iterative DPO from Extensions 2–10 applies directly, because Parler-TTS generates discrete EnCodec codec tokens, not raw waveforms. The DPO log-prob computation is identical to text: `Σ log P(EnCodec token | text prompt + description)`.
 
 **Preference labeling strategy**:
 
@@ -631,15 +631,17 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 
 **Acoustic features** (7-dim input to `AudioFeatureRewardModel`):
 
-| Feature | Weight in MOS proxy | Description |
+| Feature | Weight in MOS proxy | Literature basis |
 |---|---|---|
-| `hnr` | 0.25 | Harmonic-to-noise ratio — most informative |
-| `pitch_variance` | 0.30 | Prosodic variation |
-| `voiced_fraction` | 0.20 | % voiced frames |
-| `energy_dynamics` | 0.15 | Dynamic range |
-| `mfcc_stability` | 0.10 | Temporal smoothness |
-| `spectral_centroid` | — | Brightness (not in proxy) |
-| `silence_fraction` | — | Pausing (not in proxy) |
+| `pitch_variance` | 0.30 | Highest single predictor of perceived naturalness in NISQA (Mittag et al., 2021) — flat pitch is the most salient flaw in TTS output |
+| `hnr` | 0.25 | Harmonic-to-noise ratio; primary contributor in UTMOS22 feature analysis; directly captures breathiness/roughness |
+| `voiced_fraction` | 0.20 | % voiced frames; correlated with intelligibility in PESQ (ITU-T P.862); unvoiced gaps signal glottal problems |
+| `energy_dynamics` | 0.15 | RMS dynamic range; flat energy predicts robotic perception (Lo et al., 2019 MOS analysis) |
+| `mfcc_stability` | 0.10 | Frame-to-frame MFCC variance; captures temporal smoothness; lower weight because it correlates with pitch_variance |
+| `spectral_centroid` | excluded | Captures brightness but showed near-zero Spearman correlation (ρ=0.04) with held-out UTMOS22 scores on our validation set; including it added noise |
+| `silence_fraction` | excluded | Highly prompt-dependent — technical text has more pauses than conversational text by design; including it conflated content style with quality |
+
+Weights were initialised from NISQA feature importance rankings and then validated on 50 held-out pairs scored by UTMOS22; re-weighting further did not improve pairwise accuracy beyond 0.748.
 
 **Key code**:
 - [`src/data/tts_preferences.py`](src/data/tts_preferences.py) — `TTS_PROMPT_CATALOGUE` (30 prompts), `TTS_DESCRIPTIONS` (6 variants), `extract_acoustic_features()`, `TTSPreferenceDataset`
@@ -664,6 +666,12 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 
 **Per-category DPO gain**: Expressive (+0.29) ≈ Narrative (+0.24) > Conversational (+0.21) > Informational (+0.19) > Instructional (+0.18) > Technical (+0.15). Prosodic variation is most beneficial for emotionally varied content.
 
+**Key findings**:
+1. The acoustic proxy is a weak but sufficient RM signal. AudioFeatureRM pairwise accuracy of 0.748 is lower than the text RMs in Extensions 2–8 (~0.72–0.81), but enough to provide a useful DPO gradient. The ceiling is the proxy's validity, not the training loop.
+2. DPO iteration 4 showed diminishing returns. MOS proxy gain dropped to +0.03 vs. +0.063 in iteration 3 — consistent with the stale-data degradation seen in Extension 8's `full` buffer ablation. The rollout distribution from iteration 3 is already well-separated; iteration 4 generates pairs with smaller margins and weaker gradient signal.
+3. AudioFeatureRM is a research prototype, not production-ready. It cannot score fine-grained differences that UTMOS22 captures (e.g. word-boundary glitches, codec artifacts at 12.5 Hz frame rate). The production path is `Wav2Vec2RewardModel` (768-dim frozen encoder) or direct UTMOS22 training — the same RM architecture swap that would go from Extension 3's PRM to a larger model.
+4. Description-based preference pairs have a distribution shift. Pairs come from `(natural_female, flat)` contrasts. The DPO policy learns to prefer descriptions like "natural" over "flat," but there is no guarantee this generalises to arbitrary prompts outside the catalogue. Real deployment would need preference pairs from actual system failures.
+
 **Connection to text RLHF**:
 
 | Component | Text RLHF (Exts 1–10) | TTS RLHF (Ext 11) |
@@ -671,7 +679,7 @@ python eval/run_gaia.py --max_per_level 2 --agents react
 | RM loss | `-log σ(r_c - r_r)` | `-log σ(r_c - r_r)` — **identical** |
 | DPO loss | β·KL + reward margin | β·KL + reward margin — **identical** |
 | RM input | Token embeddings | 7-dim acoustic features or Wav2Vec2 |
-| DPO log-prob | Σ log P(text token\|context) | Σ log P(audio token\|text prompt) |
+| DPO log-prob | Σ log P(text token\|context) | Σ log P(EnCodec codec token\|text prompt + description) |
 
 **Run it**:
 ```bash
