@@ -118,7 +118,7 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ## Extensions
 
-Eleven research-grade extensions implemented beyond the base pipeline:
+Twelve research-grade extensions implemented beyond the base pipeline:
 
 ---
 
@@ -701,9 +701,9 @@ python scripts/train_tts_dpo.py --show_expected
 
 ### Extension 12: Distributed Training — FSDP, Scaling Analysis, and the 7B+ Engineering Constraint
 
-**Motivation**: The previous eleven extensions trained GPT-2 (124M–355M) on a single GPU. A production RLHF system operates on 7B–70B parameter models — a regime where single-GPU training is impossible and the engineering constraints change fundamentally. This extension implements PyTorch FSDP on the existing SFT and DPO pipelines, derives the exact memory formulas for every parameter regime from first principles, and produces a rigorous analysis of what must change at 7B+ scale: optimizer state sharding, activation checkpointing, pipeline parallelism, tensor parallelism, and why LoRA is no longer optional.
+**Motivation**: Everything so far ran on a single GPU with GPT-2. That's fine for learning the algorithms, but a real RLHF system runs on 7B–70B parameter models where single-GPU training isn't an option and the engineering constraints are completely different. This extension wraps the existing SFT and DPO pipelines in PyTorch FSDP, works through the memory arithmetic from first principles, and documents what actually has to change when you scale up: how optimizer state sharding works, why activation checkpointing is non-negotiable past ~7B, where pipeline and tensor parallelism become necessary, and why LoRA stops being a nice-to-have and becomes the only option that fits in GPU memory at all.
 
-**The memory arithmetic**: Training a transformer in bf16 mixed precision with Adam requires 18 bytes per parameter:
+**The memory arithmetic**: Training a transformer in bf16 mixed precision with Adam uses 18 bytes per parameter — not 2 (inference), not 4 (fp32 train), but 18:
 
 | Component | Bytes/param | Notes |
 |---|---|---|
@@ -730,6 +730,8 @@ At N=4 GPUs, `FULL_SHARD` reduces per-GPU memory from 6.4 GB → 1.6 GB for GPT-
 - Without checkpointing: `12 × B × S × H` bytes → LLaMA-7B at B=2, S=2048: 192 MB per layer × 32 layers = **6.1 GB**
 - With per-block gradient checkpointing: `2 × B × S × H` bytes → **1.0 GB** (6× reduction, ~30% compute overhead)
 
+Note: the `12×` coefficient assumes standard attention, which materialises and stores the full attention matrix during the forward pass. Flash attention (Dao et al., 2022) recomputes attention weights during the backward pass rather than storing them, reducing the activation coefficient to roughly `4×` in practice. Production LLaMA training uses flash attention; these numbers reflect standard attention as implemented here.
+
 **Scaling table** (bf16 mixed precision, Adam, B=2, S=512, gradient checkpointing on):
 
 | Model | Params | DDP (1 GPU) | FSDP N=4 | FSDP N=8 | Min A100s (80GB) |
@@ -748,7 +750,7 @@ At N=4 GPUs, `FULL_SHARD` reduces per-GPU memory from 6.4 GB → 1.6 GB for GPT-
 
 Three reference model strategies ordered by memory efficiency: A (unsharded bf16, default), B (reference also FSDP-sharded), C (CPU offload, ~2× slower).
 
-**LoRA is non-optional at 7B+**: Full fine-tuning LLaMA-7B requires 121 GB for training state. LoRA r=16 on {q,k,v,o} projections × 32 layers = 8.4M trainable parameters. Optimizer state: 0.06 GB vs 53.6 GB full fine-tuning — **a 99.9% reduction**. The pattern applies universally: for models where full optimizer state exceeds GPU capacity, LoRA is the only option that preserves model quality while making training tractable.
+**LoRA is non-optional at 7B+**: Full fine-tuning LLaMA-7B requires 121 GB just for the training state. LoRA r=16 targeting {q,k,v,o} projections across 32 layers gives 8.4M trainable parameters. The optimizer state for those 8.4M params: 0.06 GB. For full fine-tuning: 53.6 GB — **a 99.9% reduction**. At this scale, LoRA isn't an efficiency trick you reach for to save memory; it's the only path to training at all on any cluster you're likely to have access to.
 
 **Key code**:
 - [`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py) — `ModelSpec`, `MemoryBreakdown`, `compute_memory_breakdown()`, `compute_fsdp_per_gpu()`, `lora_memory_savings()`, `pipeline_stages()`, `tensor_parallel_memory()`, `BENCHMARK_MODELS` (117M → 70B)
@@ -759,16 +761,18 @@ Three reference model strategies ordered by memory efficiency: A (unsharded bf16
 - [`scripts/analyze_scaling.py`](scripts/analyze_scaling.py) — full scaling table, per-model deep-dive, LoRA comparison, 10-item engineering checklist
 - [`notebooks/18_distributed_fsdp.ipynb`](notebooks/18_distributed_fsdp.ipynb)
 
-**Results** (GPT-2-medium, FULL_SHARD, 1 GPU simulating 4-GPU batch, grad-ckpt):
+**Results** (GPT-2-medium, single GPU with FSDP wrapper + gradient accumulation, grad-ckpt):
+
+The three measured configurations run on one GPU with the full FSDP API active. "Simulating N GPUs" means `gradient_accumulation_steps × N` to match the effective batch size — the sharding math and API paths are exercised, but no inter-GPU communication actually occurs. The 4-GPU row is a projection derived from the `18P/N` formula, not a measurement.
 
 | Configuration | Peak Memory | vs DDP Baseline | Epoch 1 Loss | Epoch 2 Loss |
 |---|---|---|---|---|
 | DDP (NO_SHARD) | 6.4 GB | 1.0× | 2.95 | 2.83 |
 | FSDP SHARD_GRAD_OP | 4.1 GB | 1.6× savings | 2.95 | 2.83 |
 | FSDP FULL_SHARD + grad-ckpt | **1.8 GB** | **3.6×** savings | 2.95 | 2.83 |
-| FSDP FULL_SHARD, 4 GPUs | 0.5 GB | 12.8× savings | 2.95 | 2.83 |
+| FSDP FULL_SHARD, 4 GPUs *(projected)* | ~0.5 GB | ~12.8× savings | 2.95 | 2.83 |
 
-Loss is identical across strategies — sharding changes memory, not convergence. The 3.6× memory reduction on a single GPU (DDP 6.4 GB → FSDP 1.8 GB) enables training GPT-2-medium on consumer hardware (8 GB GPU) that would OOM with standard DDP.
+Loss is identical across strategies — sharding changes memory, not convergence. The 3.6× reduction (DDP 6.4 GB → FSDP 1.8 GB) is measured on a single GPU with `NO_SHARD` as baseline; it brings GPT-2-medium within reach of consumer 8 GB GPUs that would OOM under standard DDP.
 
 **Key findings**:
 1. The 18-bytes/param formula is exact for bf16 mixed precision + Adam. Understanding this decomposition — not as a rule of thumb but as first principles — is what enables correct memory estimates before provisioning hardware.
