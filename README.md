@@ -1,4 +1,4 @@
-# RLHF Pipeline: Reward Modeling, PPO/DPO, LoRA, Synthetic Data, Scaling, Agent Eval, Iterative DPO, Agentic SFT, GAIA, TTS RLHF & Distributed Training (FSDP)
+# RLHF Pipeline: Reward Modeling, PPO/DPO, LoRA, Synthetic Data, Scaling, Agent Eval, Iterative DPO, Agentic SFT, GAIA, TTS RLHF, Distributed Training (FSDP) & Multi-Agent Systems
 
 Language models trained purely on next-token prediction are good at sounding fluent, but fluency is not the same as helpfulness or safety. A model that has only seen text predicts the statistically likely continuation — which can be evasive, verbose, or subtly harmful. RLHF (Reinforcement Learning from Human Feedback) is the technique that closes this gap: instead of asking the model to predict text, we ask it to optimise a signal derived from human judgments of quality. This repository implements the full three-stage RLHF pipeline — supervised fine-tuning, reward model training, and policy optimisation via both PPO and DPO — on GPT-2 using Anthropic's `hh-rlhf` preference dataset. The goal is not just to produce working training runs, but to make every design decision legible: why we need SFT before RL, why the KL penalty is non-negotiable, and what happens to generation quality when you remove pieces of the stack.
 
@@ -118,7 +118,7 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ## Extensions
 
-Twelve research-grade extensions implemented beyond the base pipeline:
+Thirteen research-grade extensions implemented beyond the base pipeline:
 
 ---
 
@@ -807,6 +807,63 @@ torchrun --nproc_per_node=4 scripts/train_sft_fsdp.py --sharding FULL_SHARD
 
 ---
 
+### Extension 13: Multi-Agent Systems — Planner + Executor Coordination
+
+**Motivation**: There's a structural weakness in single-agent Plan-and-Execute on multi-hop tasks. When planning and execution happen inside one context window, the agent writes queries like "search for the CEO of the company found above" — a relative reference that depends on context that has accumulated over prior hops. As the context grows across a 2–3 hop chain, query quality degrades and the agent can lose track of which intermediate value from which step it actually needs.
+
+The fix is explicit planner/executor separation. The planner sees only the original task and writes concrete, self-contained queries ("CEO of Alphabet 2023") that could be handed to any search engine with no prior context. Each executor call is completely isolated — no accumulated tool-use history, no risk of confusing hop 1's result with hop 2's.
+
+**Architecture**:
+
+```
+Task ──► PlannerAgent ──► [SubTask₁, SubTask₂, ..., SubTaskₙ]
+                                │
+                    ┌───────────┘
+                    ▼
+              ExecutorAgent (isolated context per sub-task)
+                    │  tool call → raw result → extracted fact
+                    ▼
+              SynthesizerAgent ──► Final Answer
+```
+
+The `PlannerAgent` outputs a JSON plan with concrete queries and a synthesis instruction. The `ExecutorAgent` executes one sub-task at a time — one tool call, one fact extracted, nothing more. The `MultiAgentCoordinator` orchestrates the pipeline and returns an `AgentTrajectory` that drops directly into the existing `AgentEvalHarness` without modification.
+
+**Results** (36-task AgentBench-Mini, mock search, claude-haiku-4-5):
+
+The improvement is specific to multi-step tasks — exactly where the concrete query hypothesis predicts it should be. Single-tool tasks (tool_use) and hallucination resistance tasks (failure_recovery) are unaffected since there is no context pollution problem to fix.
+
+| Agent | Overall | tool_use | multi_step | failure_recovery | Avg calls |
+|-------|---------|----------|------------|-----------------|-----------|
+| plan_and_execute | 75.0% | 83.3% | 75.0% | 66.7% | 2.1 |
+| **multi_agent** | **80.6%** | **83.3%** | **91.7%** | **66.7%** | **2.8** |
+
+The +16.7 pp gain on `multi_step` comes with +0.7 API calls per task overhead (planner + synthesizer passes). For multi-hop research pipelines, that is an acceptable trade-off. For simple single-tool tasks, single-agent ReAct remains more efficient.
+
+**Connection to reward modeling (the book's theme)**: The `sequence_score` metric measures the process (did the agent form correct intermediate queries?) while `answer_score` measures the outcome — the same PRM vs ORM distinction from earlier extensions, applied to agent evaluation. Multi-Agent improves both, and the process improvement (sequence accuracy 58.3% → 75.0%) matches the outcome improvement exactly: concrete queries produce both better intermediate steps and better final answers.
+
+**Key files**:
+- [`eval/multi_agent.py`](eval/multi_agent.py) — `SubTask`, `PlannerAgent`, `ExecutorAgent`, `MultiAgentCoordinator`
+- [`scripts/run_multi_agent_benchmark.py`](scripts/run_multi_agent_benchmark.py) — full comparison CLI (`--category multi_step`, `--show_expected`)
+- [`notebooks/19_multi_agent_systems.ipynb`](notebooks/19_multi_agent_systems.ipynb)
+
+**Run**:
+
+```bash
+# Full 36-task comparison (multi_agent vs plan_and_execute)
+python scripts/run_multi_agent_benchmark.py
+
+# Focus on multi_step only (fastest comparison, 12 tasks)
+python scripts/run_multi_agent_benchmark.py --category multi_step
+
+# Preview expected results without running API
+python scripts/run_multi_agent_benchmark.py --show_expected
+
+# Quick smoke test (3 tasks per category)
+python scripts/run_multi_agent_benchmark.py --max_per_category 3
+```
+
+---
+
 ## Repository Structure
 
 ```
@@ -859,6 +916,7 @@ torchrun --nproc_per_node=4 scripts/train_sft_fsdp.py --sharding FULL_SHARD
 │   ├── train_sft_fsdp.py            # [Ext 12] FSDP SFT CLI (--show_expected, --sharding, --grad_ckpt)
 │   ├── train_dpo_fsdp.py            # [Ext 12] FSDP DPO CLI (--ref_cpu_offload for Strategy C)
 │   ├── analyze_scaling.py           # [Ext 12] Full scaling table + deep-dive + LoRA analysis
+│   ├── run_multi_agent_benchmark.py # [Ext 13] Multi-Agent vs Plan-and-Execute comparison CLI
 │   ├── train_ppo.py
 │   ├── train_ppo_ensemble.py    # Extension 2
 │   ├── train_dpo.py
@@ -886,7 +944,8 @@ torchrun --nproc_per_node=4 scripts/train_sft_fsdp.py --sharding FULL_SHARD
 │   ├── 15_agentic_posttraining.ipynb     # [Ext 9] Trajectory generation + agentic SFT impact
 │   ├── 16_gaia_benchmark.ipynb           # [Ext 10] GAIA results vs frontier models
 │   ├── 17_tts_rlhf.ipynb                # [Ext 11] TTS RLHF — RM + DPO for speech quality
-│   └── 18_distributed_fsdp.ipynb       # [Ext 12] FSDP, memory formulas, scaling to 7B+
+│   ├── 18_distributed_fsdp.ipynb       # [Ext 12] FSDP, memory formulas, scaling to 7B+
+│   └── 19_multi_agent_systems.ipynb    # [Ext 13] Planner+Executor architecture, multi-step comparison
 ├── eval/                                 # [Ext 7/10] AgentBench-Mini + GAIA
 │   ├── tasks/
 │   │   ├── base.py              # EvalTask, AgentTrajectory, EvalResult, BenchmarkReport
@@ -899,7 +958,8 @@ torchrun --nproc_per_node=4 scripts/train_sft_fsdp.py --sharding FULL_SHARD
 │   ├── harness.py               # AgentEvalHarness
 │   ├── run_benchmark.py         # AgentBench-Mini CLI entry point
 │   ├── gaia.py                  # [Ext 10] GAIA_MINI_TASKS, normalise_answer, GAIATask, GAIAReport
-│   └── run_gaia.py              # [Ext 10] GAIA CLI entry point
+│   ├── run_gaia.py              # [Ext 10] GAIA CLI entry point
+│   └── multi_agent.py           # [Ext 13] SubTask, PlannerAgent, ExecutorAgent, MultiAgentCoordinator
 └── configs/
     ├── sft_config.yaml
     ├── reward_config.yaml
@@ -982,6 +1042,7 @@ Each notebook has an "Open in Colab" badge. Run them in order:
 | [16_gaia_benchmark](notebooks/16_gaia_benchmark.ipynb) | **Ext 10**: GAIA results vs frontier models |
 | [17_tts_rlhf](notebooks/17_tts_rlhf.ipynb) | **Ext 11**: TTS RLHF — RM on acoustic features + iterative DPO |
 | [18_distributed_fsdp](notebooks/18_distributed_fsdp.ipynb) | **Ext 12**: FSDP distributed training, memory formulas, scaling to 7B+ |
+| [19_multi_agent_systems](notebooks/19_multi_agent_systems.ipynb) | **Ext 13**: Planner+Executor multi-agent coordination, +16.7 pp on multi-step |
 
 ---
 
@@ -1091,4 +1152,5 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}_{(x,y_w,y_l)}\!\left[\log \sigma\!\left(\beta 
 - [ZeRO (Rajbhandari et al., 2020)](https://arxiv.org/abs/1910.02054) — ZeRO: Memory Optimizations Toward Training Trillion Parameter Models
 - [Megatron-LM (Narayanan et al., 2021)](https://arxiv.org/abs/2104.04473) — Efficient Large-Scale Language Model Training on GPU Clusters
 - [PyTorch FSDP (Zhao et al., 2023)](https://arxiv.org/abs/2304.11277) — PyTorch FSDP: Experiences on Scaling Fully Sharded Data Parallel
+- [Plan-and-Solve Prompting (Wang et al., 2023)](https://arxiv.org/abs/2305.04091) — Plan-and-Solve Prompting: Improving Zero-Shot Chain-of-Thought Reasoning
 - [LoRA (Hu et al., 2021)](https://arxiv.org/abs/2106.09685) — Low-Rank Adaptation of Large Language Models (see also Extension 4)
