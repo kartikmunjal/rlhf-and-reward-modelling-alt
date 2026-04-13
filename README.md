@@ -118,7 +118,7 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ## Extensions
 
-Thirteen research-grade extensions implemented beyond the base pipeline:
+Fourteen research-grade extensions implemented beyond the base pipeline:
 
 ---
 
@@ -418,6 +418,26 @@ python eval/run_benchmark.py --category failure_recovery
 # Quick smoke test (3 tasks per category)
 python eval/run_benchmark.py --max_per_category 3
 ```
+
+#### Scale tradeoff and benchmark roadmap
+
+36 tasks is deliberately small — here's the reasoning and where it falls short.
+
+**Why 36 tasks is enough for relative comparisons**: The benchmark is designed to measure *differences between agent configurations*, not absolute accuracy. For paired comparisons (ReAct vs Plan-and-Execute on the same task), the right statistic is a paired t-test or Wilcoxon signed-rank test, not a confidence interval on absolute accuracy. With 12 tasks per category and observed effect sizes of 8–17 pp, paired differences at the category level are detectable at p < 0.05. The signal-to-noise ratio for "which agent architecture is better on multi-hop tasks" is high because the task set is curated to stress exactly that. What 36 tasks cannot support is claims about absolute performance levels — the mock search tool fixes the retrieval result, so accuracy numbers are ceiling-bounded by the task design, not the model.
+
+**What a production-grade benchmark would need**: A benchmark that supports papers or production agent decisions would add at minimum:
+
+| Category | Gap | What it would test |
+|---|---|---|
+| Code execution | Requires a sandboxed Python runtime | Write code → run → check output → debug loop |
+| Long-horizon planning | Tasks need 6–10 sequential steps | Whether plans stay coherent over many hops |
+| Tool error recovery | Needs tools that fail non-deterministically | Retry logic, fallback strategies, partial-result handling |
+| Ambiguous instructions | Requires human judge or LLM rubric | Clarification-asking vs. assumption-making |
+| Multi-tool coordination | Needs tools with conflicting outputs | Reconciling contradictions across sources |
+
+AgentBench (Liu et al., 2023), τ-bench (Yao et al., 2024), and SWE-bench are the right reference points for production-grade agent eval. The 36-task design here is scoped to demonstrate eval methodology — process vs. outcome scoring, pluggable harness, per-category breakdown — rather than to provide definitive accuracy numbers.
+
+**Roadmap**: The harness is built to accommodate expansion without modification. `EvalTask` takes a pluggable `scorer` and `sequence_scorer`, so new task categories drop in without touching `AgentEvalHarness`. A code execution category would need a sandboxed executor (Docker or subprocess with timeout), a test-case scorer that runs the agent's output against expected test results, and execution traces in `AgentTrajectory` alongside the existing `tool_calls`. Extension 14 below sketches the full design.
 
 ---
 
@@ -841,6 +861,8 @@ The +16.7 pp gain on `multi_step` comes with +0.7 API calls per task overhead (p
 
 **Connection to reward modeling (the book's theme)**: The `sequence_score` metric measures the process (did the agent form correct intermediate queries?) while `answer_score` measures the outcome — the same PRM vs ORM distinction from earlier extensions, applied to agent evaluation. Multi-Agent improves both, and the process improvement (sequence accuracy 58.3% → 75.0%) matches the outcome improvement exactly: concrete queries produce both better intermediate steps and better final answers.
 
+**Memory architecture and context growth**: The current design passes all extracted facts as a flat list to each subsequent executor call (`previous_results: List[str]`). On a 3-hop chain this is fine — the list is short. On a longer chain (6–10 hops), that list grows proportionally and re-injects the same accumulated facts into every executor context, defeating the isolation principle and eventually hitting token limits. The fix is a *working memory* layer: after each executor returns, a compression step runs the extracted fact through a summarizer that maintains a fixed-length scratchpad rather than a growing list. Concretely, after each hop the coordinator would call a small model to merge `scratchpad + new_fact → updated_scratchpad` (a rolling 200-token summary), and executors would receive only the scratchpad instead of the full history. This is the same semantic compression used in deep research agents to prevent context bloat across many retrieval rounds — the connection from "multi-hop web research" to "agent working memory" is a direct one. The current `MultiAgentCoordinator` is structurally ready for this: replacing the `previous_results` list with a `scratchpad: str` field and adding a compression call inside the executor loop is a self-contained change that would scale to arbitrarily long chains.
+
 **Key files**:
 - [`eval/multi_agent.py`](eval/multi_agent.py) — `SubTask`, `PlannerAgent`, `ExecutorAgent`, `MultiAgentCoordinator`
 - [`scripts/run_multi_agent_benchmark.py`](scripts/run_multi_agent_benchmark.py) — full comparison CLI (`--category multi_step`, `--show_expected`)
@@ -861,6 +883,48 @@ python scripts/run_multi_agent_benchmark.py --show_expected
 # Quick smoke test (3 tasks per category)
 python scripts/run_multi_agent_benchmark.py --max_per_category 3
 ```
+
+---
+
+### Extension 14: Code Execution Agent — SWE-bench Style Tasks *(design scaffold)*
+
+**Motivation**: The missing category in AgentBench-Mini is code execution. Web-search tasks test retrieval and synthesis; code tasks test whether an agent can write something that actually runs correctly, interpret failure output, and iterate. This is what Anthropic's agents team works on day-to-day — SWE-bench style tasks where the agent reads a bug report, writes a patch, runs the test suite, and iterates on failures. Adding this category to the harness is the concrete next step to make AgentBench-Mini production-relevant.
+
+**Why code tasks are structurally different**: The core difference is that the environment is *stateful and executable*. A web-search result is read-only; a code execution environment changes state across turns (variables are defined, files are written, packages are imported). The agent's action space expands: instead of just `web_search(query)`, it needs `python_exec(code)` and `read_file(path)`. The scorer changes too: instead of token-F1 against a ground-truth string, the scorer runs the agent's generated code against a test suite and reports pass/fail per test case.
+
+**Proposed task structure**:
+
+```python
+@dataclass
+class CodeTask(EvalTask):
+    starter_code: str        # the broken function or incomplete scaffold
+    test_cases: List[str]    # pytest-style test functions as strings
+    expected_output: str     # what the fixed code should produce
+    max_edit_rounds: int = 3 # how many write→run→fix iterations allowed
+```
+
+**Proposed tools** (additive to existing harness):
+
+| Tool | Signature | What it does |
+|---|---|---|
+| `python_exec` | `exec(code: str) → str` | Run code in sandbox, return stdout + stderr |
+| `read_file` | `read(path: str) → str` | Read a file in the sandbox filesystem |
+| `write_file` | `write(path: str, content: str) → str` | Write/overwrite a file |
+| `run_tests` | `test(test_file: str) → str` | Run pytest on a test file, return pass/fail summary |
+
+The sandbox would be a subprocess with `resource.setrlimit` to cap CPU and memory, or a Docker container per task for stronger isolation.
+
+**Scorer design**: Test-case pass rate (0.0–1.0) as `answer_score`; the sequence score would measure whether the agent converged within `max_edit_rounds` (partial credit for agents that improve across rounds but don't fully pass). This maps cleanly to the existing `EvalResult` structure — `sequence_score` becomes a measure of *edit efficiency*, not tool order.
+
+**Representative tasks** (3 difficulty tiers):
+
+| Task | Tier | What the agent must do |
+|---|---|---|
+| Fix an off-by-one in a binary search | Easy | Read the bug report, fix one line, verify tests pass |
+| Implement a missing method on a class | Medium | Write ~15 lines, handle edge cases revealed by failing tests |
+| Refactor a function to fix a race condition | Hard | Understand concurrency, restructure without breaking existing behavior |
+
+**Integration point**: `CodeExecutorAgent` would subclass `BaseAgent` and call `python_exec` in a ReAct loop, reading error output and patching. The harness, scorers, and `AgentTrajectory` are unchanged — only a new `eval/tasks/code_execution.py` and `eval/tools_code.py` are needed. This is a 2–3 day implementation once the sandbox environment is set up.
 
 ---
 
