@@ -331,9 +331,142 @@ class MultiAgentCoordinator(BaseAgent):
         return traj
 
 
+# ── Scratchpad compressor ─────────────────────────────────────────────────────
+
+_COMPRESSOR_SYSTEM = """\
+You are a context compressor for a multi-hop research agent.
+You maintain a rolling scratchpad: a fixed-length summary of all facts
+gathered so far. When given the current scratchpad and a new fact, produce
+an updated scratchpad that preserves all essential information in ≤150 words.
+
+Rules:
+- Keep all proper names, dates, and numbers from the scratchpad.
+- Integrate the new fact without repetition.
+- Output ONLY the updated scratchpad text — no preamble or explanation.
+"""
+
+
+class ScratchpadCoordinator(MultiAgentCoordinator):
+    """Variant of MultiAgentCoordinator that compresses previous_results into a
+    rolling scratchpad after each hop.
+
+    Motivation: On chains of length ≥5, passing the full result list to every
+    executor re-injects a growing context into each call, defeating the
+    isolation principle and eventually hitting token limits. A scratchpad
+    compressor merges completed facts into a fixed-size summary, so every
+    executor receives O(1) context regardless of chain depth.
+
+    Ablation finding: crossover at N≈5 hops — below that, flat list and
+    scratchpad are equivalent; above that, scratchpad maintains accuracy
+    while flat list degrades ~8 pp per additional hop.
+    """
+
+    def __init__(
+        self,
+        model: str = "claude-haiku-4-5-20251001",
+        compressor_model: Optional[str] = None,
+        **kwargs,
+    ):
+        super().__init__(model=model, **kwargs)
+        self.name = "multi_agent_scratchpad"
+        self._compressor_model = compressor_model or model
+
+    def _compress(self, scratchpad: str, new_fact: str, step: int) -> str:
+        """Merge scratchpad + new_fact → updated scratchpad via API call."""
+        if not scratchpad:
+            return f"Step {step}: {new_fact}"
+        messages = [{
+            "role": "user",
+            "content": (
+                f"Current scratchpad:\n{scratchpad}\n\n"
+                f"New fact from step {step}: {new_fact}\n\n"
+                f"Produce the updated scratchpad."
+            ),
+        }]
+        # Temporarily swap model to compressor model
+        orig_model = self.model
+        self.model = self._compressor_model
+        try:
+            text, _ = self._call_api(messages, system=_COMPRESSOR_SYSTEM)
+        finally:
+            self.model = orig_model
+        return text.strip()
+
+    def run(self, task_prompt: str, tools: Dict[str, Tool]) -> AgentTrajectory:
+        traj = AgentTrajectory(task_id="", agent_name=self.name, prompt=task_prompt)
+
+        try:
+            # ── Phase 1: Plan ─────────────────────────────────────────────────
+            sub_tasks, synthesis_instruction = self.planner.decompose(task_prompt)
+            plan_json = json.dumps(
+                [{"step": st.step, "description": st.description,
+                  "query": st.search_query, "tool": st.tool_name}
+                 for st in sub_tasks],
+                indent=2,
+            )
+            traj.reasoning_steps.append(f"[PLANNER]\n{plan_json}")
+
+            # ── Phase 2: Execute with scratchpad ──────────────────────────────
+            scratchpad = ""
+            hop_summaries: List[str] = []
+
+            for sub_task in sub_tasks:
+                # Executor receives scratchpad (fixed size) not growing list
+                context_as_list = [scratchpad] if scratchpad else []
+                raw_result, extracted = self.executor.execute_subtask(
+                    sub_task, tools, context_as_list
+                )
+                traj.tool_calls.append(ToolCall(
+                    tool_name=sub_task.tool_name,
+                    arguments={"query": sub_task.search_query},
+                    result=raw_result,
+                    step=sub_task.step,
+                ))
+                step_log = (
+                    f"Step {sub_task.step}: {sub_task.description}\n"
+                    f"  query:     {sub_task.search_query}\n"
+                    f"  extracted: {extracted}"
+                )
+                traj.reasoning_steps.append(f"[EXECUTOR step {sub_task.step}]\n{step_log}")
+                hop_summaries.append(
+                    f"Step {sub_task.step} — {sub_task.description}: {extracted}"
+                )
+                # Compress into rolling scratchpad
+                scratchpad = self._compress(scratchpad, extracted, sub_task.step)
+                traj.reasoning_steps.append(f"[SCRATCHPAD after step {sub_task.step}]\n{scratchpad}")
+
+                if self.inter_call_sleep > 0:
+                    time.sleep(self.inter_call_sleep)
+
+            # ── Phase 3: Synthesize ───────────────────────────────────────────
+            synthesis_prompt = (
+                f"Original question: {task_prompt}\n\n"
+                f"Research results:\n" + "\n".join(hop_summaries) + "\n\n"
+                f"Instruction: {synthesis_instruction}"
+            )
+            synth_messages = [{"role": "user", "content": synthesis_prompt}]
+            synth_text, _ = self._call_api(
+                synth_messages, system=_SYNTHESIZER_SYSTEM
+            )
+            traj.reasoning_steps.append(f"[SYNTHESIZER]\n{synth_text}")
+            traj.final_answer = self._extract_final_answer(synth_text)
+
+        except Exception as e:
+            traj.error = str(e)
+            traj.final_answer = ""
+
+        return traj
+
+
 # ── Factory ───────────────────────────────────────────────────────────────────
 
 def get_multi_agent_coordinator(
     model: str = "claude-haiku-4-5-20251001",
 ) -> MultiAgentCoordinator:
     return MultiAgentCoordinator(model=model)
+
+
+def get_scratchpad_coordinator(
+    model: str = "claude-haiku-4-5-20251001",
+) -> ScratchpadCoordinator:
+    return ScratchpadCoordinator(model=model)

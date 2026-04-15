@@ -151,6 +151,38 @@ _MOCK_SEARCH_DB: Dict[str, str] = {
         "Ray Tomlinson (1941–2016) was an American computer programmer who "
         "invented email in 1971. He worked at BBN Technologies."
     ),
+    # Context-window ablation chain (hop 1–8, each answer feeds the next query)
+    # Chain: Alphabet CEO → birth year → US president that year → year resigned
+    #        → successor → successor's birth state → state capital → Lincoln assassination year
+    "ceo alphabet 2023": (
+        "Sundar Pichai is the CEO of Alphabet Inc. as of 2023. He was born in 1972."
+    ),
+    "sundar pichai birth year": (
+        "Sundar Pichai was born on June 10, 1972, in Madurai, Tamil Nadu, India."
+    ),
+    "us president 1972": (
+        "Richard Nixon was the President of the United States in 1972. He won "
+        "re-election in November 1972 by a landslide over George McGovern."
+    ),
+    "year richard nixon resigned": (
+        "Richard Nixon resigned from the presidency on August 9, 1974, becoming "
+        "the only US president to resign from office."
+    ),
+    "us president succeeded nixon 1974": (
+        "Gerald Ford became the 38th President of the United States on August 9, 1974, "
+        "after Richard Nixon's resignation. Ford had been Vice President since December 1973."
+    ),
+    "gerald ford birth state": (
+        "Gerald Ford was born on July 14, 1913, in Omaha, Nebraska. Nebraska is his birth state."
+    ),
+    "capital of nebraska": (
+        "The capital of Nebraska is Lincoln, named after President Abraham Lincoln. "
+        "Lincoln has been the state capital since 1869."
+    ),
+    "year abraham lincoln assassinated": (
+        "Abraham Lincoln was assassinated on April 14, 1865, at Ford's Theatre in Washington, D.C. "
+        "He died the following morning, April 15, 1865."
+    ),
     # Failure recovery — these should return no useful results
     "xylofrobnic organization 2024": "",
     "blarpian federation history": "",
