@@ -37,10 +37,14 @@ GAIA uses exact normalised string matching. The official normalisation:
 
 from __future__ import annotations
 
+import math
+import os
+import random
 import re
 import unicodedata
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 
 # ── Canonical 30-task GAIA-mini subset ────────────────────────────────────────
@@ -468,6 +472,11 @@ class GAIAResult:
     n_tool_calls: int
     trajectory: Optional[str] = None
     error: Optional[str] = None
+    benchmark_mode: str = "official"
+    task_source: str = "gaia_mini"
+    attachment_name: Optional[str] = None
+    attachment_available: bool = False
+    runtime_sec: float = 0.0
 
     @property
     def score(self) -> float:
@@ -552,6 +561,81 @@ def _load_from_huggingface() -> List[Dict]:
         return []
 
 
+def resolve_attachment_path(task: GAIATask, attachment_root: Optional[str] = None) -> Optional[str]:
+    """Resolve a task attachment against a local attachment root if provided."""
+    if not task.file_name:
+        return None
+
+    candidate = Path(task.file_name)
+    if candidate.exists():
+        return str(candidate)
+
+    if attachment_root:
+        rooted = Path(attachment_root) / task.file_name
+        if rooted.exists():
+            return str(rooted)
+
+    return None
+
+
+def build_task_prompt(
+    task: GAIATask,
+    benchmark_mode: str = "official",
+    attachment_path: Optional[str] = None,
+) -> str:
+    """Construct the user-facing prompt for a GAIA task.
+
+    `official` keeps the benchmark setup close to the original task.
+    `live` makes the temporal setting explicit for current-web runs.
+    """
+    lines = [task.question.strip()]
+
+    if benchmark_mode == "live":
+        lines.append(
+            "Use current information when needed. If the answer depends on live retrieval, "
+            "ground it in retrieved evidence rather than parametric memory."
+        )
+    else:
+        lines.append(
+            "Answer with the final answer only when you have enough evidence. "
+            "Prefer exact, benchmark-style responses over long explanations."
+        )
+
+    if attachment_path:
+        lines.append(
+            f"Attachment available: {Path(attachment_path).name}. "
+            "Use the read_attachment tool if that file is needed."
+        )
+
+    return "\n\n".join(lines)
+
+
+def bootstrap_mean_ci(
+    values: List[float],
+    n_bootstrap: int = 2000,
+    confidence: float = 0.95,
+    seed: int = 0,
+) -> Tuple[float, float]:
+    """Bootstrap confidence interval for mean score reporting."""
+    if not values:
+        return 0.0, 0.0
+    if len(values) == 1:
+        return values[0], values[0]
+
+    rng = random.Random(seed)
+    means = []
+    n = len(values)
+    for _ in range(n_bootstrap):
+        sample = [values[rng.randrange(n)] for _ in range(n)]
+        means.append(sum(sample) / n)
+    means.sort()
+
+    alpha = (1.0 - confidence) / 2.0
+    lo_idx = max(0, math.floor(alpha * len(means)))
+    hi_idx = min(len(means) - 1, math.ceil((1.0 - alpha) * len(means)) - 1)
+    return means[lo_idx], means[hi_idx]
+
+
 # ── Result aggregation ────────────────────────────────────────────────────────
 
 class GAIAReport:
@@ -560,11 +644,36 @@ class GAIAReport:
     def __init__(self, results: List[GAIAResult]):
         self.results = results
 
-    def accuracy(self, level: Optional[int] = None, agent: Optional[str] = None) -> float:
+    def accuracy(
+        self,
+        level: Optional[int] = None,
+        agent: Optional[str] = None,
+        metric: str = "score",
+    ) -> float:
         filtered = self._filter(level, agent)
         if not filtered:
             return 0.0
+        if metric == "exact":
+            return sum(r.exact_match for r in filtered) / len(filtered)
+        if metric == "token_overlap":
+            return sum(r.token_overlap for r in filtered) / len(filtered)
         return sum(r.score for r in filtered) / len(filtered)
+
+    def confidence_interval(
+        self,
+        level: Optional[int] = None,
+        agent: Optional[str] = None,
+        metric: str = "score",
+        seed: int = 0,
+    ) -> Tuple[float, float]:
+        filtered = self._filter(level, agent)
+        if metric == "exact":
+            values = [r.exact_match for r in filtered]
+        elif metric == "token_overlap":
+            values = [r.token_overlap for r in filtered]
+        else:
+            values = [r.score for r in filtered]
+        return bootstrap_mean_ci(values, seed=seed)
 
     def exact_match_rate(self, level: Optional[int] = None, agent: Optional[str] = None) -> float:
         filtered = self._filter(level, agent)
@@ -586,7 +695,7 @@ class GAIAReport:
             res = [r for r in res if r.agent_name == agent]
         return res
 
-    def summary_table(self, agents: Optional[List[str]] = None) -> str:
+    def summary_table(self, agents: Optional[List[str]] = None, metric: str = "score") -> str:
         if agents is None:
             agents = sorted({r.agent_name for r in self.results})
         levels = [1, 2, 3]
@@ -594,8 +703,8 @@ class GAIAReport:
         header = f"{'Agent':<25} {'L1':>6} {'L2':>6} {'L3':>6} {'Overall':>8}"
         lines = [header, "-" * len(header)]
         for agent in agents:
-            accs = [self.accuracy(lvl, agent) for lvl in levels]
-            overall = self.accuracy(agent=agent)
+            accs = [self.accuracy(lvl, agent, metric=metric) for lvl in levels]
+            overall = self.accuracy(agent=agent, metric=metric)
             row = (
                 f"{agent:<25} "
                 + "  ".join(f"{a:>6.3f}" for a in accs)

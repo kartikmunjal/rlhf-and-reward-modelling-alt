@@ -12,10 +12,12 @@ The agent receives a tool as a callable and a name/description dict.
 
 from __future__ import annotations
 
+import csv
 import json
 import os
 import re
 import time
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 
@@ -282,6 +284,106 @@ def _mock_retrieve(query: str) -> str:
     return f"Document not found: {query}"
 
 
+def _read_attachment_file(path: str, max_chars: int = 4000) -> str:
+    """Best-effort attachment reader for GAIA tasks.
+
+    This intentionally degrades gracefully. Text-like formats are parsed directly;
+    binary formats return a clear message unless optional libraries are installed.
+    """
+    file_path = Path(path)
+    if not file_path.exists():
+        return f"Attachment not found: {path}"
+
+    suffix = file_path.suffix.lower()
+
+    try:
+        if suffix in {".txt", ".md", ".rst", ".log"}:
+            return file_path.read_text(encoding="utf-8", errors="replace")[:max_chars]
+
+        if suffix in {".json"}:
+            with file_path.open("r", encoding="utf-8", errors="replace") as f:
+                data = json.load(f)
+            return json.dumps(data, indent=2)[:max_chars]
+
+        if suffix in {".csv", ".tsv"}:
+            delimiter = "\t" if suffix == ".tsv" else ","
+            with file_path.open("r", encoding="utf-8", errors="replace", newline="") as f:
+                reader = csv.reader(f, delimiter=delimiter)
+                rows = []
+                for idx, row in enumerate(reader):
+                    rows.append(delimiter.join(row))
+                    if idx >= 24:
+                        break
+            preview = "\n".join(rows)
+            return preview[:max_chars]
+
+        if suffix in {".html", ".htm"}:
+            text = file_path.read_text(encoding="utf-8", errors="replace")
+            text = re.sub(r"<script.*?</script>", " ", text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r"<style.*?</style>", " ", text, flags=re.DOTALL | re.IGNORECASE)
+            text = re.sub(r"<[^>]+>", " ", text)
+            text = re.sub(r"\s+", " ", text).strip()
+            return text[:max_chars]
+
+        if suffix == ".pdf":
+            try:
+                from pypdf import PdfReader
+
+                reader = PdfReader(str(file_path))
+                pages = []
+                for page in reader.pages[:5]:
+                    pages.append(page.extract_text() or "")
+                text = "\n".join(pages).strip()
+                return text[:max_chars] if text else f"PDF loaded but no extractable text found: {file_path.name}"
+            except Exception as exc:
+                return (
+                    f"PDF attachment available at {file_path.name}, but text extraction failed "
+                    f"or optional dependency is missing: {exc}"
+                )
+
+        if suffix in {".png", ".jpg", ".jpeg"}:
+            return (
+                f"Image attachment available at {file_path.name}. "
+                "OCR is not installed in this environment; inspect manually or add OCR tooling."
+            )
+
+        return (
+            f"Attachment available at {file_path.name} ({suffix or 'no extension'}), "
+            "but no parser is configured for this format."
+        )
+    except Exception as exc:
+        return f"Failed to read attachment {file_path.name}: {exc}"
+
+
+def make_attachment_tool(attachments: Dict[str, str]) -> Tool:
+    """Create a tool that exposes task-local attachments by file name."""
+    available = ", ".join(sorted(attachments)) if attachments else "none"
+
+    def _read(query: str) -> str:
+        key = query.strip()
+        if key in attachments:
+            return _read_attachment_file(attachments[key])
+
+        if len(attachments) == 1 and key in {"attachment", "current_attachment", "current"}:
+            only_path = next(iter(attachments.values()))
+            return _read_attachment_file(only_path)
+
+        return (
+            f"Unknown attachment '{query}'. Available attachments: {available}."
+            if attachments
+            else "No task attachments are available."
+        )
+
+    return Tool(
+        name="read_attachment",
+        description=(
+            "Read a task attachment by file name or by using 'current_attachment' "
+            "when only one file is available."
+        ),
+        fn=lambda query: _read(query),
+    )
+
+
 # ── Exported tool instances ───────────────────────────────────────────────────
 
 def make_search_tool(use_live: bool = False) -> Tool:
@@ -310,9 +412,15 @@ def make_retrieve_tool() -> Tool:
     )
 
 
-def get_default_tools(use_live: bool = False) -> Dict[str, Tool]:
+def get_default_tools(
+    use_live: bool = False,
+    attachments: Optional[Dict[str, str]] = None,
+) -> Dict[str, Tool]:
     """Return the default tool set for benchmark runs."""
-    return {
+    tools = {
         "web_search": make_search_tool(use_live),
         "retrieve_document": make_retrieve_tool(),
     }
+    if attachments:
+        tools["read_attachment"] = make_attachment_tool(attachments)
+    return tools
