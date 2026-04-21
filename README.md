@@ -1088,7 +1088,7 @@ python scripts/run_multi_agent_benchmark.py --max_per_category 3
 
 **Research Question**: Does a sandboxed execution loop (write → run → read traceback → revise) produce measurably higher pass rates than zero-shot code fixes, and does the execution advantage widen with task structural complexity (easy → hard bugs)?
 
-**Motivation**: The missing category in AgentBench-Mini is code execution. Web-search tasks test retrieval and synthesis; code tasks test whether an agent can write something that actually *runs correctly*, interpret failure output, and iterate. This is the closest analog to what Anthropic's agents team works on — SWE-bench style tasks where the agent reads a bug report, writes a patch, verifies tests pass, and iterates on failures.
+**Motivation**: The missing category in AgentBench-Mini is code execution. Web-search tasks test retrieval and synthesis; code tasks test whether an agent can write something that actually *runs correctly*, interpret failure output, and iterate. This is the closest analog to SWE-bench style tasks where an agent reads a bug report, writes a patch, verifies tests pass, and iterates on failures.
 
 **Why code tasks are structurally different**: Web-search results are read-only. A code execution environment is *stateful and executable*: the agent writes something, runs it, reads the traceback, and revises. The scorer shifts from token-F1 against a ground-truth string to test-case pass rate — a harder, more objective signal.
 
