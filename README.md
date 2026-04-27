@@ -61,7 +61,7 @@ For the complete five-step walkthrough in two domains, see [Reward Methodology T
 
 ---
 
-Language models trained purely on next-token prediction are good at sounding fluent, but fluency is not the same as helpfulness or safety. A model that has only seen text predicts the statistically likely continuation — which can be evasive, verbose, or subtly harmful. RLHF (Reinforcement Learning from Human Feedback) is the technique that closes this gap: instead of asking the model to predict text, we ask it to optimise a signal derived from human judgments of quality. This repository implements the full three-stage RLHF pipeline — supervised fine-tuning, reward model training, and policy optimisation via both PPO and DPO — on GPT-2 using Anthropic's `hh-rlhf` preference dataset. The goal is not just to produce working training runs, but to make every design decision legible: why we need SFT before RL, why the KL penalty is non-negotiable, and what happens to generation quality when you remove pieces of the stack.
+Language models trained purely on next-token prediction are good at sounding fluent, but fluency is not the same as helpfulness or safety. A model that has only seen text predicts the statistically likely continuation — which can be evasive, verbose, or subtly harmful. RLHF (Reinforcement Learning from Human Feedback) is the technique that closes this gap: instead of asking the model to predict text, we ask it to optimise a signal derived from human judgments of quality. This repository implements the full three-stage RLHF pipeline — supervised fine-tuning, reward model training, and policy optimisation via PPO, DPO, and GRPO — on GPT-2 using Anthropic's `hh-rlhf` preference dataset. The goal is not just to produce working training runs, but to make every design decision legible: why we need SFT before RL, why the KL penalty is non-negotiable, and what happens to generation quality when you remove pieces of the stack.
 
 ---
 
@@ -94,6 +94,16 @@ Anthropic hh-rlhf dataset
 │ On-policy    │                    │ Offline data │
 │ Needs RM     │                    │ No RM needed │
 └──────────────┘                    └──────────────┘
+          │
+          ▼
+┌──────────────┐
+│  Stage 3c:   │
+│    GRPO      │
+│              │
+│ No critic    │
+│ Group-normal │
+│ On-policy    │
+└──────────────┘
 ```
 
 ---
@@ -109,6 +119,21 @@ Evaluated on 500 prompts from the hh-rlhf test split (gpt2-medium backbone):
 | DPO (β=0.1) | 0.543 | 0.274 | 63.4% | 1.734 | 1h 30m |
 
 **Key insight**: DPO achieves ~70% of PPO's reward gain with ~36% of the KL divergence — significantly better alignment efficiency at a fraction of the compute cost.
+
+### GRPO Status
+
+GRPO support is now implemented in:
+- `src/training/grpo.py`
+- `scripts/train_grpo.py`
+- `scripts/compare_ppo_grpo.py`
+- `notebooks/13_grpo_vs_ppo.ipynb`
+
+The intended experimental claim is:
+- GRPO should match PPO within a few win-rate points,
+- use less GPU memory because it removes the value head and value optimizer state,
+- and often show lower KL from the reference policy because group-normalized rewards provide implicit regularization.
+
+This repo now contains the training and comparison scaffolding for that experiment, but you should still treat the actual PPO-vs-GRPO numbers as run-dependent until `scripts/compare_ppo_grpo.py` has been executed and its result artifact committed.
 
 ---
 
@@ -1604,6 +1629,7 @@ python scripts/run_multiturn_rm_ablation.py --num_pairs 200  # faster
 │   │   ├── reward_ensemble.py   # Train K reward models with different seeds
 │   │   ├── ppo.py               # PPO with trl + custom reward scoring
 │   │   ├── dpo.py               # DPO loss from scratch + trl trainer
+│   │   ├── grpo.py              # GRPO with trl.GRPOTrainer + group-normalized rewards
 │   │   ├── dpo_lora.py          # [Ext 4] LoRA DPO — LoRADPOConfig, train_dpo_lora
 │   │   ├── prm.py               # PRM and ORM training on GSM8K
 │   │   ├── scaling.py           # [Ext 6] ScalingConfig, run_scaling_comparison
@@ -1645,6 +1671,8 @@ python scripts/run_multiturn_rm_ablation.py --num_pairs 200  # faster
 │   ├── train_ppo.py
 │   ├── train_ppo_ensemble.py    # Extension 2
 │   ├── train_dpo.py
+│   ├── train_grpo.py            # GRPO CLI (group size G, beta, epsilon)
+│   ├── compare_ppo_grpo.py      # PPO vs GRPO matched-budget comparison
 │   ├── train_dpo_lora.py        # [Ext 4] LoRA DPO + RM win-rate comparison
 │   ├── train_prm.py             # Extension 3
 │   ├── compare_prm_orm.py       # Extension 3
@@ -1664,6 +1692,7 @@ python scripts/run_multiturn_rm_ablation.py --num_pairs 200  # faster
 │   ├── 10_lora_vs_full_finetuning.ipynb  # [Ext 4] LoRA parameter count + ablation
 │   ├── 11_synthetic_sft_data.ipynb       # [Ext 5] Synthetic data generation + comparison
 │   ├── 12_scaling_analysis.ipynb         # [Ext 6] 117M vs 355M scaling curves
+│   ├── 13_grpo_vs_ppo.ipynb              # [Ext 6+] GRPO group-size and memory/KL comparison
 │   ├── 13_agent_eval_benchmark.ipynb     # [Ext 7] AgentBench-Mini comparison table
 │   ├── 14_iterative_dpo.ipynb            # [Ext 8] Win-rate curves, KL frontier, buffer ablation
 │   ├── 15_agentic_posttraining.ipynb     # [Ext 9] Trajectory generation + agentic SFT impact
@@ -1736,11 +1765,17 @@ python scripts/train_ppo.py --num_samples 5000
 # Stage 3b: DPO (no reward model needed)
 python scripts/train_dpo.py --beta 0.1 --num_samples 10000
 
+# Stage 3c: GRPO (group-relative policy optimization)
+python scripts/train_grpo.py --num_generations 4 --beta 0.1 --epsilon 0.2 --num_samples 5000
+
 # Evaluate all three policies
 python scripts/evaluate.py \
     --ppo_checkpoint checkpoints/ppo \
     --dpo_checkpoint checkpoints/dpo \
     --num_eval 500
+
+# Compare PPO vs GRPO under matched prompt budgets
+python scripts/compare_ppo_grpo.py --num_generations 4 --beta 0.1 --epsilon 0.2
 ```
 
 ### 3. Smoke test (no GPU)
@@ -1768,6 +1803,7 @@ Each notebook has an "Open in Colab" badge. Run them in order:
 | [10_lora_vs_full_finetuning](notebooks/10_lora_vs_full_finetuning.ipynb) | **Ext 4**: LoRA ablation — 0.5% of params, same quality |
 | [11_synthetic_sft_data](notebooks/11_synthetic_sft_data.ipynb) | **Ext 5**: Synthetic data generation + comparison |
 | [12_scaling_analysis](notebooks/12_scaling_analysis.ipynb) | **Ext 6**: 117M vs 355M two-point scaling curve |
+| [13_grpo_vs_ppo](notebooks/13_grpo_vs_ppo.ipynb) | **Ext 6+**: GRPO vs PPO memory / KL / win-rate comparison |
 | [13_agent_eval_benchmark](notebooks/13_agent_eval_benchmark.ipynb) | **Ext 7**: AgentBench-Mini comparison table |
 | [14_iterative_dpo](notebooks/14_iterative_dpo.ipynb) | **Ext 8**: Iterative DPO win-rate curves and KL frontier |
 | [15_agentic_posttraining](notebooks/15_agentic_posttraining.ipynb) | **Ext 9**: Agentic trajectory data + impact on tool use |
