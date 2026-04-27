@@ -11,7 +11,7 @@ setup(
         "torch>=2.1.0",
         "transformers>=4.36.0",
         "datasets>=2.16.0",
-        "trl>=0.7.4",
+        "trl>=0.15.2",
         "accelerate>=0.25.0",
         "numpy>=1.26.0",
         "tqdm>=4.66.0",

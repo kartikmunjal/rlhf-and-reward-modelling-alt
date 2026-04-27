@@ -35,6 +35,7 @@ not trl's built-in pipeline — this keeps the reward model decoupled.
 from __future__ import annotations
 
 import os
+import time
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -123,7 +124,7 @@ def score_responses(
     return [r for r in rewards]
 
 
-def train_ppo(cfg: PPOTrainingConfig) -> None:
+def train_ppo(cfg: PPOTrainingConfig) -> dict[str, float]:
     """Fine-tune the SFT model via PPO using the trained reward model (Stage 3a).
 
     Training loop overview:
@@ -189,6 +190,10 @@ def train_ppo(cfg: PPOTrainingConfig) -> None:
     )
 
     os.makedirs(cfg.output_dir, exist_ok=True)
+    peak_memory_mb = None
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
+    t0 = time.perf_counter()
 
     for step, batch in enumerate(ppo_trainer.dataloader):
         query_tensors = batch["input_ids"]
@@ -219,3 +224,14 @@ def train_ppo(cfg: PPOTrainingConfig) -> None:
     ppo_trainer.save_pretrained(cfg.output_dir)
     tokenizer.save_pretrained(cfg.output_dir)
     print(f"PPO policy saved to {cfg.output_dir}")
+
+    if torch.cuda.is_available():
+        peak_memory_mb = torch.cuda.max_memory_allocated() / (1024 ** 2)
+
+    return {
+        "training_time_seconds": round(time.perf_counter() - t0, 2),
+        "peak_memory_mb": round(peak_memory_mb, 2) if peak_memory_mb is not None else -1.0,
+        "num_train_rows": float(len(prompt_dataset)),
+        "init_kl_coef": cfg.init_kl_coef,
+        "clip_range": cfg.clip_range,
+    }
