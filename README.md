@@ -1,19 +1,16 @@
-# RLHF Pipeline: Reward Modeling, PPO/DPO, LoRA, Synthetic Data, Scaling, Agent Eval, Iterative DPO, Agentic SFT, GAIA, TTS RLHF, Distributed Training (FSDP) & Multi-Agent Systems
+# RLHF Pipeline: Reward Modeling, Policy Optimization, and Scaling
 
-## Agent Systems & Benchmarks
+This repo is the central **reward-methodology and post-training systems** repo
+in the portfolio. It implements the full RLHF stack on language models
+(SFT → reward model → PPO / DPO / GRPO), then extends that stack in three
+directions that matter in practice: **reward signal design**, **training
+scalability**, and **agent evaluation**.
 
-This repo includes a full agent evaluation harness and four agent-specific extensions. If you're here for the agent work:
-
-| System | Result |
-|---|---|
-| **Multi-Agent Coordinator** (Planner + Executor) | **80.6%** AgentBench-Mini overall · **+16.7 pp** on multi-step vs Plan-and-Execute |
-| **GAIA Benchmark** (Plan-and-Execute on GAIA-Mini with mock tools) | **80% Level 1**, **45% Level 2** *(mock-tool planning/synthesis evaluation; 2023 baseline comparison — see note below)* |
-| **Agentic SFT** (ReAct trajectory fine-tuning) | **77.8%** AgentBench-Mini · **+12.5 pp** multi-step vs untuned ReAct |
-| **Code Execution Agent** (sandboxed Python debugger) | **84.7%** pass rate · 12 tasks, 3 tiers (Easy→Hard) · +30 pp vs zero-shot |
-
-**The agent harness** ([`eval/`](eval/)) is a pluggable benchmark that runs any agent following `agent.run(prompt, tools) → AgentTrajectory` on 36 tasks across tool use, multi-step reasoning, and failure recovery. It produces both answer scores (ORM) and tool-call sequence scores (PRM) — the same outcome vs. process distinction from the reward modeling section, applied to agents.
-
-Quick navigation: [AgentBench-Mini](#extension-7-agentbench-mini--agent-evaluation-benchmark) · [Multi-Agent](#extension-13-multi-agent-systems--planner--executor-coordination) · [GAIA](#extension-10-gaia-benchmark--running-agents-against-a-real-benchmark) · [Agentic SFT](#extension-9-agentic-post-training-data--teaching-the-model-to-use-tools) · [Code Execution](#extension-14-code-execution-agent--sweb-bench-style-tasks)
+The thesis is straightforward: a useful alignment repo should not just show
+that PPO or DPO can run. It should show how reward signals are constructed and
+validated, how the training system scales from GPT-2-sized experiments toward
+7B+ constraints, and how the same outcome-vs-process evaluation logic transfers
+from chat models to agents.
 
 ---
 
@@ -65,6 +62,28 @@ algorithms, this is the section to inspect:
 [`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py),
 [`scripts/analyze_scaling.py`](scripts/analyze_scaling.py), and
 [`notebooks/18_distributed_fsdp.ipynb`](notebooks/18_distributed_fsdp.ipynb).
+
+---
+
+## Agent Systems & Benchmarks
+
+This repo also includes a full agent evaluation harness and four agent-specific
+extensions. If you're here for the agent work:
+
+| System | Result |
+|---|---|
+| **Multi-Agent Coordinator** (Planner + Executor) | **80.6%** AgentBench-Mini overall · **+16.7 pp** on multi-step vs Plan-and-Execute |
+| **GAIA Benchmark** (Plan-and-Execute on GAIA-Mini with mock tools) | **80% Level 1**, **45% Level 2** *(mock-tool planning/synthesis evaluation; 2023 baseline comparison — see note below)* |
+| **Agentic SFT** (ReAct trajectory fine-tuning) | **77.8%** AgentBench-Mini · **+12.5 pp** multi-step vs untuned ReAct |
+| **Code Execution Agent** (sandboxed Python debugger) | **84.7%** pass rate · 12 tasks, 3 tiers (Easy→Hard) · +30 pp vs zero-shot |
+
+**The agent harness** ([`eval/`](eval/)) is a pluggable benchmark that runs
+any agent following `agent.run(prompt, tools) → AgentTrajectory` on 36 tasks
+across tool use, multi-step reasoning, and failure recovery. It produces both
+answer scores (ORM) and tool-call sequence scores (PRM) — the same outcome vs.
+process distinction from the reward modeling section, applied to agents.
+
+Quick navigation: [AgentBench-Mini](#extension-7-agentbench-mini--agent-evaluation-benchmark) · [Multi-Agent](#extension-13-multi-agent-systems--planner--executor-coordination) · [GAIA](#extension-10-gaia-benchmark--running-agents-against-a-real-benchmark) · [Agentic SFT](#extension-9-agentic-post-training-data--teaching-the-model-to-use-tools) · [Code Execution](#extension-14-code-execution-agent--sweb-bench-style-tasks)
 
 ---
 
