@@ -35,6 +35,39 @@ environment-specific stress tests of those methods.
 
 ---
 
+## Training Scalability & Signal Scaling
+
+One of the strongest systems contributions in this repo is **Extension 12**:
+turning RLHF from a toy single-GPU GPT-2 exercise into a concrete scaling and
+memory-planning analysis for **117M → 70B** parameter models.
+
+This matters directly for roles that mention **training scalability** and
+**signal scaling** because the repo does not stop at "PPO/DPO works on GPT-2."
+It also shows what changes when the same alignment pipeline has to fit on real
+hardware:
+
+- **Exact memory derivation**: derives the **18 bytes/parameter** rule for
+  bf16 mixed precision + Adam from first principles rather than quoting it as a
+  heuristic.
+- **ZeRO stage mapping**: connects PyTorch FSDP sharding strategies directly to
+  **ZeRO-0 / ZeRO-2 / ZeRO-3**, making the distributed systems tradeoffs
+  explicit.
+- **Scaling table**: includes a model-by-model memory table from
+  **GPT-2-small (117M)** through **LLaMA-70B**, with per-GPU memory under DDP
+  and FSDP sharding.
+- **Measured systems result**: demonstrates a **6.4 GB → 1.8 GB** peak-memory
+  reduction on GPT-2-medium using **FSDP FULL_SHARD + activation
+  checkpointing**, while preserving training loss.
+
+If you're evaluating this repo for infrastructure depth rather than just RLHF
+algorithms, this is the section to inspect:
+[Extension 12](#extension-12-distributed-training--fsdp-scaling-analysis-and-the-7b-engineering-constraint),
+[`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py),
+[`scripts/analyze_scaling.py`](scripts/analyze_scaling.py), and
+[`notebooks/18_distributed_fsdp.ipynb`](notebooks/18_distributed_fsdp.ipynb).
+
+---
+
 ## Reward Signal Design Methodology
 
 The core problem across every extension: **how do you turn a subjective quality notion into a training signal that a neural network can optimise without hacking?** Five steps, always in this order:
