@@ -1,3 +1,5 @@
+[![CI](https://github.com/kartikmunjal/rlhf-and-reward-modelling-alt/actions/workflows/ci.yml/badge.svg)](https://github.com/kartikmunjal/rlhf-and-reward-modelling-alt/actions/workflows/ci.yml)
+
 # RLHF Pipeline: Reward Modeling, Policy Optimization, and Scaling
 
 This repo is the central **reward-methodology and post-training systems** repo
