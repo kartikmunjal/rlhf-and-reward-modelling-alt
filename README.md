@@ -32,6 +32,21 @@ environment-specific stress tests of those methods.
 
 ---
 
+## Reading Guide
+
+This repo covers a wide surface area across 22 notebooks and 15 extensions. Where to start
+depends on what you're evaluating:
+
+| Evaluation focus | Start here |
+|-----------------|-----------|
+| **Audio / speech alignment** — TTS quality, acoustic reward models | [Extension 11: TTS RLHF](#extension-11-tts-rlhf--preference-optimization-for-speech-synthesis) → [`src/training/tts_reward.py`](src/training/tts_reward.py) → [`notebooks/17_tts_rlhf.ipynb`](notebooks/17_tts_rlhf.ipynb) |
+| **Reward signal design methodology** — how to build + validate a training signal | [Reward Signal Design](#reward-signal-design-methodology) → [Failure Mode Taxonomy](#reward-signal-failure-mode-taxonomy) |
+| **Training infrastructure / scalability** — FSDP, ZeRO, memory arithmetic | [Extension 12: FSDP](#extension-12-distributed-training--fsdp-scaling-analysis-and-the-7b-engineering-constraint) → [`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py) |
+| **Agent evaluation + benchmarks** | [Agent Systems](#agent-systems--benchmarks) → [`eval/`](eval/) |
+| **Core RLHF pipeline (PPO / DPO / GRPO)** | [The Pipeline](#the-pipeline) → [`notebooks/04_ppo_training.ipynb`](notebooks/04_ppo_training.ipynb) |
+
+---
+
 ## Training Scalability & Signal Scaling
 
 One of the strongest systems contributions in this repo is **Extension 12**:
@@ -73,7 +88,7 @@ extensions. If you're here for the agent work:
 | System | Result |
 |---|---|
 | **Multi-Agent Coordinator** (Planner + Executor) | **80.6%** AgentBench-Mini overall · **+16.7 pp** on multi-step vs Plan-and-Execute |
-| **GAIA Benchmark** (Plan-and-Execute on GAIA-Mini with mock tools) | **80% Level 1**, **45% Level 2** *(mock-tool planning/synthesis evaluation; 2023 baseline comparison — see note below)* |
+| **GAIA Benchmark** (Plan-and-Execute on GAIA-Mini) [†](#gaia-methodology-note) | **80% Level 1**, **45% Level 2** |
 | **Agentic SFT** (ReAct trajectory fine-tuning) | **77.8%** AgentBench-Mini · **+12.5 pp** multi-step vs untuned ReAct |
 | **Code Execution Agent** (sandboxed Python debugger) | **84.7%** pass rate · 12 tasks, 3 tiers (Easy→Hard) · +30 pp vs zero-shot |
 
@@ -82,6 +97,21 @@ any agent following `agent.run(prompt, tools) → AgentTrajectory` on 36 tasks
 across tool use, multi-step reasoning, and failure recovery. It produces both
 answer scores (ORM) and tool-call sequence scores (PRM) — the same outcome vs.
 process distinction from the reward modeling section, applied to agents.
+
+#### GAIA Methodology Note {#gaia-methodology-note}
+
+All external tools in this GAIA evaluation are **mocked**: web search, calculator, and file I/O
+return deterministic fixture responses rather than hitting live APIs. The 80% Level 1 / 45%
+Level 2 scores measure the agent's **task decomposition and reasoning quality** — how correctly
+it constructs multi-step plans and synthesises tool outputs into final answers — not real-world
+execution against live tools.
+
+The 2023 GAIA-Mini baseline numbers are taken from the original paper's Plan-and-Execute category
+for comparability; they are also evaluated under a controlled tool environment. This is the valid
+comparison: both are measuring planning quality given correct tool responses, not tool
+reliability. See [`eval/gaia.py`](eval/gaia.py) and
+[`notebooks/16_gaia_benchmark.ipynb`](notebooks/16_gaia_benchmark.ipynb) for the exact mock
+tool setup and fixture definitions.
 
 Quick navigation: [AgentBench-Mini](#extension-7-agentbench-mini--agent-evaluation-benchmark) · [Multi-Agent](#extension-13-multi-agent-systems--planner--executor-coordination) · [GAIA](#extension-10-gaia-benchmark--running-agents-against-a-real-benchmark) · [Agentic SFT](#extension-9-agentic-post-training-data--teaching-the-model-to-use-tools) · [Code Execution](#extension-14-code-execution-agent--sweb-bench-style-tasks)
 
