@@ -20,7 +20,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # Install CPU-only torch first to avoid the GPU wheel being pulled in
-          pip install torch==2.1.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install torch==2.4.0 --index-url https://download.pytorch.org/whl/cpu
           # Install all declared dependencies (requirements.txt includes peft, etc.)
           pip install -r requirements.txt
           # Install the package in editable mode so `src.*` imports resolve
