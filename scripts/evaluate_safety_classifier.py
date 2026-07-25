@@ -189,8 +189,12 @@ def main() -> None:
         **metric_kwargs,
     )
     payload = {"manifest": manifest, "performance": performance, "fairness": fairness}
-    (output_dir / "metrics.json").write_text(json.dumps(payload, indent=2) + "\n")
-    (output_dir / "report.md").write_text(markdown_report(performance, fairness, manifest))
+    (output_dir / "metrics.json").write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+    )
+    (output_dir / "report.md").write_text(
+        markdown_report(performance, fairness, manifest), encoding="utf-8"
+    )
     np.savez_compressed(
         output_dir / "predictions.npz",
         calibration_ids=calibration["id"].to_numpy(),

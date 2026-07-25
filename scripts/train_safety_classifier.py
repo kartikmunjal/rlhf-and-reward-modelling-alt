@@ -184,7 +184,9 @@ def main() -> None:
         "device": str(trainer.args.device),
         "config": config,
     }
-    (output_dir / "run_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    (output_dir / "run_manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":
