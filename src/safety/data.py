@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
+from transformers import DataCollatorWithPadding
 
 from .taxonomy import JIGSAW_COLUMNS, map_jigsaw_labels
 
@@ -78,6 +79,30 @@ class EncodedTextDataset(Dataset):
         )
         encoded["labels"] = torch.as_tensor(self.labels[index], dtype=torch.float32)
         return encoded
+
+
+class MultiLabelDataCollator:
+    """Pad token fields and stack fixed-width float labels separately.
+
+    Passing multi-label tensors through ``tokenizer.pad`` is version-sensitive:
+    some Transformers releases interpret ``labels`` as token-level sequences.
+    Keeping labels out of tokenizer padding makes the N x K contract explicit.
+    """
+
+    def __init__(self, tokenizer: object):
+        self.token_collator = DataCollatorWithPadding(tokenizer)
+
+    def __call__(self, features: list[dict[str, torch.Tensor]]) -> dict[str, torch.Tensor]:
+        labels = torch.stack(
+            [torch.as_tensor(feature["labels"], dtype=torch.float32) for feature in features]
+        )
+        token_features = [
+            {name: value for name, value in feature.items() if name != "labels"}
+            for feature in features
+        ]
+        batch = self.token_collator(token_features)
+        batch["labels"] = labels
+        return batch
 
 
 def label_matrix(values: Iterable[np.ndarray]) -> np.ndarray:

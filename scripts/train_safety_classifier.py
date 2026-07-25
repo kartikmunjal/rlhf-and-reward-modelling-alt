@@ -18,7 +18,6 @@ from torch.nn import BCEWithLogitsLoss
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
-    DataCollatorWithPadding,
     Trainer,
     TrainingArguments,
 )
@@ -27,7 +26,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.safety.data import EncodedTextDataset, label_matrix, load_jigsaw_csv
+from src.safety.data import (
+    EncodedTextDataset,
+    MultiLabelDataCollator,
+    label_matrix,
+    load_jigsaw_csv,
+)
 from src.safety.taxonomy import TARGET_LABELS, TAXONOMY_VERSION
 
 
@@ -154,7 +158,7 @@ def main() -> None:
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=calibration_dataset,
-        data_collator=DataCollatorWithPadding(tokenizer),
+        data_collator=MultiLabelDataCollator(tokenizer),
         processing_class=tokenizer,
         positive_weights=positive_weights,
     )

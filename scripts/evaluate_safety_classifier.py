@@ -13,7 +13,7 @@ import torch
 import yaml
 from peft import AutoPeftModelForSequenceClassification
 from torch.utils.data import DataLoader
-from transformers import AutoTokenizer, DataCollatorWithPadding
+from transformers import AutoTokenizer
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -21,6 +21,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.safety.data import (
     EncodedTextDataset,
+    MultiLabelDataCollator,
     label_matrix,
     load_adjacent_benign,
     load_jigsaw_csv,
@@ -48,7 +49,7 @@ def predict(model, tokenizer, texts, max_length, batch_size, device) -> np.ndarr
         dataset,
         batch_size=batch_size,
         shuffle=False,
-        collate_fn=DataCollatorWithPadding(tokenizer),
+        collate_fn=MultiLabelDataCollator(tokenizer),
     )
     batches = []
     model.eval()

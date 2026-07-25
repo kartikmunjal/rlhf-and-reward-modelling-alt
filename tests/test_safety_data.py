@@ -2,8 +2,9 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+import torch
 
-from src.safety.data import load_adjacent_benign, load_jigsaw_csv
+from src.safety.data import MultiLabelDataCollator, load_adjacent_benign, load_jigsaw_csv
 
 
 def test_jigsaw_loader_validates_and_maps(tmp_path: Path):
@@ -46,3 +47,25 @@ def test_adjacent_loader_rejects_duplicate_ids(tmp_path: Path):
     ).to_csv(path, index=False)
     with pytest.raises(ValueError, match="unique"):
         load_adjacent_benign(path)
+
+
+def test_multilabel_collator_keeps_labels_out_of_tokenizer_padding():
+    class RecordingTokenCollator:
+        def __init__(self):
+            self.features = None
+
+        def __call__(self, features):
+            self.features = features
+            return {"input_ids": torch.tensor([[1, 2], [3, 0]])}
+
+    collator = MultiLabelDataCollator.__new__(MultiLabelDataCollator)
+    collator.token_collator = RecordingTokenCollator()
+    batch = collator(
+        [
+            {"input_ids": [1, 2], "labels": torch.tensor([1.0, 0.0, 1.0])},
+            {"input_ids": [3], "labels": torch.tensor([0.0, 1.0, 0.0])},
+        ]
+    )
+    assert all("labels" not in feature for feature in collator.token_collator.features)
+    assert batch["labels"].shape == (2, 3)
+    assert batch["labels"].dtype == torch.float32
