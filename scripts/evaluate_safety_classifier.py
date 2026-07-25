@@ -11,9 +11,9 @@ from pathlib import Path
 import numpy as np
 import torch
 import yaml
-from peft import AutoPeftModelForSequenceClassification
+from peft import PeftConfig, PeftModel
 from torch.utils.data import DataLoader
-from transformers import AutoTokenizer
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -39,6 +39,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default="results/safety_classifier_v1")
     parser.add_argument("--cpu", action="store_true")
     return parser.parse_args()
+
+
+def load_safety_model(model_dir: Path):
+    """Reconstruct the three-label base model before loading its LoRA adapter.
+
+    ``AutoPeftModelForSequenceClassification`` may instantiate the upstream
+    checkpoint with its default two-label head. The saved adapter contains a
+    trained three-label ``modules_to_save`` head, so that implicit default
+    creates a size mismatch at evaluation time.
+    """
+
+    peft_config = PeftConfig.from_pretrained(model_dir)
+    base = AutoModelForSequenceClassification.from_pretrained(
+        peft_config.base_model_name_or_path,
+        num_labels=len(TARGET_LABELS),
+        problem_type="multi_label_classification",
+        id2label=dict(enumerate(TARGET_LABELS)),
+        label2id={name: index for index, name in enumerate(TARGET_LABELS)},
+    )
+    return PeftModel.from_pretrained(base, model_dir)
 
 
 @torch.inference_mode()
@@ -132,7 +152,7 @@ def main() -> None:
     test = frame[frame["split"] == "test"]
     benign = load_adjacent_benign(args.adjacent_benign)
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
-    model = AutoPeftModelForSequenceClassification.from_pretrained(model_dir)
+    model = load_safety_model(model_dir)
     device = torch.device("cpu" if args.cpu or not torch.cuda.is_available() else "cuda")
     model.to(device)
     kwargs = {
