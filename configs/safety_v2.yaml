@@ -1,0 +1,47 @@
+experiment_family: safety_classifier_v2
+taxonomy_version: jigsaw-jd-v2-beavertails
+base_model: distilbert-base-uncased
+max_length: 256
+seeds: [2025, 2026, 2027]
+losses:
+  - name: unweighted_bce
+    kind: bce
+    positive_weighting: none
+  - name: raw_weighted_bce
+    kind: bce
+    positive_weighting: prevalence
+  - name: capped_weighted_bce
+    kind: bce
+    positive_weighting: prevalence
+    positive_weight_cap: 50.0
+  - name: focal
+    kind: focal
+    gamma: 2.0
+    alpha: 0.75
+train:
+  epochs: 3
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  train_batch_size: 16
+  eval_batch_size: 32
+  gradient_accumulation_steps: 2
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules: [q_lin, v_lin]
+  fp16: true
+evaluation:
+  bootstrap_replicates: 2000
+  calibration_bins: 15
+  threshold_grid_start: 0.05
+  threshold_grid_stop: 0.95
+  threshold_grid_step: 0.01
+  civil_label_cutoff: 0.5
+  identity_membership_cutoff: 0.5
+  toxigen_label_cutoff: 3.0
+selection:
+  primary_metric: model_selection_macro_f1
+  tie_breakers: [harmful_violent_f1, model_selection_fpr, model_selection_ece]
+  comparison_rule: paired_bootstrap_on_frozen_jigsaw_test
+  publish_all_trials: true

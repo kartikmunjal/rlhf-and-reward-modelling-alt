@@ -119,6 +119,42 @@ def classification_report(
                 "ci95": _bootstrap_ci(statistic, len(truth), n_bootstrap, seed + column * 10 + offset),
             }
         report["per_category"][name] = item
+    per_row_truth = y_true
+    per_row_prediction = predictions
+    macro_point = float(
+        np.mean(
+            [
+                precision_recall_fscore_support(
+                    per_row_truth[:, column],
+                    per_row_prediction[:, column],
+                    average="binary",
+                    zero_division=0,
+                )[2]
+                for column in range(per_row_truth.shape[1])
+            ]
+        )
+    )
+    report["macro_f1"] = {
+        "value": macro_point,
+        "ci95": _bootstrap_ci(
+            lambda indices: float(
+                np.mean(
+                    [
+                        precision_recall_fscore_support(
+                            per_row_truth[indices, column],
+                            per_row_prediction[indices, column],
+                            average="binary",
+                            zero_division=0,
+                        )[2]
+                        for column in range(per_row_truth.shape[1])
+                    ]
+                )
+            ),
+            len(y_true),
+            n_bootstrap,
+            seed + 100,
+        ),
+    }
     return report
 
 

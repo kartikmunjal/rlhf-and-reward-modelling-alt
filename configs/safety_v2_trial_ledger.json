@@ -1,0 +1,19 @@
+{
+  "family": "safety_classifier_v2",
+  "status": "preregistered_not_run",
+  "planned_n_trials": 12,
+  "trials": [
+    {"trial_index": 1, "trial_id": "unweighted_bce_seed2025", "loss": "unweighted_bce", "seed": 2025},
+    {"trial_index": 2, "trial_id": "unweighted_bce_seed2026", "loss": "unweighted_bce", "seed": 2026},
+    {"trial_index": 3, "trial_id": "unweighted_bce_seed2027", "loss": "unweighted_bce", "seed": 2027},
+    {"trial_index": 4, "trial_id": "raw_weighted_bce_seed2025", "loss": "raw_weighted_bce", "seed": 2025},
+    {"trial_index": 5, "trial_id": "raw_weighted_bce_seed2026", "loss": "raw_weighted_bce", "seed": 2026},
+    {"trial_index": 6, "trial_id": "raw_weighted_bce_seed2027", "loss": "raw_weighted_bce", "seed": 2027},
+    {"trial_index": 7, "trial_id": "capped_weighted_bce_seed2025", "loss": "capped_weighted_bce", "seed": 2025},
+    {"trial_index": 8, "trial_id": "capped_weighted_bce_seed2026", "loss": "capped_weighted_bce", "seed": 2026},
+    {"trial_index": 9, "trial_id": "capped_weighted_bce_seed2027", "loss": "capped_weighted_bce", "seed": 2027},
+    {"trial_index": 10, "trial_id": "focal_seed2025", "loss": "focal", "seed": 2025},
+    {"trial_index": 11, "trial_id": "focal_seed2026", "loss": "focal", "seed": 2026},
+    {"trial_index": 12, "trial_id": "focal_seed2027", "loss": "focal", "seed": 2027}
+  ]
+}
