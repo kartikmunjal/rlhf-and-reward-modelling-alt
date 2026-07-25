@@ -15,7 +15,7 @@ env/
 *.ipynb_checkpoints
 
 # Data & checkpoints (large files — download/train locally)
-/data/
+/data/raw/
 /checkpoints/
 results/
 *.parquet

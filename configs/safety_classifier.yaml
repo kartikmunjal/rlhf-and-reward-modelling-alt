@@ -1,0 +1,24 @@
+experiment_name: jigsaw_distilbert_lora_v1
+seed: 2025
+taxonomy_version: jigsaw-jd-v1
+model_name: distilbert-base-uncased
+max_length: 256
+train:
+  epochs: 3
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  train_batch_size: 16
+  eval_batch_size: 32
+  gradient_accumulation_steps: 2
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  target_modules: [q_lin, v_lin]
+  fp16: true
+evaluation:
+  bootstrap_replicates: 2000
+  threshold_grid_start: 0.05
+  threshold_grid_stop: 0.95
+  threshold_grid_step: 0.01
+  n_trials: 1
