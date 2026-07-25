@@ -85,6 +85,13 @@ def metric_cell(metric: dict) -> str:
     return f'{metric["value"]:.3f} [{low:.3f}, {high:.3f}]'
 
 
+def write_text_artifact(path: Path, content: str) -> None:
+    """Write portable UTF-8 text with LF newlines on every operating system."""
+
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(content)
+
+
 def markdown_report(performance: dict, fairness: dict, manifest: dict) -> str:
     lines = [
         "# Safety classifier evaluation",
@@ -191,11 +198,9 @@ def main() -> None:
         **metric_kwargs,
     )
     payload = {"manifest": manifest, "performance": performance, "fairness": fairness}
-    (output_dir / "metrics.json").write_text(
-        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-    )
-    (output_dir / "report.md").write_text(
-        markdown_report(performance, fairness, manifest), encoding="utf-8"
+    write_text_artifact(output_dir / "metrics.json", json.dumps(payload, indent=2) + "\n")
+    write_text_artifact(
+        output_dir / "report.md", markdown_report(performance, fairness, manifest)
     )
     np.savez_compressed(
         output_dir / "predictions.npz",

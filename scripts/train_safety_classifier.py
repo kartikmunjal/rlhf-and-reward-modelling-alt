@@ -70,6 +70,13 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def write_text_artifact(path: Path, content: str) -> None:
+    """Write portable UTF-8 text with LF newlines on every operating system."""
+
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(content)
+
+
 def subset(frame, limit: int | None, seed: int):
     if limit is None or limit >= len(frame):
         return frame
@@ -184,9 +191,7 @@ def main() -> None:
         "device": str(trainer.args.device),
         "config": config,
     }
-    (output_dir / "run_manifest.json").write_text(
-        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
-    )
+    write_text_artifact(output_dir / "run_manifest.json", json.dumps(manifest, indent=2) + "\n")
 
 
 if __name__ == "__main__":
