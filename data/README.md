@@ -37,6 +37,12 @@ V2 data are downloaded and normalized only by
 Hugging Face repository revisions and writes raw-file plus normalized-file
 hashes to `data/processed/safety_v2/data_manifest.json`.
 
+BeaverTails 330k repeats prompt-response pairs as annotation rows. Per
+preregistration amendment 1, the adapter aggregates each mapped target by
+strict majority and excludes a pair when any mapped target is tied. The
+manifest records the full aggregation audit; normalized BeaverTails rows are
+therefore unique pair-level examples rather than raw annotations.
+
 Required sources:
 
 - `PKU-Alignment/BeaverTails`, CC BY-NC 4.0. This non-commercial license means

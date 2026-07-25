@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Iterable, Mapping
+from typing import Iterable, Literal, Mapping, overload
 
 import numpy as np
 import pandas as pd
@@ -76,28 +76,113 @@ def map_beavertails_categories(categories: Mapping[str, object]) -> np.ndarray:
     )
 
 
-def normalize_beavertails(records: Iterable[Mapping[str, object]], source_split: str) -> pd.DataFrame:
-    rows = []
+@overload
+def normalize_beavertails(
+    records: Iterable[Mapping[str, object]],
+    source_split: str,
+    *,
+    return_audit: Literal[False] = False,
+) -> pd.DataFrame: ...
+
+
+@overload
+def normalize_beavertails(
+    records: Iterable[Mapping[str, object]],
+    source_split: str,
+    *,
+    return_audit: Literal[True],
+) -> tuple[pd.DataFrame, dict[str, object]]: ...
+
+
+def normalize_beavertails(
+    records: Iterable[Mapping[str, object]],
+    source_split: str,
+    *,
+    return_audit: bool = False,
+) -> pd.DataFrame | tuple[pd.DataFrame, dict[str, object]]:
+    """Aggregate repeated annotation rows into one strictly-majority-labeled pair.
+
+    BeaverTails 330k contains repeated prompt-response rows representing
+    annotations. A pair is excluded when any mapped target receives exactly
+    half positive votes; otherwise each target is assigned by strict majority.
+    """
+
+    annotations: dict[str, dict[str, object]] = {}
+    raw_rows = 0
     for record in records:
+        raw_rows += 1
         prompt = str(record.get("prompt", "")).strip()
         response = str(record.get("response", "")).strip()
         categories = record.get("category")
         if not prompt or not response or not isinstance(categories, Mapping):
             raise ValueError("BeaverTails requires non-empty prompt/response and category dict")
         identifier = content_id(prompt, response)
-        rows.append(
-            {
+        if identifier not in annotations:
+            annotations[identifier] = {
                 "id": identifier,
                 "text": f"[PROMPT] {prompt}\n[RESPONSE] {response}",
-                "labels": map_beavertails_categories(categories),
                 "source": "beavertails",
                 "source_split": source_split,
+                "votes": [],
             }
-        )
-    frame = pd.DataFrame(rows)
+        annotations[identifier]["votes"].append(map_beavertails_categories(categories))
+
+    annotation_counts = [len(annotation["votes"]) for annotation in annotations.values()]
+    rows = []
+    disagreement_pairs = np.zeros(3, dtype=np.int64)
+    tie_pairs = np.zeros(3, dtype=np.int64)
+    excluded_tie_pairs = 0
+    for annotation in annotations.values():
+        votes = np.stack(annotation.pop("votes"))
+        positive_votes = votes.sum(axis=0)
+        annotation_count = len(votes)
+        disagreement_pairs += ((positive_votes > 0) & (positive_votes < annotation_count))
+        ties = positive_votes * 2 == annotation_count
+        tie_pairs += ties
+        if ties.any():
+            excluded_tie_pairs += 1
+            continue
+        annotation["labels"] = (positive_votes * 2 > annotation_count).astype(np.float32)
+        annotation["annotation_count"] = annotation_count
+        rows.append(annotation)
+
+    frame = pd.DataFrame(
+        rows,
+        columns=[
+            "id",
+            "text",
+            "source",
+            "source_split",
+            "labels",
+            "annotation_count",
+        ],
+    )
     if frame["id"].duplicated().any():
-        raise ValueError("Duplicate BeaverTails prompt-response pairs")
-    return frame
+        raise AssertionError("BeaverTails aggregation did not produce unique pairs")
+    audit = {
+        "policy": "strict_majority_per_target_exclude_pair_on_any_target_tie",
+        "raw_annotation_rows": raw_rows,
+        "unique_prompt_response_pairs": len(annotations),
+        "retained_pairs": len(frame),
+        "excluded_tie_pairs": excluded_tie_pairs,
+        "pairs_with_target_disagreement": {
+            name: int(disagreement_pairs[index])
+            for index, name in enumerate(BEAVER_TARGET_MAP)
+        },
+        "pairs_with_target_tie": {
+            name: int(tie_pairs[index])
+            for index, name in enumerate(BEAVER_TARGET_MAP)
+        },
+        "annotation_count_distribution": {
+            str(count): int(frequency)
+            for count, frequency in sorted(
+                pd.Series(
+                    annotation_counts, dtype=np.int64
+                ).value_counts().items()
+            )
+        },
+    }
+    return (frame, audit) if return_audit else frame
 
 
 def normalize_toxigen(records: Iterable[Mapping[str, object]], source_split: str) -> pd.DataFrame:

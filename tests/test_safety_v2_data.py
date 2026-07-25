@@ -56,6 +56,56 @@ def test_beavertails_normalization_combines_prompt_and_response():
     )
     assert frame.iloc[0]["text"] == "[PROMPT] prompt\n[RESPONSE] response"
     assert frame.iloc[0]["source_split"] == "330k_train"
+    assert frame.iloc[0]["annotation_count"] == 1
+
+
+def test_beavertails_uses_strict_majority_and_reports_disagreement():
+    negative = {
+        "prompt": "same prompt",
+        "response": "same response",
+        "category": beaver_categories(),
+    }
+    positive = {
+        **negative,
+        "category": beaver_categories(
+            **{"violence,aiding_and_abetting,incitement": True}
+        ),
+    }
+    frame, audit = normalize_beavertails(
+        [positive, positive, negative],
+        "330k_train",
+        return_audit=True,
+    )
+    assert len(frame) == 1
+    assert frame.iloc[0]["labels"].tolist() == [0, 0, 1]
+    assert frame.iloc[0]["annotation_count"] == 3
+    assert audit["raw_annotation_rows"] == 3
+    assert audit["unique_prompt_response_pairs"] == 1
+    assert audit["pairs_with_target_disagreement"]["harmful_violent"] == 1
+
+
+def test_beavertails_excludes_entire_pair_on_any_target_tie():
+    base = {
+        "prompt": "same prompt",
+        "response": "same response",
+    }
+    frame, audit = normalize_beavertails(
+        [
+            {**base, "category": beaver_categories()},
+            {
+                **base,
+                "category": beaver_categories(
+                    **{"hate_speech,offensive_language": True}
+                ),
+            },
+        ],
+        "330k_train",
+        return_audit=True,
+    )
+    assert frame.empty
+    assert audit["retained_pairs"] == 0
+    assert audit["excluded_tie_pairs"] == 1
+    assert audit["pairs_with_target_tie"]["hate_harassment"] == 1
 
 
 def test_toxigen_human_cutoff_is_locked_at_three():

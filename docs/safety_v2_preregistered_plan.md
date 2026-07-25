@@ -34,6 +34,28 @@ Every downloaded dataset revision and normalized-file SHA-256 must appear in
 `data/processed/safety_v2/data_manifest.json`. Production scripts refuse
 unmanifested inputs.
 
+## Preregistration amendment 1 — BeaverTails annotation aggregation
+
+Date: **2026-07-25**. Status: **approved before data preparation completed and
+before any v2 model training or held-out evaluation**.
+
+The first preparation attempt established that BeaverTails `330k_train` and
+`330k_test` contain repeated prompt-response rows representing annotations.
+The original preregistration did not specify how to aggregate these rows.
+Inspection of the source archives found 300,567 raw train rows representing
+99,734 unique pairs and 33,396 raw test rows representing 11,088 unique pairs.
+There is no pair overlap between those splits.
+
+The locked amendment groups exact stripped prompt-response pairs, maps every
+annotation to the three operational targets, and assigns each target by strict
+majority vote. A pair tied on any mapped target is excluded in full rather than
+assigned optimistically. The audit found 19 such train pairs and no test
+pairs. The manifest records raw-row counts, unique and retained pairs,
+per-target disagreement and tie counts, exclusions, annotation-count
+distributions, and the policy identifier. This amendment changes only
+preprocessing; the 12-trial ledger, data roles, metrics, and selection rule
+remain unchanged.
+
 ## Locked mapping
 
 BeaverTails labels apply to the combined string

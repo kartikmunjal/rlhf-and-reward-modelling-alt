@@ -85,21 +85,23 @@ def main() -> None:
     output = Path(args.output_dir)
     revisions = revision_map(args.revision_lock)
 
-    beaver_train = normalize_beavertails(
+    beaver_train, beaver_train_audit = normalize_beavertails(
         load_dataset(
             DATASETS["beavertails"],
             split="330k_train",
             revision=revisions["beavertails"],
         ),
         "330k_train",
+        return_audit=True,
     )
-    beaver_test = normalize_beavertails(
+    beaver_test, beaver_test_audit = normalize_beavertails(
         load_dataset(
             DATASETS["beavertails"],
             split="330k_test",
             revision=revisions["beavertails"],
         ),
         "330k_test",
+        return_audit=True,
     )
     toxigen_train = normalize_toxigen(
         load_dataset(
@@ -138,8 +140,13 @@ def main() -> None:
         "civil_comments": save_frame(civil, output / "civil_comments.parquet"),
     }
     manifest = {
-        "manifest_version": 1,
+        "manifest_version": 2,
         "preregistration": "docs/safety_v2_preregistered_plan.md",
+        "preregistration_amendment": {
+            "date": "2026-07-25",
+            "reason": "Repeated BeaverTails annotation rows discovered before any v2 model run",
+            "policy": "strict_majority_per_target_exclude_pair_on_any_target_tie",
+        },
         "sources": {
             name: {"repository": DATASETS[name], "revision": revisions[name]}
             for name in DATASETS
@@ -147,6 +154,10 @@ def main() -> None:
         "civil_comments_source": {
             "path": str(civil_path),
             "sha256": file_sha256(civil_path),
+        },
+        "beavertails_annotation_aggregation": {
+            "330k_train": beaver_train_audit,
+            "330k_test": beaver_test_audit,
         },
         "normalized_files": normalized_files,
     }
