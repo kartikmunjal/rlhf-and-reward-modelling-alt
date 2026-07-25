@@ -1,0 +1,203 @@
+{
+  "manifest": {
+    "experiment_name": "jigsaw_distilbert_lora_v1",
+    "taxonomy_version": "jigsaw-jd-v1",
+    "seed": 2025,
+    "source": "data\\raw\\jigsaw\\train.csv",
+    "source_sha256": "bd4084611bd27c939ba98e5e63bc3e5a2c1a4e99477dcba46c829e4c986c429d",
+    "split_counts_full": {
+      "calibration": 16111,
+      "test": 15878,
+      "train": 127582
+    },
+    "n_train_used": 127582,
+    "n_calibration_used": 16111,
+    "positive_counts_train": {
+      "hate_harassment": 12719,
+      "sexualized": 6810,
+      "harmful_violent": 375
+    },
+    "positive_weights": {
+      "hate_harassment": 9.0308198928833,
+      "sexualized": 17.734508514404297,
+      "harmful_violent": 339.2186584472656
+    },
+    "max_train_examples": null,
+    "max_eval_examples": null,
+    "full_run": true,
+    "device": "cuda:0",
+    "config": {
+      "experiment_name": "jigsaw_distilbert_lora_v1",
+      "seed": 2025,
+      "taxonomy_version": "jigsaw-jd-v1",
+      "model_name": "distilbert-base-uncased",
+      "max_length": 256,
+      "train": {
+        "epochs": 3,
+        "learning_rate": 0.0002,
+        "weight_decay": 0.01,
+        "warmup_ratio": 0.06,
+        "train_batch_size": 16,
+        "eval_batch_size": 32,
+        "gradient_accumulation_steps": 2,
+        "lora_r": 8,
+        "lora_alpha": 16,
+        "lora_dropout": 0.05,
+        "target_modules": [
+          "q_lin",
+          "v_lin"
+        ],
+        "fp16": true
+      },
+      "evaluation": {
+        "bootstrap_replicates": 2000,
+        "threshold_grid_start": 0.05,
+        "threshold_grid_stop": 0.95,
+        "threshold_grid_step": 0.01,
+        "n_trials": 1
+      }
+    }
+  },
+  "performance": {
+    "n_examples": 15878,
+    "n_trials": 1,
+    "n_bootstrap": 2000,
+    "thresholds": {
+      "hate_harassment": 0.9200000000000003,
+      "sexualized": 0.8800000000000002,
+      "harmful_violent": 0.9400000000000002
+    },
+    "per_category": {
+      "hate_harassment": {
+        "support": 1583,
+        "precision": {
+          "value": 0.8500327439423707,
+          "ci95": [
+            0.8328994300455225,
+            0.8678643062013314
+          ]
+        },
+        "recall": {
+          "value": 0.8199620972836387,
+          "ci95": [
+            0.8008871176031682,
+            0.8380620432459066
+          ]
+        },
+        "f1": {
+          "value": 0.8347266881028939,
+          "ci95": [
+            0.8202534764715667,
+            0.8478601110055606
+          ]
+        }
+      },
+      "sexualized": {
+        "support": 810,
+        "precision": {
+          "value": 0.7914798206278026,
+          "ci95": [
+            0.7653746502477763,
+            0.8170317805338903
+          ]
+        },
+        "recall": {
+          "value": 0.8716049382716049,
+          "ci95": [
+            0.8472863192463919,
+            0.894035715688971
+          ]
+        },
+        "f1": {
+          "value": 0.8296122209165687,
+          "ci95": [
+            0.809001750673932,
+            0.8482040714959056
+          ]
+        }
+      },
+      "harmful_violent": {
+        "support": 53,
+        "precision": {
+          "value": 0.5272727272727272,
+          "ci95": [
+            0.39655172413793105,
+            0.6530808477237047
+          ]
+        },
+        "recall": {
+          "value": 0.5471698113207547,
+          "ci95": [
+            0.41303485162180814,
+            0.6818362193362192
+          ]
+        },
+        "f1": {
+          "value": 0.5370370370370371,
+          "ci95": [
+            0.4158059049148158,
+            0.6486575979953463
+          ]
+        }
+      }
+    }
+  },
+  "fairness": {
+    "n_trials": 1,
+    "interval_method": "Wilson score for FPR; Newcombe score for independent FPR gap",
+    "overall_test_fpr": {
+      "value": 0.014730639730639731,
+      "ci95": [
+        0.012879720355155732,
+        0.016843012540904555
+      ],
+      "n_examples": 14256,
+      "n_flagged": 210
+    },
+    "adjacent_benign_fpr": {
+      "value": 0.0,
+      "ci95": [
+        0.0,
+        0.06017185214208986
+      ],
+      "n_examples": 60,
+      "n_flagged": 0
+    },
+    "adjacent_benign_fpr_gap": {
+      "value": -0.014730639730639731,
+      "ci95": [
+        -0.016843012540904555,
+        0.04546967333120461
+      ]
+    },
+    "adjacent_benign_by_slice": {
+      "clinical_medical": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.16112515805281938
+        ],
+        "n_examples": 20,
+        "n_flagged": 0
+      },
+      "news_reporting_violence": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.16112515805281938
+        ],
+        "n_examples": 20,
+        "n_flagged": 0
+      },
+      "reclaimed_language": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.16112515805281938
+        ],
+        "n_examples": 20,
+        "n_flagged": 0
+      }
+    }
+  }
+}

@@ -17,7 +17,12 @@ env/
 # Data & checkpoints (large files — download/train locally)
 /data/raw/
 /checkpoints/
-results/
+results/*
+!results/safety_classifier_v1/
+results/safety_classifier_v1/*
+!results/safety_classifier_v1/metrics.json
+!results/safety_classifier_v1/report.md
+/logs/
 *.parquet
 *.joblib
 *.pkl
