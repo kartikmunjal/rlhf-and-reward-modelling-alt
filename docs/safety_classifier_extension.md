@@ -26,8 +26,12 @@ system.
   `[0.05, 0.95]` in 0.01 increments. Ties choose the higher threshold.
 - Final metrics: per-category precision, recall, and F1; any-label FPR on
   all-negative Jigsaw test rows; adjacent-benign any-label FPR; and their gap.
-- Uncertainty: 2,000 deterministic row-bootstrap replicates, reported as
-  percentile 95% CIs. `N_trials=1`; there is no hidden hyperparameter sweep.
+- Uncertainty: 2,000 deterministic row-bootstrap replicates for category
+  precision/recall/F1, Wilson score intervals for FPRs, and a Newcombe score
+  interval for the independent FPR difference, all at 95%. Score intervals
+  avoid the false certainty of a zero-width bootstrap interval when a small
+  stress set has no observed flags. `N_trials=1`; there is no hidden
+  hyperparameter sweep.
 
 The test split is evaluated once after the method and adjacent-benign v1 set are
 frozen. Any subsequent method change increments `N_trials` and must retain prior

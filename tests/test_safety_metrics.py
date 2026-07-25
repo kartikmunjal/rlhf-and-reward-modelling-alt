@@ -1,6 +1,12 @@
 import numpy as np
 
-from src.safety.metrics import classification_report, fairness_report, select_thresholds
+from src.safety.metrics import (
+    _newcombe_difference_interval,
+    _wilson_interval,
+    classification_report,
+    fairness_report,
+    select_thresholds,
+)
 
 
 def test_threshold_selection_uses_grid_and_resolves_ties_upward():
@@ -42,3 +48,15 @@ def test_fairness_gap_is_adjacent_minus_base():
     assert report["overall_test_fpr"]["value"] == 0.25
     assert report["adjacent_benign_fpr"]["value"] == 0.5
     assert report["adjacent_benign_fpr_gap"]["value"] == 0.25
+
+
+def test_zero_event_wilson_interval_preserves_uncertainty():
+    low, high = _wilson_interval(0, 60)
+    assert low == 0.0
+    assert 0.05 < high < 0.07
+
+
+def test_newcombe_gap_can_include_harm_despite_zero_observed_adjacent_flags():
+    low, high = _newcombe_difference_interval(0, 60, 210, 14256)
+    assert low < 0
+    assert high > 0

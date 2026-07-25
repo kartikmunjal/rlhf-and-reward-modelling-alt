@@ -48,6 +48,40 @@ def _bootstrap_ci(
     return [float(x) for x in np.quantile(estimates, [0.025, 0.975])]
 
 
+def _wilson_interval(successes: int, total: int, z: float = 1.959963984540054) -> list[float]:
+    """Wilson score interval for a binomial proportion."""
+
+    if total <= 0:
+        raise ValueError("Wilson interval requires a positive total")
+    proportion = successes / total
+    denominator = 1 + z**2 / total
+    center = (proportion + z**2 / (2 * total)) / denominator
+    radius = (
+        z
+        * np.sqrt(proportion * (1 - proportion) / total + z**2 / (4 * total**2))
+        / denominator
+    )
+    return [float(max(0.0, center - radius)), float(min(1.0, center + radius))]
+
+
+def _newcombe_difference_interval(
+    first_successes: int,
+    first_total: int,
+    second_successes: int,
+    second_total: int,
+) -> list[float]:
+    """Newcombe score interval for two independent proportions, first-second."""
+
+    first = first_successes / first_total
+    second = second_successes / second_total
+    first_low, first_high = _wilson_interval(first_successes, first_total)
+    second_low, second_high = _wilson_interval(second_successes, second_total)
+    difference = first - second
+    lower = difference - np.sqrt((first - first_low) ** 2 + (second_high - second) ** 2)
+    upper = difference + np.sqrt((first_high - first) ** 2 + (second - second_low) ** 2)
+    return [float(max(-1.0, lower)), float(min(1.0, upper))]
+
+
 def classification_report(
     y_true: np.ndarray,
     probabilities: np.ndarray,
@@ -109,32 +143,37 @@ def fairness_report(
     if len(benign_flags) == 0:
         raise ValueError("FPR requires at least one adjacent-benign example")
 
-    def summarize(flags: np.ndarray, offset: int) -> dict:
-        value = float(flags.mean()) if len(flags) else float("nan")
-        ci = _bootstrap_ci(lambda idx: float(flags[idx].mean()), len(flags), n_bootstrap, seed + offset)
-        return {"value": value, "ci95": ci, "n_examples": int(len(flags))}
+    def summarize(flags: np.ndarray) -> dict:
+        successes = int(flags.sum())
+        total = int(len(flags))
+        return {
+            "value": float(successes / total),
+            "ci95": _wilson_interval(successes, total),
+            "n_examples": total,
+            "n_flagged": successes,
+        }
 
-    base = summarize(base_flags, 0)
-    adjacent = summarize(benign_flags, 1)
+    base = summarize(base_flags)
+    adjacent = summarize(benign_flags)
     gap_value = adjacent["value"] - base["value"]
-    rng = np.random.default_rng(seed + 2)
-    gaps = []
-    for _ in range(n_bootstrap):
-        a = benign_flags[rng.integers(0, len(benign_flags), len(benign_flags))].mean()
-        b = base_flags[rng.integers(0, len(base_flags), len(base_flags))].mean()
-        gaps.append(a - b)
+    gap_interval = _newcombe_difference_interval(
+        adjacent["n_flagged"],
+        adjacent["n_examples"],
+        base["n_flagged"],
+        base["n_examples"],
+    )
 
     per_slice = {}
-    for offset, slice_name in enumerate(sorted(set(benign_slices)), start=10):
-        per_slice[str(slice_name)] = summarize(benign_flags[benign_slices == slice_name], offset)
+    for slice_name in sorted(set(benign_slices)):
+        per_slice[str(slice_name)] = summarize(benign_flags[benign_slices == slice_name])
     return {
         "n_trials": int(n_trials),
-        "n_bootstrap": int(n_bootstrap),
+        "interval_method": "Wilson score for FPR; Newcombe score for independent FPR gap",
         "overall_test_fpr": base,
         "adjacent_benign_fpr": adjacent,
         "adjacent_benign_fpr_gap": {
             "value": float(gap_value),
-            "ci95": [float(x) for x in np.quantile(gaps, [0.025, 0.975])],
+            "ci95": gap_interval,
         },
         "adjacent_benign_by_slice": per_slice,
     }
