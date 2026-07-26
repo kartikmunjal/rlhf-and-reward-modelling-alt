@@ -1,0 +1,56 @@
+{
+  "family": "safety_classifier_v2",
+  "n_trials_planned": 12,
+  "started_at_utc": "2026-07-26T00:17:27.977772+00:00",
+  "phase": "evaluation",
+  "trials": [
+    {
+      "trial_id": "unweighted_bce_seed2025",
+      "status": "complete"
+    },
+    {
+      "trial_id": "unweighted_bce_seed2026",
+      "status": "complete"
+    },
+    {
+      "trial_id": "unweighted_bce_seed2027",
+      "status": "complete"
+    },
+    {
+      "trial_id": "raw_weighted_bce_seed2025",
+      "status": "complete"
+    },
+    {
+      "trial_id": "raw_weighted_bce_seed2026",
+      "status": "complete"
+    },
+    {
+      "trial_id": "raw_weighted_bce_seed2027",
+      "status": "evaluating"
+    },
+    {
+      "trial_id": "capped_weighted_bce_seed2025",
+      "status": "trained"
+    },
+    {
+      "trial_id": "capped_weighted_bce_seed2026",
+      "status": "trained"
+    },
+    {
+      "trial_id": "capped_weighted_bce_seed2027",
+      "status": "trained"
+    },
+    {
+      "trial_id": "focal_seed2025",
+      "status": "trained"
+    },
+    {
+      "trial_id": "focal_seed2026",
+      "status": "trained"
+    },
+    {
+      "trial_id": "focal_seed2027",
+      "status": "trained"
+    }
+  ]
+}
