@@ -150,6 +150,8 @@ depends on what you're evaluating:
 | **Audio / speech alignment** — TTS quality, acoustic reward models | [Extension 11: TTS RLHF](#extension-11-tts-rlhf--preference-optimization-for-speech-synthesis) → [`src/training/tts_reward.py`](src/training/tts_reward.py) → [`notebooks/17_tts_rlhf.ipynb`](notebooks/17_tts_rlhf.ipynb) |
 | **Reward signal design methodology** — how to build + validate a training signal | [Reward Signal Design](#reward-signal-design-methodology) → [Failure Mode Taxonomy](#reward-signal-failure-mode-taxonomy) |
 | **Training infrastructure / scalability** — FSDP, ZeRO, memory arithmetic | [Extension 12: FSDP](#extension-12-distributed-training--fsdp-scaling-analysis-and-the-7b-engineering-constraint) → [`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py) |
+| **Statistical scaling laws** — loss-vs-data/compute power laws | [Scaling-Law Addendum](#scaling-law-addendum-loss-vs-datacompute) → [`src/analysis/scaling_laws.py`](src/analysis/scaling_laws.py) |
+| **Codec latent space analysis** — speaker/content/style/environment separability | [EnCodec Latent Addendum](#encodec-latent-space-addendum) → [`src/analysis/encodec_latents.py`](src/analysis/encodec_latents.py) |
 | **Agent evaluation + benchmarks** | [Agent Systems](#agent-systems--benchmarks) → [`eval/`](eval/) |
 | **Core RLHF pipeline (PPO / DPO / GRPO)** | [The Pipeline](#the-pipeline) → [`notebooks/04_ppo_training.ipynb`](notebooks/04_ppo_training.ipynb) |
 
@@ -185,6 +187,39 @@ algorithms, this is the section to inspect:
 [`src/analysis/scaling_analysis.py`](src/analysis/scaling_analysis.py),
 [`scripts/analyze_scaling.py`](scripts/analyze_scaling.py), and
 [`notebooks/18_distributed_fsdp.ipynb`](notebooks/18_distributed_fsdp.ipynb).
+
+### Scaling-Law Addendum: Loss vs Data/Compute
+
+The repo now includes a lightweight scaling-law analysis layer for measured
+training curves from SFT, reward-model training, DPO, and iterative DPO.
+It fits the standard form:
+
+```text
+loss(x) = irreducible_loss + coefficient * x^-alpha
+```
+
+where `x` can be pair count, example count, optimizer steps, or another compute
+proxy. This is not a claim that the small GPT-2 experiments establish frontier
+scaling laws; it is a diagnostic showing whether the observed curves have the
+expected log-log power-law shape and where marginal returns flatten.
+
+The analyzer does not ship hand-entered result curves. Research claims require
+a CSV generated from experiment logs. An explicitly synthetic fixture exists
+only to smoke-test the fitting code and is labeled as non-evidence.
+
+Key files:
+- [`src/analysis/scaling_laws.py`](src/analysis/scaling_laws.py) — power-law fit,
+  expected RLHF curve points, fit table formatting.
+- [`scripts/analyze_scaling_laws.py`](scripts/analyze_scaling_laws.py) — CLI for
+  a measured CSV with `label,scale,loss,family`, plus an explicit synthetic
+  smoke-test mode.
+
+Run it:
+
+```bash
+python scripts/analyze_scaling_laws.py --csv results/my_training_curves.csv
+python scripts/analyze_scaling_laws.py --example  # synthetic smoke test only
+```
 
 ---
 
@@ -1126,6 +1161,39 @@ python scripts/train_tts_reward.py --show_expected
 python scripts/train_tts_dpo.py --show_expected
 ```
 
+#### EnCodec Latent Space Addendum
+
+Extension 11 uses EnCodec/DAC-style codec tokens as the sequence modeling
+interface for TTS DPO. The new latent-space diagnostic asks a different
+question: before preference optimization, what factors are already separated or
+entangled in the codec representation?
+
+The analysis is framed around four labels:
+
+| Factor | Question |
+|---|---|
+| Speaker | Do voice identity clusters separate in latent space? |
+| Content | Does lexical/phonetic content dominate the first PCA axes? |
+| Style | Do flat, expressive, narrative, and conversational prompts separate? |
+| Environment | Are clean/TTS/noisy conditions entangled with speaker or content? |
+
+Key files:
+- [`src/analysis/encodec_latents.py`](src/analysis/encodec_latents.py) — PCA and
+  between-class separability metrics for codec-style latents.
+- [`scripts/analyze_encodec_latents.py`](scripts/analyze_encodec_latents.py) —
+  CLI for a manifest with `path,speaker,content,style,environment`.
+
+The default implementation includes a deterministic WAV feature extractor so
+the analysis can run offline without downloading EnCodec weights. For a full
+codec-latent run, replace the proxy extractor with EnCodec frame embeddings and
+reuse the same PCA/separability functions.
+
+```bash
+python scripts/analyze_encodec_latents.py \
+    --manifest data/tts_latent_manifest.csv \
+    --output results/encodec_latent_analysis.json
+```
+
 ---
 
 ### Extension 12: Distributed Training — FSDP, Scaling Analysis, and the 7B+ Engineering Constraint
@@ -1805,6 +1873,8 @@ python scripts/run_multiturn_rm_ablation.py --num_pairs 200  # faster
 │   │   └── audio_reward_model.py    # [Ext 11] AudioFeatureRewardModel, Wav2Vec2RewardModel
 │   ├── analysis/
 │   │   ├── scaling_analysis.py  # [Ext 12] ModelSpec, MemoryBreakdown, compute_memory_breakdown, BENCHMARK_MODELS
+│   │   ├── scaling_laws.py      # [Scaling laws] loss-vs-data/compute power-law fits
+│   │   ├── encodec_latents.py   # [Codec latents] PCA + factor separability diagnostics
 │   │   └── reward_hacking_detector.py  # [Ext 2+] RewardHackingDetector, length z-score + KL divergence signals
 │   ├── data/ (additions)
 │   │   ├── rubric_preferences.py    # [Ext 15] RUBRIC (5 criteria), grade_response(), RubricScoredDataset
@@ -1846,6 +1916,8 @@ python scripts/run_multiturn_rm_ablation.py --num_pairs 200  # faster
 │   ├── train_sft_fsdp.py            # [Ext 12] FSDP SFT CLI (--show_expected, --sharding, --grad_ckpt)
 │   ├── train_dpo_fsdp.py            # [Ext 12] FSDP DPO CLI (--ref_cpu_offload for Strategy C)
 │   ├── analyze_scaling.py           # [Ext 12] Full scaling table + deep-dive + LoRA analysis
+│   ├── analyze_scaling_laws.py      # [Scaling laws] Fit alpha for loss-vs-scale curves
+│   ├── analyze_encodec_latents.py   # [Codec latents] PCA/separability over audio manifests
 │   ├── run_multi_agent_benchmark.py # [Ext 13] Multi-Agent vs Plan-and-Execute comparison CLI
 │   ├── run_context_ablation.py      # [Ext 13+] Context-window ablation (flat vs scratchpad, 2–8 hops)
 │   ├── run_code_benchmark.py        # [Ext 14] Code execution agent CLI (--tier, --show_expected, --verbose)
