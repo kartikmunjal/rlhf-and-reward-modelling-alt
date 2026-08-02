@@ -73,3 +73,11 @@ agents fail at the same population rate. A lower ledger-condition rate supports
 the mechanism that visible intent/provenance reduces interference. It does not
 establish that communication always helps, nor that Claude-specific rates
 generalize to other models or orchestration architectures.
+
+## Post-run interval sensitivity note
+
+After the locked run, several observed rates were exactly zero or one, causing
+the preregistered ordinary bootstrap interval to collapse at the boundary.
+Those bootstrap intervals remain the primary registered analysis. Wilson score
+intervals are added alongside them as an explicitly post-run sensitivity
+analysis; they are not substituted retroactively into the selection rule.

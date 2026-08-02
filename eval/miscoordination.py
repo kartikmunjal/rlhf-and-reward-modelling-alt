@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import time
 from dataclasses import asdict, dataclass, field
 from typing import Any
@@ -19,6 +20,15 @@ FAILURE_TYPES = (
     "direct_contradiction",
     "silent_undo",
     "communication_breakdown",
+)
+RATE_OUTCOMES = ("global_success", "any_miscoordination", *FAILURE_TYPES)
+OVERHEAD_OUTCOMES = (
+    "api_calls",
+    "input_tokens",
+    "output_tokens",
+    "cost_usd",
+    "actions",
+    "messages",
 )
 
 WORKER_SYSTEM = """You are one worker in a two-agent shared deployment task.
@@ -283,37 +293,69 @@ def classify_failures(environment: SharedDeploymentEnvironment) -> dict[str, boo
     return flags
 
 
+def wilson_interval(successes: int, total: int, z: float = 1.959963984540054) -> list[float]:
+    if total <= 0:
+        raise ValueError("Wilson interval requires a positive sample size")
+    proportion = successes / total
+    denominator = 1 + z**2 / total
+    center = (proportion + z**2 / (2 * total)) / denominator
+    half_width = (
+        z
+        * math.sqrt(proportion * (1 - proportion) / total + z**2 / (4 * total**2))
+        / denominator
+    )
+    lower = 0.0 if successes == 0 else max(0.0, center - half_width)
+    upper = 1.0 if successes == total else min(1.0, center + half_width)
+    return [lower, upper]
+
+
+def episode_value(row: dict[str, Any], name: str) -> float:
+    if name in RATE_OUTCOMES:
+        return float(row[name])
+    if name == "api_calls":
+        return float(row["api_usage"]["calls"])
+    if name in {"input_tokens", "output_tokens", "cost_usd"}:
+        return float(row["api_usage"][name])
+    if name == "actions":
+        return float(len(row["events"]))
+    if name == "messages":
+        return float(len(row["messages"]))
+    raise KeyError(name)
+
+
 def bootstrap_study(
     episodes: list[dict[str, Any]], n_bootstrap: int = 2000, seed: int = 20260802
 ) -> dict[str, Any]:
-    outcomes = ("global_success", "any_miscoordination", *FAILURE_TYPES)
+    outcomes = (*RATE_OUTCOMES, *OVERHEAD_OUTCOMES)
     rng = np.random.default_rng(seed)
     by_condition: dict[str, Any] = {}
     for condition in ("isolated", "shared_ledger"):
         rows = [row for row in episodes if row["condition"] == condition]
-        values = np.asarray([[float(row[name]) for name in outcomes] for row in rows])
+        values = np.asarray([[episode_value(row, name) for name in outcomes] for row in rows])
         draws = np.empty((n_bootstrap, len(outcomes)))
         for index in range(n_bootstrap):
             sample = rng.integers(0, len(rows), len(rows))
             draws[index] = values[sample].mean(axis=0)
-        by_condition[condition] = {
-            "n_episodes": len(rows),
-            **{
+        cells = {
                 name: {
                     "value": float(values[:, column].mean()),
                     "ci95": [float(x) for x in np.quantile(draws[:, column], [0.025, 0.975])],
                 }
                 for column, name in enumerate(outcomes)
-            },
         }
+        for name in RATE_OUTCOMES:
+            count = sum(bool(row[name]) for row in rows)
+            cells[name]["count"] = count
+            cells[name]["wilson_ci95"] = wilson_interval(count, len(rows))
+        by_condition[condition] = {"n_episodes": len(rows), **cells}
 
     pairs = sorted({row["pair_id"] for row in episodes})
     lookup = {(row["pair_id"], row["condition"]): row for row in episodes}
     differences = np.asarray(
         [
             [
-                float(lookup[(pair, "shared_ledger")][name])
-                - float(lookup[(pair, "isolated")][name])
+                episode_value(lookup[(pair, "shared_ledger")], name)
+                - episode_value(lookup[(pair, "isolated")], name)
                 for name in outcomes
             ]
             for pair in pairs

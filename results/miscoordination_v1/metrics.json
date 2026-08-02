@@ -1,0 +1,346 @@
+{
+  "manifest": {
+    "study": "multi_agent_miscoordination_v1",
+    "preregistration": "docs/miscoordination_v1_preregistered_plan.md",
+    "config_sha256": "7a8878980d81a296926b8d244aae7c92b1c3b7c122dcae3ff849e6cba442df98",
+    "episodes_sha256": "e883e1402a95de9d96a62877c1e6f9ca00227d89a3c990f34a772ac2ef238608",
+    "model": "claude-haiku-4-5-20251001",
+    "temperature": 1.0,
+    "worker_system_sha256": "6500c5721005e20b733641f821c3f486708992a3e39ce0e2edad5cd09ad0dfca",
+    "role_prompts_sha256": "827b975b101a231dc0456cf546c58e7a74e695e7193937e4d23c484bc2016c94",
+    "n_episodes": 100,
+    "n_api_calls": 400,
+    "input_tokens": 131843,
+    "output_tokens": 38897,
+    "cost_usd": 0.32632799999999995,
+    "api_errors": 0,
+    "analysis_note": "Preregistered bootstrap intervals are primary; Wilson intervals are a boundary-sensitivity analysis added after observing degenerate 0/1 bootstrap bounds."
+  },
+  "analysis": {
+    "n_bootstrap": 2000,
+    "by_condition": {
+      "isolated": {
+        "n_episodes": 50,
+        "global_success": {
+          "value": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "count": 50,
+          "wilson_ci95": [
+            0.9286524008666414,
+            1.0
+          ]
+        },
+        "any_miscoordination": {
+          "value": 0.14,
+          "ci95": [
+            0.04,
+            0.24
+          ],
+          "count": 7,
+          "wilson_ci95": [
+            0.06950833427016294,
+            0.2618619371058554
+          ]
+        },
+        "redundant_work": {
+          "value": 0.14,
+          "ci95": [
+            0.04,
+            0.24
+          ],
+          "count": 7,
+          "wilson_ci95": [
+            0.06950833427016294,
+            0.2618619371058554
+          ]
+        },
+        "direct_contradiction": {
+          "value": 0.02,
+          "ci95": [
+            0.0,
+            0.06
+          ],
+          "count": 1,
+          "wilson_ci95": [
+            0.003539259271646236,
+            0.10495443589637815
+          ]
+        },
+        "silent_undo": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "communication_breakdown": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "api_calls": {
+          "value": 4.0,
+          "ci95": [
+            4.0,
+            4.0
+          ]
+        },
+        "input_tokens": {
+          "value": 1020.74,
+          "ci95": [
+            1020.6,
+            1020.86
+          ]
+        },
+        "output_tokens": {
+          "value": 415.58,
+          "ci95": [
+            393.45849999999996,
+            437.76649999999995
+          ]
+        },
+        "cost_usd": {
+          "value": 0.00309864,
+          "ci95": [
+            0.0029880349999999996,
+            0.003209628000000001
+          ]
+        },
+        "actions": {
+          "value": 3.92,
+          "ci95": [
+            3.72,
+            4.1
+          ]
+        },
+        "messages": {
+          "value": 4.0,
+          "ci95": [
+            4.0,
+            4.0
+          ]
+        }
+      },
+      "shared_ledger": {
+        "n_episodes": 50,
+        "global_success": {
+          "value": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "count": 50,
+          "wilson_ci95": [
+            0.9286524008666414,
+            1.0
+          ]
+        },
+        "any_miscoordination": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "redundant_work": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "direct_contradiction": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "silent_undo": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "communication_breakdown": {
+          "value": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "count": 0,
+          "wilson_ci95": [
+            0.0,
+            0.07134759913335872
+          ]
+        },
+        "api_calls": {
+          "value": 4.0,
+          "ci95": [
+            4.0,
+            4.0
+          ]
+        },
+        "input_tokens": {
+          "value": 1616.12,
+          "ci95": [
+            1603.3394999999998,
+            1629.441
+          ]
+        },
+        "output_tokens": {
+          "value": 362.36,
+          "ci95": [
+            345.23900000000003,
+            380.4
+          ]
+        },
+        "cost_usd": {
+          "value": 0.0034279199999999997,
+          "ci95": [
+            0.0033394960000000004,
+            0.0035204020000000006
+          ]
+        },
+        "actions": {
+          "value": 3.04,
+          "ci95": [
+            3.0,
+            3.1
+          ]
+        },
+        "messages": {
+          "value": 4.0,
+          "ci95": [
+            4.0,
+            4.0
+          ]
+        }
+      }
+    },
+    "paired": {
+      "contrast": "shared_ledger_minus_isolated",
+      "n_matched_pairs": 50,
+      "global_success": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "any_miscoordination": {
+        "value": -0.14,
+        "ci95": [
+          -0.24,
+          -0.04
+        ]
+      },
+      "redundant_work": {
+        "value": -0.14,
+        "ci95": [
+          -0.24,
+          -0.04
+        ]
+      },
+      "direct_contradiction": {
+        "value": -0.02,
+        "ci95": [
+          -0.06,
+          0.0
+        ]
+      },
+      "silent_undo": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "communication_breakdown": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "api_calls": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "input_tokens": {
+        "value": 595.38,
+        "ci95": [
+          582.18,
+          608.1804999999999
+        ]
+      },
+      "output_tokens": {
+        "value": -53.22,
+        "ci95": [
+          -79.88749999999999,
+          -26.0395
+        ]
+      },
+      "cost_usd": {
+        "value": 0.00032927999999999983,
+        "ci95": [
+          0.00019484099999999982,
+          0.0004698079999999998
+        ]
+      },
+      "actions": {
+        "value": -0.88,
+        "ci95": [
+          -1.08,
+          -0.68
+        ]
+      },
+      "messages": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}

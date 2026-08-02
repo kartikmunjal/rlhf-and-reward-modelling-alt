@@ -20,7 +20,9 @@ OUTCOMES = (
 def rate(cell: dict) -> str:
     return (
         f"{100 * cell['value']:.1f}% "
-        f"[{100 * cell['ci95'][0]:.1f}%, {100 * cell['ci95'][1]:.1f}%]"
+        f"[boot {100 * cell['ci95'][0]:.1f}%, {100 * cell['ci95'][1]:.1f}%; "
+        f"Wilson {100 * cell['wilson_ci95'][0]:.1f}%, "
+        f"{100 * cell['wilson_ci95'][1]:.1f}%]"
     )
 
 
@@ -49,6 +51,8 @@ def render(payload: dict) -> str:
         "",
         "Rates are episode-level with deterministic bootstrap 95% intervals.",
         "Differences are paired shared-ledger minus isolated estimates.",
+        "Wilson rate intervals are included as a post-run boundary sensitivity",
+        "because ordinary bootstrap intervals collapse at observed rates of 0% or 100%.",
         "",
         "| Outcome | Isolated (95% CI) | Shared ledger (95% CI) | Paired difference (95% CI) |",
         "|---|---:|---:|---:|",
@@ -61,6 +65,28 @@ def render(payload: dict) -> str:
     lines.extend(
         [
             "",
+            "## Coordination overhead",
+            "",
+            "Means use episode-bootstrap 95% intervals; differences are paired.",
+            "",
+            "| Metric | Isolated mean (95% CI) | Shared-ledger mean (95% CI) | Paired difference (95% CI) |",
+            "|---|---:|---:|---:|",
+        ]
+    )
+    for outcome in ("api_calls", "input_tokens", "output_tokens", "cost_usd", "actions", "messages"):
+        left, right, delta = isolated[outcome], ledger[outcome], paired[outcome]
+        digits = 5 if outcome == "cost_usd" else 2
+        lines.append(
+            f"| `{outcome}` | {left['value']:.{digits}f} "
+            f"[{left['ci95'][0]:.{digits}f}, {left['ci95'][1]:.{digits}f}] | "
+            f"{right['value']:.{digits}f} "
+            f"[{right['ci95'][0]:.{digits}f}, {right['ci95'][1]:.{digits}f}] | "
+            f"{delta['value']:+.{digits}f} "
+            f"[{delta['ci95'][0]:+.{digits}f}, {delta['ci95'][1]:+.{digits}f}] |"
+        )
+    lines.extend(
+        [
+            "",
             "The taxonomy is mechanically derived from the shared-state event log;",
             "no language-model judge assigns failure labels. Categories may co-occur.",
             "Interpretation is limited to this controlled deployment task and model.",
@@ -68,6 +94,46 @@ def render(payload: dict) -> str:
         ]
     )
     return "\n".join(lines)
+
+
+def render_readme(payload: dict) -> str:
+    analysis = payload["analysis"]
+    isolated = analysis["by_condition"]["isolated"]
+    ledger = analysis["by_condition"]["shared_ledger"]
+    paired = analysis["paired"]
+    report = render(payload).replace(
+        "# Multi-agent miscoordination v1",
+        "### Multi-agent miscoordination study — completed",
+        1,
+    ).replace("\n## Coordination overhead", "\n#### Coordination overhead").rstrip()
+    conclusions = [
+        "",
+        "#### Interpretation",
+        "",
+        f"- The shared ledger changed any-miscoordination by "
+        f"{difference(paired['any_miscoordination'])}; the observed mechanism was "
+        f"redundant work ({rate(isolated['redundant_work'])} isolated versus "
+        f"{rate(ledger['redundant_work'])} with the ledger).",
+        f"- Final global success was {rate(isolated['global_success'])} in isolation "
+        f"and {rate(ledger['global_success'])} with the ledger. The benchmark therefore "
+        "shows an efficiency/process effect, not an outcome-accuracy improvement.",
+        f"- The ledger reduced actions by {abs(paired['actions']['value']):.2f} per episode "
+        f"(paired 95% CI {paired['actions']['ci95'][0]:+.2f} to "
+        f"{paired['actions']['ci95'][1]:+.2f}) while adding "
+        f"{paired['input_tokens']['value']:.0f} input tokens "
+        f"({paired['input_tokens']['ci95'][0]:.0f} to "
+        f"{paired['input_tokens']['ci95'][1]:.0f}) and "
+        f"${paired['cost_usd']['value']:.5f} per episode.",
+        f"- Silent undo and communication breakdown were not observed; their Wilson "
+        f"upper bounds are {100 * ledger['silent_undo']['wilson_ci95'][1]:.1f}% per "
+        "condition. The task was too easy to estimate severe-failure rates, so a harder "
+        "follow-up would require a new preregistration rather than post-hoc task changes.",
+        "",
+        "Regenerate the metrics and this section from the local raw ledger with",
+        "`scripts/analyze_miscoordination_results.py` and",
+        "`scripts/update_miscoordination_readme.py`.",
+    ]
+    return report + "\n" + "\n".join(conclusions) + "\n"
 
 
 def write_report(metrics_path: Path, output_path: Path) -> None:

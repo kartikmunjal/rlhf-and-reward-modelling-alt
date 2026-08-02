@@ -3,6 +3,7 @@ from eval.miscoordination import (
     bootstrap_study,
     classify_failures,
     extract_action_json,
+    wilson_interval,
 )
 
 
@@ -54,6 +55,14 @@ def test_bootstrap_reports_condition_rates_and_paired_difference():
                     "direct_contradiction": False,
                     "silent_undo": False,
                     "communication_breakdown": bad,
+                    "api_usage": {
+                        "calls": 4,
+                        "input_tokens": 100,
+                        "output_tokens": 50,
+                        "cost_usd": 0.001,
+                    },
+                    "events": [],
+                    "messages": [],
                 }
             )
     result = bootstrap_study(rows, n_bootstrap=100, seed=7)
@@ -77,3 +86,12 @@ def test_action_json_parser_rejects_non_json_output():
     assert extract_action_json("not json") == {"message": "", "actions": []}
     parsed = extract_action_json('prefix {"message":"ok","actions":[]} suffix')
     assert parsed["message"] == "ok"
+
+
+def test_wilson_interval_does_not_collapse_at_boundaries():
+    zero = wilson_interval(0, 50)
+    full = wilson_interval(50, 50)
+    assert zero[0] == 0
+    assert zero[1] > 0
+    assert full[0] < 1
+    assert full[1] == 1

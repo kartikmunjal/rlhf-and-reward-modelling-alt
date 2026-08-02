@@ -228,22 +228,58 @@ python scripts/analyze_scaling_laws.py --example  # synthetic smoke test only
 This repo also includes a full agent evaluation harness and four agent-specific
 extensions. If you're here for the agent work:
 
-### Multi-agent miscoordination study
+<!-- MISCOORDINATION-RESULTS:START -->
+### Multi-agent miscoordination study — completed
 
-The harness now includes a preregistered shared-resource study that measures
-how role-specialized agents interfere with one another, not only whether their
-final answer is correct. Performance and reliability workers edit the same
-deployment state under locally attractive but globally incompatible shortcuts.
-An isolated condition is compared with an append-only shared coordination
-ledger across 50 matched episode pairs.
+- Episodes: 100 (50 matched pairs)
+- API calls: 400
+- Model: `claude-haiku-4-5-20251001`
+- Measured API cost: $0.3263
+- API-error episodes: 0
+- Bootstrap replicates: 2000
 
-Failure labels—redundant work, direct contradiction, silent undo, and
-communication breakdown—are computed from the state/action log without an LLM
-judge. The locked analysis reports per-type rates and paired condition
-differences with 2,000 bootstrap replicates. The live run has not been claimed
-until all 100 episodes complete under the USD 5 API ceiling. See
-[`docs/miscoordination_v1_preregistered_plan.md`](docs/miscoordination_v1_preregistered_plan.md)
-and [`scripts/run_miscoordination_study.py`](scripts/run_miscoordination_study.py).
+Rates are episode-level with deterministic bootstrap 95% intervals.
+Differences are paired shared-ledger minus isolated estimates.
+Wilson rate intervals are included as a post-run boundary sensitivity
+because ordinary bootstrap intervals collapse at observed rates of 0% or 100%.
+
+| Outcome | Isolated (95% CI) | Shared ledger (95% CI) | Paired difference (95% CI) |
+|---|---:|---:|---:|
+| `global_success` | 100.0% [boot 100.0%, 100.0%; Wilson 92.9%, 100.0%] | 100.0% [boot 100.0%, 100.0%; Wilson 92.9%, 100.0%] | +0.0 pp [+0.0, +0.0] |
+| `any_miscoordination` | 14.0% [boot 4.0%, 24.0%; Wilson 7.0%, 26.2%] | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | -14.0 pp [-24.0, -4.0] |
+| `redundant_work` | 14.0% [boot 4.0%, 24.0%; Wilson 7.0%, 26.2%] | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | -14.0 pp [-24.0, -4.0] |
+| `direct_contradiction` | 2.0% [boot 0.0%, 6.0%; Wilson 0.4%, 10.5%] | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | -2.0 pp [-6.0, +0.0] |
+| `silent_undo` | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | +0.0 pp [+0.0, +0.0] |
+| `communication_breakdown` | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] | +0.0 pp [+0.0, +0.0] |
+
+#### Coordination overhead
+
+Means use episode-bootstrap 95% intervals; differences are paired.
+
+| Metric | Isolated mean (95% CI) | Shared-ledger mean (95% CI) | Paired difference (95% CI) |
+|---|---:|---:|---:|
+| `api_calls` | 4.00 [4.00, 4.00] | 4.00 [4.00, 4.00] | +0.00 [+0.00, +0.00] |
+| `input_tokens` | 1020.74 [1020.60, 1020.86] | 1616.12 [1603.34, 1629.44] | +595.38 [+582.18, +608.18] |
+| `output_tokens` | 415.58 [393.46, 437.77] | 362.36 [345.24, 380.40] | -53.22 [-79.89, -26.04] |
+| `cost_usd` | 0.00310 [0.00299, 0.00321] | 0.00343 [0.00334, 0.00352] | +0.00033 [+0.00019, +0.00047] |
+| `actions` | 3.92 [3.72, 4.10] | 3.04 [3.00, 3.10] | -0.88 [-1.08, -0.68] |
+| `messages` | 4.00 [4.00, 4.00] | 4.00 [4.00, 4.00] | +0.00 [+0.00, +0.00] |
+
+The taxonomy is mechanically derived from the shared-state event log;
+no language-model judge assigns failure labels. Categories may co-occur.
+Interpretation is limited to this controlled deployment task and model.
+
+#### Interpretation
+
+- The shared ledger changed any-miscoordination by -14.0 pp [-24.0, -4.0]; the observed mechanism was redundant work (14.0% [boot 4.0%, 24.0%; Wilson 7.0%, 26.2%] isolated versus 0.0% [boot 0.0%, 0.0%; Wilson 0.0%, 7.1%] with the ledger).
+- Final global success was 100.0% [boot 100.0%, 100.0%; Wilson 92.9%, 100.0%] in isolation and 100.0% [boot 100.0%, 100.0%; Wilson 92.9%, 100.0%] with the ledger. The benchmark therefore shows an efficiency/process effect, not an outcome-accuracy improvement.
+- The ledger reduced actions by 0.88 per episode (paired 95% CI -1.08 to -0.68) while adding 595 input tokens (582 to 608) and $0.00033 per episode.
+- Silent undo and communication breakdown were not observed; their Wilson upper bounds are 7.1% per condition. The task was too easy to estimate severe-failure rates, so a harder follow-up would require a new preregistration rather than post-hoc task changes.
+
+Regenerate the metrics and this section from the local raw ledger with
+`scripts/analyze_miscoordination_results.py` and
+`scripts/update_miscoordination_readme.py`.
+<!-- MISCOORDINATION-RESULTS:END -->
 
 | System | Result |
 |---|---|
