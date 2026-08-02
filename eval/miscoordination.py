@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
@@ -74,13 +75,23 @@ class MiscoordinationWorker(BaseAgent):
             f"Condition: {condition}.\nTurn: {turn}/4.\n"
             f"Visible shared context:\n{visible_context}"
         )
-        response = self.client.messages.create(
-            model=self.model,
-            max_tokens=self.max_tokens,
-            temperature=self.temperature,
-            system=WORKER_SYSTEM,
-            messages=[{"role": "user", "content": prompt}],
-        )
+        response = None
+        for attempt in range(1, 4):
+            try:
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=self.max_tokens,
+                    temperature=self.temperature,
+                    system=WORKER_SYSTEM,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                break
+            except Exception:
+                if attempt == 3:
+                    raise
+                time.sleep(2 ** (attempt - 1))
+        if response is None:  # defensive; the loop either succeeds or raises
+            raise RuntimeError("Anthropic API returned no response")
         text = "".join(block.text for block in response.content if block.type == "text")
         usage = {
             "input_tokens": int(response.usage.input_tokens),
