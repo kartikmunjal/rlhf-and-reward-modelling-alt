@@ -228,6 +228,23 @@ python scripts/analyze_scaling_laws.py --example  # synthetic smoke test only
 This repo also includes a full agent evaluation harness and four agent-specific
 extensions. If you're here for the agent work:
 
+### Multi-agent miscoordination study
+
+The harness now includes a preregistered shared-resource study that measures
+how role-specialized agents interfere with one another, not only whether their
+final answer is correct. Performance and reliability workers edit the same
+deployment state under locally attractive but globally incompatible shortcuts.
+An isolated condition is compared with an append-only shared coordination
+ledger across 50 matched episode pairs.
+
+Failure labels—redundant work, direct contradiction, silent undo, and
+communication breakdown—are computed from the state/action log without an LLM
+judge. The locked analysis reports per-type rates and paired condition
+differences with 2,000 bootstrap replicates. The live run has not been claimed
+until all 100 episodes complete under the USD 5 API ceiling. See
+[`docs/miscoordination_v1_preregistered_plan.md`](docs/miscoordination_v1_preregistered_plan.md)
+and [`scripts/run_miscoordination_study.py`](scripts/run_miscoordination_study.py).
+
 | System | Result |
 |---|---|
 | **Multi-Agent Coordinator** (Planner + Executor) | **80.6%** AgentBench-Mini overall · **+16.7 pp** on multi-step vs Plan-and-Execute |

@@ -1,0 +1,24 @@
+{
+  "study": "multi_agent_miscoordination_v1",
+  "status": "preregistered_not_run",
+  "model": "claude-haiku-4-5-20251001",
+  "conditions": ["isolated", "shared_ledger"],
+  "matched_pairs": 50,
+  "episodes_total": 100,
+  "turns_per_episode": 4,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20260802,
+  "order_seed": 20260802,
+  "max_output_tokens_per_call": 450,
+  "temperature": 1.0,
+  "max_api_cost_usd": 5.0,
+  "haiku_input_usd_per_million_tokens": 1.0,
+  "haiku_output_usd_per_million_tokens": 5.0,
+  "primary_outcome": "any_miscoordination",
+  "failure_types": [
+    "redundant_work",
+    "direct_contradiction",
+    "silent_undo",
+    "communication_breakdown"
+  ]
+}
