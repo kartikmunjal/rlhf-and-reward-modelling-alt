@@ -93,6 +93,8 @@ def _write_run_artifacts(output_dir: Path, trainer, started: float, method: str,
         "training_seconds": time.perf_counter() - started,
         "peak_gpu_memory_mb": peak,
         "log_history_rows": len(history),
+        "resolved_model_revision": getattr(trainer.model.config, "_commit_hash", None),
+        "torch_version": torch.__version__,
     }
     (output_dir / "trajectory.json").write_text(json.dumps(history, indent=2), encoding="utf-8")
     (output_dir / "run_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
