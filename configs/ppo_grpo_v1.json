@@ -1,0 +1,74 @@
+{
+  "study_id": "ppo_grpo_v1",
+  "status": "preregistered_not_run",
+  "locked_at_utc": "2026-08-02T22:15:00Z",
+  "task": {
+    "name": "deterministic_gsm8k_style_arithmetic",
+    "generator_version": 1,
+    "train_problem_seed": 73129,
+    "evaluation_problem_seed": 91873,
+    "evaluation_examples": 400,
+    "answer_contract": "final integer inside <answer>...</answer>"
+  },
+  "model": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "main",
+    "dtype": "float16",
+    "gradient_checkpointing": true,
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.0,
+    "lora_targets": ["q_proj", "v_proj"]
+  },
+  "paired_seeds": [2025, 2026, 2027],
+  "compute_budget": {
+    "optimizer_steps": 200,
+    "updates_per_rollout_group": 2,
+    "rollout_groups": 100,
+    "generations_per_group": 4,
+    "max_prompt_tokens": 192,
+    "max_completion_tokens": 64
+  },
+  "optimization": {
+    "learning_rate": 5e-6,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "weight_decay": 0.0,
+    "max_grad_norm": 1.0,
+    "clip_epsilon": 0.2,
+    "kl_coefficient": 0.05,
+    "ppo_value_coefficient": 0.1,
+    "ppo_value_clip": 0.2
+  },
+  "generation": {
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "do_sample": true
+  },
+  "reward": {
+    "exact_answer": 1.0,
+    "valid_answer_tag": 0.1,
+    "invalid_format": -0.1,
+    "length_penalty_per_token_after_48": -0.002
+  },
+  "evaluation": {
+    "decoding": "greedy",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260802,
+    "confidence_level": 0.95,
+    "primary_metric": "exact_match",
+    "secondary_metrics": [
+      "reward_mean",
+      "reward_variance",
+      "kl_mean",
+      "kl_auc",
+      "peak_gpu_memory_mb",
+      "training_seconds",
+      "generated_tokens_per_second"
+    ]
+  },
+  "decision_rule": "Report the paired GRPO-minus-PPO exact-match difference and its hierarchical bootstrap 95% CI; do not declare superiority unless the interval excludes zero.",
+  "stopping_rule": "Run all three paired seeds unless a run produces OOM, non-finite loss, or a reproducible software error. Do not stop for apparent performance.",
+  "exclusions": "No completed evaluation example or seed may be excluded. Infrastructure failures remain in the ledger and may be rerun only from the same seed and configuration.",
+  "scope": "Single-GPU LoRA comparison on a deterministic arithmetic task; it does not establish general PPO or GRPO superiority."
+}
