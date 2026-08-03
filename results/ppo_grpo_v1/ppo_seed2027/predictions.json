@@ -1,0 +1,2802 @@
+[
+  {
+    "problem_id": 1000000,
+    "gold": 30,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 26 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000001,
+    "gold": 152,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000002,
+    "gold": 52,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000003,
+    "gold": 74,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 37 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   37 + 9 = 46"
+  },
+  {
+    "problem_id": 1000004,
+    "gold": 142,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 20 more.\n2. Subtract the notebooks sold from the initial amount.\n3. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1."
+  },
+  {
+    "problem_id": 1000005,
+    "gold": 420,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000006,
+    "gold": 284,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 40 notebooks.\n2. **Received More Notebooks**: The store receives 35 more notebooks.\n   \\[\n   40 + 35 = "
+  },
+  {
+    "problem_id": 1000007,
+    "gold": 282,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 48 notebooks.\n2. **Received More Notebooks**: The store receives 5 more notebooks.\n   \\[\n   48 + 5 = 53"
+  },
+  {
+    "problem_id": 1000008,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 17 notebooks.\n2. **Received More Notebooks**: The store receives 33 more notebooks.\n   \\[\n   17 + 33 = "
+  },
+  {
+    "problem_id": 1000009,
+    "gold": 120,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 29 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000010,
+    "gold": 294,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 35 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000011,
+    "gold": 64,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 18 more notebooks.\n3. **Sold Some Notebooks**: The store sells 10"
+  },
+  {
+    "problem_id": 1000012,
+    "gold": 156,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 26 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000013,
+    "gold": 155,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet's go"
+  },
+  {
+    "problem_id": 1000014,
+    "gold": 240,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000015,
+    "gold": 200,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 49 notebooks.\n2. **Notebooks Received**: The store receives 4 more notebooks.\n   \\[\n   49 + 4 = 53\n"
+  },
+  {
+    "problem_id": 1000016,
+    "gold": 168,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 4 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000017,
+    "gold": 117,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000018,
+    "gold": 360,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 42 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   42 + 21 = "
+  },
+  {
+    "problem_id": 1000019,
+    "gold": 100,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000020,
+    "gold": 25,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 13 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000021,
+    "gold": 64,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000022,
+    "gold": 156,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 44 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   44 + 10 = "
+  },
+  {
+    "problem_id": 1000023,
+    "gold": 153,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000024,
+    "gold": 135,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000025,
+    "gold": 354,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 25 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000026,
+    "gold": 108,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 7 more.\n2. Subtract the notebooks sold from the initial amount.\n3. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000027,
+    "gold": 276,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 42 notebooks.\n2. **Received More Notebooks**: The store receives 16 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000028,
+    "gold": 96,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 60 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   60 + 3 = 63"
+  },
+  {
+    "problem_id": 1000029,
+    "gold": 180,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 26 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000030,
+    "gold": 27,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 11 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n   \\[\n   11 + 12 = "
+  },
+  {
+    "problem_id": 1000031,
+    "gold": 108,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 26 more notebooks.\n   \\[\n   12 + 26 = "
+  },
+  {
+    "problem_id": 1000032,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000033,
+    "gold": 172,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000034,
+    "gold": 280,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000035,
+    "gold": 42,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000036,
+    "gold": 162,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   10 + 21 = "
+  },
+  {
+    "problem_id": 1000037,
+    "gold": 276,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000038,
+    "gold": 224,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000039,
+    "gold": 112,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000040,
+    "gold": 196,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this value.\n3. Divide the remaining number of notebooks by 4 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000041,
+    "gold": 210,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   33 + 10 = "
+  },
+  {
+    "problem_id": 1000042,
+    "gold": 21,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 5 more notebooks.\n   \\[\n   12 + 5 = 17"
+  },
+  {
+    "problem_id": 1000043,
+    "gold": 125,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **New Notebooks Received**: The store receives 25 more notebooks.\n   \\[\n   24 + 25 = "
+  },
+  {
+    "problem_id": 1000044,
+    "gold": 171,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000045,
+    "gold": 125,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8"
+  },
+  {
+    "problem_id": 1000046,
+    "gold": 330,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000047,
+    "gold": 235,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 25 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000048,
+    "gold": 318,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 60 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   60 + 9 = 69"
+  },
+  {
+    "problem_id": 1000049,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 31 more notebooks.\n   \\[\n   10 + 31 = "
+  },
+  {
+    "problem_id": 1000050,
+    "gold": 64,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   31 + 10 = "
+  },
+  {
+    "problem_id": 1000051,
+    "gold": 156,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 32 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped per"
+  },
+  {
+    "problem_id": 1000052,
+    "gold": 164,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Received More Notebooks**: The store receives 33 more notebooks.\n   \\[\n   31 + 33 = "
+  },
+  {
+    "problem_id": 1000053,
+    "gold": 240,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000054,
+    "gold": 70,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n3. **Sold Some Notebooks**: The store sells 15"
+  },
+  {
+    "problem_id": 1000055,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 29 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000056,
+    "gold": 46,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 40 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   40 + 3 = 43"
+  },
+  {
+    "problem_id": 1000057,
+    "gold": 72,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   8 + 21 = 29"
+  },
+  {
+    "problem_id": 1000058,
+    "gold": 117,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   12 + 30 = "
+  },
+  {
+    "problem_id": 1000059,
+    "gold": 28,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 17 more notebooks.\n   \\[\n   10 + 17 = "
+  },
+  {
+    "problem_id": 1000060,
+    "gold": 320,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 52 notebooks.\n2. **Received More Notebooks**: The store receives 14 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000061,
+    "gold": 198,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 55 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n   \\[\n   55 + 15 = "
+  },
+  {
+    "problem_id": 1000062,
+    "gold": 245,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000063,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 29 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   29 + 3 = 32"
+  },
+  {
+    "problem_id": 1000064,
+    "gold": 128,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000065,
+    "gold": 330,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 35 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000066,
+    "gold": 162,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000067,
+    "gold": 126,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 31 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000068,
+    "gold": 130,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000069,
+    "gold": 150,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into three equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000070,
+    "gold": 305,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 29 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000071,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 42 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8"
+  },
+  {
+    "problem_id": 1000072,
+    "gold": 132,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number of"
+  },
+  {
+    "problem_id": 1000073,
+    "gold": 260,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000074,
+    "gold": 176,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000075,
+    "gold": 324,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000076,
+    "gold": 111,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 37 notebooks.\n2. **Received More Notebooks**: The store receives 17 more notebooks.\n   \\[\n   37 + 17 = "
+  },
+  {
+    "problem_id": 1000077,
+    "gold": 210,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000078,
+    "gold": 250,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000079,
+    "gold": 124,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000080,
+    "gold": 230,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000081,
+    "gold": 132,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 11 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000082,
+    "gold": 48,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 6 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2 notebooks.\n\n"
+  },
+  {
+    "problem_id": 1000083,
+    "gold": 150,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000084,
+    "gold": 207,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000085,
+    "gold": 153,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped in"
+  },
+  {
+    "problem_id": 1000086,
+    "gold": 204,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000087,
+    "gold": 74,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000088,
+    "gold": 176,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 34 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   34 + 30 = "
+  },
+  {
+    "problem_id": 1000089,
+    "gold": 66,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000090,
+    "gold": 112,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 26 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   26 + 13 = "
+  },
+  {
+    "problem_id": 1000091,
+    "gold": 184,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 7 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000092,
+    "gold": 160,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 40 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000093,
+    "gold": 164,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000094,
+    "gold": 184,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000095,
+    "gold": 204,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 25 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000096,
+    "gold": 45,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   9 + 21 = 30"
+  },
+  {
+    "problem_id": 1000097,
+    "gold": 462,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 35 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000098,
+    "gold": 94,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000099,
+    "gold": 310,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000100,
+    "gold": 66,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n3. **Sold Some Notebooks**: The store sells 9 notebooks"
+  },
+  {
+    "problem_id": 1000101,
+    "gold": 62,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 43 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   43 + 4 = 47"
+  },
+  {
+    "problem_id": 1000102,
+    "gold": 44,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000103,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 15 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   15 + 30 = "
+  },
+  {
+    "problem_id": 1000104,
+    "gold": 204,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **Received More Notebooks**: The store receives 8 more notebooks.\n   \\[\n   33 + 8 = 41"
+  },
+  {
+    "problem_id": 1000105,
+    "gold": 216,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000106,
+    "gold": 201,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 23 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000107,
+    "gold": 48,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 23 notebooks.\n2. **Received More Notebooks**: The store receives 16 more notebooks.\n   \\[\n   23 + 16 = "
+  },
+  {
+    "problem_id": 1000108,
+    "gold": 282,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 55 notebooks.\n2. **Notebooks Received**: The store receives 5 more notebooks.\n   \\[\n   55 + 5 = 60\n"
+  },
+  {
+    "problem_id": 1000109,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000110,
+    "gold": 153,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped per"
+  },
+  {
+    "problem_id": 1000111,
+    "gold": 36,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 18 notebooks.\n2. **Received More Notebooks**: The store receives 8 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8 notebooks"
+  },
+  {
+    "problem_id": 1000112,
+    "gold": 125,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   24 + 4 = 28"
+  },
+  {
+    "problem_id": 1000113,
+    "gold": 444,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 32 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000114,
+    "gold": 24,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 20 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   20 + 10 = "
+  },
+  {
+    "problem_id": 1000115,
+    "gold": 234,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000116,
+    "gold": 138,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   12 + 13 = "
+  },
+  {
+    "problem_id": 1000117,
+    "gold": 180,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000118,
+    "gold": 138,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 32 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000119,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 51 notebooks.\n2. **Received More Notebooks**: The store receives 14 more notebooks.\n   \\[\n   51 + 14 = "
+  },
+  {
+    "problem_id": 1000120,
+    "gold": 96,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 10 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000121,
+    "gold": 147,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 23 notebooks.\n2. **Received More Notebooks**: The store receives 28 more notebooks.\n   \\[\n   23 + 28 = "
+  },
+  {
+    "problem_id": 1000122,
+    "gold": 296,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000123,
+    "gold": 396,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000124,
+    "gold": 96,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000125,
+    "gold": 84,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 23 notebooks.\n2. **Received More Notebooks**: The store receives 22 more notebooks.\n   \\[\n   23 + 22 = "
+  },
+  {
+    "problem_id": 1000126,
+    "gold": 168,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000127,
+    "gold": 160,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 5 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000128,
+    "gold": 44,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000129,
+    "gold": 138,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 46 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n   \\[\n   46 + 24 = "
+  },
+  {
+    "problem_id": 1000130,
+    "gold": 51,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   12 + 13 = "
+  },
+  {
+    "problem_id": 1000131,
+    "gold": 8,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n   \\[\n   8 + 7 = 15\n  "
+  },
+  {
+    "problem_id": 1000132,
+    "gold": 342,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000133,
+    "gold": 120,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. Initial"
+  },
+  {
+    "problem_id": 1000134,
+    "gold": 212,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 30 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   30 + 30 = "
+  },
+  {
+    "problem_id": 1000135,
+    "gold": 183,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   33 + 30 = "
+  },
+  {
+    "problem_id": 1000136,
+    "gold": 164,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000137,
+    "gold": 318,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000138,
+    "gold": 130,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000139,
+    "gold": 58,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000140,
+    "gold": 106,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 53 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   53 + 4 = 57"
+  },
+  {
+    "problem_id": 1000141,
+    "gold": 138,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000142,
+    "gold": 108,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000143,
+    "gold": 200,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 23 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000144,
+    "gold": 141,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000145,
+    "gold": 305,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 52 notebooks.\n2. **Received More Notebooks**: The store receives 16 more notebooks.\n3. **Sold Some Notebooks**: The store sells 7"
+  },
+  {
+    "problem_id": 1000146,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 18 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   18 + 4 = 22"
+  },
+  {
+    "problem_id": 1000147,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000148,
+    "gold": 70,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000149,
+    "gold": 36,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000150,
+    "gold": 129,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000151,
+    "gold": 22,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000152,
+    "gold": 132,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. Initial"
+  },
+  {
+    "problem_id": 1000153,
+    "gold": 280,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 32 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000154,
+    "gold": 330,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000155,
+    "gold": 132,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000156,
+    "gold": 134,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 41 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   41 + 30 = "
+  },
+  {
+    "problem_id": 1000157,
+    "gold": 156,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **New Notebooks Received**: The store receives 8 more notebooks.\n   \\[\n   33 + 8 = 41"
+  },
+  {
+    "problem_id": 1000158,
+    "gold": 28,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 14 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000159,
+    "gold": 252,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 30 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000160,
+    "gold": 234,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 25 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n3. **Sold Some Notebooks**: The store sells 6"
+  },
+  {
+    "problem_id": 1000161,
+    "gold": 85,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n   \\[\n   8 + 12 = 20"
+  },
+  {
+    "problem_id": 1000162,
+    "gold": 78,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000163,
+    "gold": 105,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000164,
+    "gold": 6,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 6 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000165,
+    "gold": 328,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 53 notebooks.\n2. **Received More Notebooks**: The store receives 33 more notebooks.\n   \\[\n   53 + 33 = "
+  },
+  {
+    "problem_id": 1000166,
+    "gold": 136,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 18 notebooks.\n2. **Received More Notebooks**: The store receives 18 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000167,
+    "gold": 24,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n3. **Sold Some Notebooks**: The store sells 21"
+  },
+  {
+    "problem_id": 1000168,
+    "gold": 150,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2 notebooks"
+  },
+  {
+    "problem_id": 1000169,
+    "gold": 152,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **New Notebooks Received**: The store receives 26 more notebooks.\n3. **Notebooks Sold**: The store sells 10"
+  },
+  {
+    "problem_id": 1000170,
+    "gold": 195,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped per"
+  },
+  {
+    "problem_id": 1000171,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000172,
+    "gold": 88,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 44 notebooks.\n2. **Received More Notebooks**: The store receives 5 more notebooks.\n   \\[\n   44 + 5 = 49"
+  },
+  {
+    "problem_id": 1000173,
+    "gold": 410,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000174,
+    "gold": 290,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000175,
+    "gold": 184,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000176,
+    "gold": 366,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 49 notebooks.\n2. **Received More Notebooks**: The store receives 16 more notebooks.\n3. **Sold Some Notebooks**: The store sells 4"
+  },
+  {
+    "problem_id": 1000177,
+    "gold": 80,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 13 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   13 + 9 = 22"
+  },
+  {
+    "problem_id": 1000178,
+    "gold": 66,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000179,
+    "gold": 50,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000180,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   8 + 30 = 38"
+  },
+  {
+    "problem_id": 1000181,
+    "gold": 240,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 34 more notebooks.\n   \\[\n   10 + 34 = "
+  },
+  {
+    "problem_id": 1000182,
+    "gold": 147,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into three equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000183,
+    "gold": 234,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   33 + 13 = "
+  },
+  {
+    "problem_id": 1000184,
+    "gold": 260,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000185,
+    "gold": 176,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 48 notebooks.\n2. **Notebooks Received**: The store receives 4 more notebooks.\n   \\[\n   48 + 4 = 52\n"
+  },
+  {
+    "problem_id": 1000186,
+    "gold": 185,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000187,
+    "gold": 48,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8 notebooks"
+  },
+  {
+    "problem_id": 1000188,
+    "gold": 252,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **Received More Notebooks**: The store receives 18 more notebooks.\n   \\[\n   33 + 18 = "
+  },
+  {
+    "problem_id": 1000189,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000190,
+    "gold": 51,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **New Notebooks Received**: The store receives 20 more notebooks.\n   \\[\n   16 + 20 = "
+  },
+  {
+    "problem_id": 1000191,
+    "gold": 50,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000192,
+    "gold": 20,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 13 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   13 + 4 = 17"
+  },
+  {
+    "problem_id": 1000193,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000194,
+    "gold": 402,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 27 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000195,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000196,
+    "gold": 50,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000197,
+    "gold": 108,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000198,
+    "gold": 222,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 3 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000199,
+    "gold": 236,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000200,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000201,
+    "gold": 54,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 11 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   11 + 13 = "
+  },
+  {
+    "problem_id": 1000202,
+    "gold": 265,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 27 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000203,
+    "gold": 160,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000204,
+    "gold": 24,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 28 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   28 + 3 = 31"
+  },
+  {
+    "problem_id": 1000205,
+    "gold": 275,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 54 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000206,
+    "gold": 50,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into two equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial number"
+  },
+  {
+    "problem_id": 1000207,
+    "gold": 125,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 19 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000208,
+    "gold": 235,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 14 more.\n2. Subtract the number of notebooks sold from this value.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000209,
+    "gold": 62,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into two equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial number"
+  },
+  {
+    "problem_id": 1000210,
+    "gold": 162,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000211,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **Received More Notebooks**: The store receives 18 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000212,
+    "gold": 120,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 9 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000213,
+    "gold": 168,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 35 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000214,
+    "gold": 96,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 60 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000215,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000216,
+    "gold": 105,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2 notebooks"
+  },
+  {
+    "problem_id": 1000217,
+    "gold": 324,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 53 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   53 + 30 = "
+  },
+  {
+    "problem_id": 1000218,
+    "gold": 100,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000219,
+    "gold": 195,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000220,
+    "gold": 256,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000221,
+    "gold": 228,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 27 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000222,
+    "gold": 72,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 8 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8 notebooks"
+  },
+  {
+    "problem_id": 1000223,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 19 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   19 + 10 = "
+  },
+  {
+    "problem_id": 1000224,
+    "gold": 210,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 44 notebooks.\n2. **New Notebooks Received**: The store receives 11 more notebooks.\n   \\[\n   44 + 11 = "
+  },
+  {
+    "problem_id": 1000225,
+    "gold": 78,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000226,
+    "gold": 110,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 27 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000227,
+    "gold": 3,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   16 + 10 = "
+  },
+  {
+    "problem_id": 1000228,
+    "gold": 275,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 50 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   50 + 30 = "
+  },
+  {
+    "problem_id": 1000229,
+    "gold": 225,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 31 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000230,
+    "gold": 150,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000231,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 55 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   55 + 3 = 58"
+  },
+  {
+    "problem_id": 1000232,
+    "gold": 159,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped per"
+  },
+  {
+    "problem_id": 1000233,
+    "gold": 171,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000234,
+    "gold": 84,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 19 notebooks.\n2. **Received More Notebooks**: The store receives 19 more notebooks.\n   \\[\n   19 + 19 = "
+  },
+  {
+    "problem_id": 1000235,
+    "gold": 94,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000236,
+    "gold": 42,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 13 notebooks.\n2. **Received More Notebooks**: The store receives 8 more notebooks.\n   \\[\n   13 + 8 = 21"
+  },
+  {
+    "problem_id": 1000237,
+    "gold": 360,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 40 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   40 + 30 = "
+  },
+  {
+    "problem_id": 1000238,
+    "gold": 45,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into three equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000239,
+    "gold": 260,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000240,
+    "gold": 295,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 30 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000241,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000242,
+    "gold": 62,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000243,
+    "gold": 141,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into three equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000244,
+    "gold": 56,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 32 notebooks.\n2. **Notebooks Received**: The store receives 3 more notebooks.\n   \\[\n   32 + 3 = 35\n"
+  },
+  {
+    "problem_id": 1000245,
+    "gold": 216,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 57 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   57 + 4 = 61"
+  },
+  {
+    "problem_id": 1000246,
+    "gold": 135,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 14 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000247,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 20 notebooks.\n2. **Received More Notebooks**: The store receives 14 more notebooks.\n3. **Sold Some Notebooks**: The store sells 6"
+  },
+  {
+    "problem_id": 1000248,
+    "gold": 174,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 15 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000249,
+    "gold": 204,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **New Notebooks Received**: The store receives 11 more notebooks.\n   \\[\n   33 + 11 = "
+  },
+  {
+    "problem_id": 1000250,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 37 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   37 + 30 = "
+  },
+  {
+    "problem_id": 1000251,
+    "gold": 252,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000252,
+    "gold": 88,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000253,
+    "gold": 112,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000254,
+    "gold": 208,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000255,
+    "gold": 54,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 19 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000256,
+    "gold": 160,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   31 + 10 = "
+  },
+  {
+    "problem_id": 1000257,
+    "gold": 366,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 39 notebooks.\n2. **Received More Notebooks**: The store receives 31 more notebooks.\n   \\[\n   39 + 31 = "
+  },
+  {
+    "problem_id": 1000258,
+    "gold": 210,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 30 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000259,
+    "gold": 282,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 12 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000260,
+    "gold": 92,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000261,
+    "gold": 330,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 27 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000262,
+    "gold": 54,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **New Notebooks Received**: The store receives 20 more notebooks.\n   \\[\n   16 + 20 = "
+  },
+  {
+    "problem_id": 1000263,
+    "gold": 177,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000264,
+    "gold": 196,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 55 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   55 + 3 = 58"
+  },
+  {
+    "problem_id": 1000265,
+    "gold": 123,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 13 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000266,
+    "gold": 124,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000267,
+    "gold": 46,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n   \\[\n   24 + 12 = "
+  },
+  {
+    "problem_id": 1000268,
+    "gold": 50,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into two equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial number"
+  },
+  {
+    "problem_id": 1000269,
+    "gold": 46,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 15 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   15 + 21 = "
+  },
+  {
+    "problem_id": 1000270,
+    "gold": 228,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 35 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000271,
+    "gold": 54,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 19 notebooks.\n2. **Received More Notebooks**: The store receives 5 more notebooks.\n   \\[\n   19 + 5 = 24"
+  },
+  {
+    "problem_id": 1000272,
+    "gold": 123,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 12 notebooks.\n2. **Received More Notebooks**: The store receives 35 more notebooks.\n   \\[\n   12 + 35 = "
+  },
+  {
+    "problem_id": 1000273,
+    "gold": 174,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 3 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000274,
+    "gold": 414,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 29 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000275,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 30 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000276,
+    "gold": 148,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000277,
+    "gold": 372,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000278,
+    "gold": 42,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000279,
+    "gold": 33,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 19 more notebooks.\n   \\[\n   10 + 19 = "
+  },
+  {
+    "problem_id": 1000280,
+    "gold": 256,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 28 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000281,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   16 + 13 = "
+  },
+  {
+    "problem_id": 1000282,
+    "gold": 36,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into two equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial number"
+  },
+  {
+    "problem_id": 1000283,
+    "gold": 330,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000284,
+    "gold": 172,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 29 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n3. **Sold Some Notebooks**: The store sells 7"
+  },
+  {
+    "problem_id": 1000285,
+    "gold": 310,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000286,
+    "gold": 336,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 52 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n3. **Sold Some Notebooks**: The store sells 8"
+  },
+  {
+    "problem_id": 1000287,
+    "gold": 135,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 28 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   28 + 9 = 37"
+  },
+  {
+    "problem_id": 1000288,
+    "gold": 33,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 14 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   14 + 4 = 18"
+  },
+  {
+    "problem_id": 1000289,
+    "gold": 85,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 12 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000290,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000291,
+    "gold": 336,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000292,
+    "gold": 188,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 47 notebooks.\n2. **Received More Notebooks**: The store receives 16 more notebooks.\n3. **Sold Some Notebooks**: The store sells 1"
+  },
+  {
+    "problem_id": 1000293,
+    "gold": 148,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000294,
+    "gold": 222,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000295,
+    "gold": 176,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 59 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000296,
+    "gold": 66,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 11 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n3. **Sold Some Notebooks**: The store sells 2"
+  },
+  {
+    "problem_id": 1000297,
+    "gold": 36,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   16 + 4 = 20"
+  },
+  {
+    "problem_id": 1000298,
+    "gold": 111,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000299,
+    "gold": 316,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 55 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   55 + 30 = "
+  },
+  {
+    "problem_id": 1000300,
+    "gold": 87,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n   \\[\n   16 + 15 = "
+  },
+  {
+    "problem_id": 1000301,
+    "gold": 135,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped in"
+  },
+  {
+    "problem_id": 1000302,
+    "gold": 64,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the received notebooks.\n3. Subtract the sold notebooks.\n4. Divide the remaining notebooks into two equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial number"
+  },
+  {
+    "problem_id": 1000303,
+    "gold": 232,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 36 notebooks.\n2. **Received More Notebooks**: The store receives 24 more notebooks.\n   \\[\n   36 + 24 = "
+  },
+  {
+    "problem_id": 1000304,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 45 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n   \\[\n   45 + 20 = "
+  },
+  {
+    "problem_id": 1000305,
+    "gold": 189,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 38 notebooks.\n2. **Received More Notebooks**: The store receives 28 more notebooks.\n   \\[\n   38 + 28 = "
+  },
+  {
+    "problem_id": 1000306,
+    "gold": 52,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000307,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n   \\[\n   9 + 20 = 29"
+  },
+  {
+    "problem_id": 1000308,
+    "gold": 208,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000309,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000310,
+    "gold": 86,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n   \\[\n   31 + 20 = "
+  },
+  {
+    "problem_id": 1000311,
+    "gold": 172,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 20 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000312,
+    "gold": 48,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 20 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n   \\[\n   20 + 15 = "
+  },
+  {
+    "problem_id": 1000313,
+    "gold": 93,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 26 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n   \\[\n   26 + 12 = "
+  },
+  {
+    "problem_id": 1000314,
+    "gold": 198,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 31 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 3 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000315,
+    "gold": 204,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 52 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   52 + 13 = "
+  },
+  {
+    "problem_id": 1000316,
+    "gold": 40,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   16 + 9 = 25"
+  },
+  {
+    "problem_id": 1000317,
+    "gold": 60,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   9 + 10 = 19"
+  },
+  {
+    "problem_id": 1000318,
+    "gold": 126,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 24 notebooks.\n2. **Received More Notebooks**: The store receives 12 more notebooks.\n   \\[\n   24 + 12 = "
+  },
+  {
+    "problem_id": 1000319,
+    "gold": 87,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 36 notebooks.\n2. **New Notebooks Received**: The store receives 8 more notebooks.\n   \\[\n   36 + 8 = 44"
+  },
+  {
+    "problem_id": 1000320,
+    "gold": 246,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000321,
+    "gold": 90,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000322,
+    "gold": 288,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 22 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000323,
+    "gold": 12,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. Initial number"
+  },
+  {
+    "problem_id": 1000324,
+    "gold": 18,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n   \\[\n   22 + 7 = 29"
+  },
+  {
+    "problem_id": 1000325,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000326,
+    "gold": 198,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 8 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000327,
+    "gold": 88,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000328,
+    "gold": 175,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 35 notebooks.\n2. **Received More Notebooks**: The store receives 25 more notebooks.\n   \\[\n   35 + 25 = "
+  },
+  {
+    "problem_id": 1000329,
+    "gold": 44,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 14 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   14 + 10 = "
+  },
+  {
+    "problem_id": 1000330,
+    "gold": 159,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 33 notebooks.\n2. **New Notebooks Received**: The store receives 34 more notebooks.\n   \\[\n   33 + 34 = "
+  },
+  {
+    "problem_id": 1000331,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 16 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000332,
+    "gold": 177,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 26 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped per"
+  },
+  {
+    "problem_id": 1000333,
+    "gold": 462,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000334,
+    "gold": 70,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   31 + 11 = "
+  },
+  {
+    "problem_id": 1000335,
+    "gold": 34,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 13 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n   \\[\n   13 + 15 = "
+  },
+  {
+    "problem_id": 1000336,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000337,
+    "gold": 40,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 16 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   16 + 11 = "
+  },
+  {
+    "problem_id": 1000338,
+    "gold": 112,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000339,
+    "gold": 195,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\nLet's"
+  },
+  {
+    "problem_id": 1000340,
+    "gold": 275,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 50 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   50 + 11 = "
+  },
+  {
+    "problem_id": 1000341,
+    "gold": 174,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000342,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into three equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000343,
+    "gold": 136,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000344,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 49 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n   \\[\n   49 + 7 = 56"
+  },
+  {
+    "problem_id": 1000345,
+    "gold": 365,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000346,
+    "gold": 55,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 9 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   9 + 4 = 13\n  "
+  },
+  {
+    "problem_id": 1000347,
+    "gold": 66,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000348,
+    "gold": 192,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 35 notebooks.\n2. **Notebooks Received**: The store receives 3 more notebooks.\n   \\[\n   35 + 3 = 38\n"
+  },
+  {
+    "problem_id": 1000349,
+    "gold": 260,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000350,
+    "gold": 56,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000351,
+    "gold": 342,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 23 more.\n2. Subtract the number of notebooks sold from this total.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\nLet"
+  },
+  {
+    "problem_id": 1000352,
+    "gold": 155,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 31 notebooks.\n2. **Notebooks Received**: The store receives 3 more notebooks.\n   \\[\n   31 + 3 = 34\n"
+  },
+  {
+    "problem_id": 1000353,
+    "gold": 144,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 49 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   49 + 3 = 52"
+  },
+  {
+    "problem_id": 1000354,
+    "gold": 156,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 14 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000355,
+    "gold": 282,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 23 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000356,
+    "gold": 88,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 13 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   13 + 21 = "
+  },
+  {
+    "problem_id": 1000357,
+    "gold": 370,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 27 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000358,
+    "gold": 14,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 10 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   10 + 9 = 19"
+  },
+  {
+    "problem_id": 1000359,
+    "gold": 171,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 33 more.\n2. Subtract the number of notebooks sold from this new total.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000360,
+    "gold": 162,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 49 notebooks.\n2. **Received More Notebooks**: The store receives 10 more notebooks.\n   \\[\n   49 + 10 = "
+  },
+  {
+    "problem_id": 1000361,
+    "gold": 32,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 14 notebooks.\n2. **Received More Notebooks**: The store receives 13 more notebooks.\n   \\[\n   14 + 13 = "
+  },
+  {
+    "problem_id": 1000362,
+    "gold": 342,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 24 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000363,
+    "gold": 168,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 18 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000364,
+    "gold": 306,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 32 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000365,
+    "gold": 246,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 41 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n   \\[\n   41 + 7 = 48"
+  },
+  {
+    "problem_id": 1000366,
+    "gold": 160,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 36 notebooks.\n2. **Received More Notebooks**: The store receives 6 more notebooks.\n   \\[\n   36 + 6 = 42"
+  },
+  {
+    "problem_id": 1000367,
+    "gold": 118,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000368,
+    "gold": 190,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 52 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   52 + 11 = "
+  },
+  {
+    "problem_id": 1000369,
+    "gold": 6,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into three shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000370,
+    "gold": 44,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 29 notebooks.\n2. **Received More Notebooks**: The store receives 3 more notebooks.\n   \\[\n   29 + 3 = 32"
+  },
+  {
+    "problem_id": 1000371,
+    "gold": 36,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 14 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   14 + 11 = "
+  },
+  {
+    "problem_id": 1000372,
+    "gold": 78,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 23 notebooks.\n2. **Received More Notebooks**: The store receives 21 more notebooks.\n   \\[\n   23 + 21 = "
+  },
+  {
+    "problem_id": 1000373,
+    "gold": 24,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 3 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\nLet"
+  },
+  {
+    "problem_id": 1000374,
+    "gold": 300,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 23 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000375,
+    "gold": 106,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000376,
+    "gold": 140,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 5 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000377,
+    "gold": 213,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 25 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000378,
+    "gold": 88,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 13 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 2 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000379,
+    "gold": 190,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 36 notebooks.\n2. **Received More Notebooks**: The store receives 9 more notebooks.\n   \\[\n   36 + 9 = 45"
+  },
+  {
+    "problem_id": 1000380,
+    "gold": 246,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 6 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000381,
+    "gold": 186,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 22 notebooks.\n2. **Received More Notebooks**: The store receives 15 more notebooks.\n   \\[\n   22 + 15 = "
+  },
+  {
+    "problem_id": 1000382,
+    "gold": 360,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 54 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   54 + 30 = "
+  },
+  {
+    "problem_id": 1000383,
+    "gold": 370,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\nLet's"
+  },
+  {
+    "problem_id": 1000384,
+    "gold": 48,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 21 notebooks.\n2. **Received More Notebooks**: The store receives 6 more notebooks.\n   \\[\n   21 + 6 = 27"
+  },
+  {
+    "problem_id": 1000385,
+    "gold": 112,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 12 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 4 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000386,
+    "gold": 54,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 29 notebooks.\n2. **Received More Notebooks**: The store receives 4 more notebooks.\n   \\[\n   29 + 4 = 33"
+  },
+  {
+    "problem_id": 1000387,
+    "gold": 396,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks into equal shipments.\n\nLet's go through each step in detail:\n\n1. **Initial Number"
+  },
+  {
+    "problem_id": 1000388,
+    "gold": 258,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 34 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many shipments were made.\n\n"
+  },
+  {
+    "problem_id": 1000389,
+    "gold": 165,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 11 notebooks.\n2. **Received More Notebooks**: The store receives 30 more notebooks.\n   \\[\n   11 + 30 = "
+  },
+  {
+    "problem_id": 1000390,
+    "gold": 116,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into 4 shipments.\n\nLet's go through each step in detail:\n\n1. **"
+  },
+  {
+    "problem_id": 1000391,
+    "gold": 46,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000392,
+    "gold": 210,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 21 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000393,
+    "gold": 248,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 60 notebooks.\n2. **Received More Notebooks**: The store receives 7 more notebooks.\n   \\[\n   60 + 7 = 67"
+  },
+  {
+    "problem_id": 1000394,
+    "gold": 94,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the additional notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000395,
+    "gold": 145,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 15 notebooks.\n2. **Received More Notebooks**: The store receives 20 more notebooks.\n   \\[\n   15 + 20 = "
+  },
+  {
+    "problem_id": 1000396,
+    "gold": 78,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. **Initial Number of Notebooks**: The store starts with 30 notebooks.\n2. **Received More Notebooks**: The store receives 11 more notebooks.\n   \\[\n   30 + 11 = "
+  },
+  {
+    "problem_id": 1000397,
+    "gold": 84,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks.\n2. Add the new notebooks received.\n3. Subtract the notebooks sold.\n4. Divide the remaining notebooks equally into two shipments.\n\nLet's go through each step in detail:\n\n1. **Initial"
+  },
+  {
+    "problem_id": 1000398,
+    "gold": 123,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 17 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 3 to find out how many notebooks were shipped.\n\n"
+  },
+  {
+    "problem_id": 1000399,
+    "gold": 325,
+    "prediction": null,
+    "correct": false,
+    "completion": "To determine the total number of notebooks shipped, we need to follow these steps:\n\n1. Calculate the initial number of notebooks after receiving 30 more.\n2. Subtract the number of notebooks sold from the initial amount.\n3. Divide the remaining number of notebooks by 5 to find out how many shipments were made.\n\n"
+  }
+]

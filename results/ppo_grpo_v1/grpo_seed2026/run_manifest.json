@@ -1,0 +1,10 @@
+{
+  "method": "grpo",
+  "seed": 2026,
+  "training_seconds": 223.69038130005356,
+  "peak_gpu_memory_mb": 2567.57958984375,
+  "log_history_rows": 201,
+  "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "torch_version": "2.8.0+cu128",
+  "exact_match": 0.0
+}
