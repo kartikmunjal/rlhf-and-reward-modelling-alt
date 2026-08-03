@@ -1,0 +1,39 @@
+{
+  "study_id": "ppo_grpo_v2b_pilot",
+  "status": "outcome_blind_feasibility_not_run",
+  "parent_pilot": "ppo_grpo_v2_pilot",
+  "change_rationale": "The parent passed parse, exactness, and truncation gates but failed reward contrast because 74.61% exact accuracy made most four-sample groups uniform. V2b changes only the disjoint task distribution and process reward; it does not lower the failed gate.",
+  "sft_checkpoint": "checkpoints/ppo_grpo_v2_sft",
+  "task_generator_version": "2b",
+  "pilot": {
+    "problem_seed": 51022,
+    "problems": 64,
+    "generations_per_problem": 4,
+    "generation_seed": 51023,
+    "max_prompt_tokens": 192,
+    "max_completion_tokens": 160,
+    "temperature": 0.8,
+    "top_p": 0.95
+  },
+  "reward": {
+    "tagged_exact": 1.0,
+    "numeric_exact_without_tag": 0.8,
+    "correct_intermediate_each": 0.1,
+    "valid_tag_wrong": 0.05,
+    "invalid_or_wrong": -0.1,
+    "length_penalty_after_tokens": 120,
+    "length_penalty_per_token": -0.001
+  },
+  "feasibility_gates": {
+    "numeric_parse_rate_min": 0.5,
+    "numeric_exact_rate_min": 0.1,
+    "numeric_exact_rate_max": 0.65,
+    "truncation_rate_max": 0.25,
+    "groups_with_reward_contrast_min": 0.5
+  },
+  "separation": {
+    "pilot_data_may_enter_full_training": false,
+    "pilot_data_may_enter_full_evaluation": false,
+    "full_preregistration_occurs_only_after_gate_evaluation": true
+  }
+}
