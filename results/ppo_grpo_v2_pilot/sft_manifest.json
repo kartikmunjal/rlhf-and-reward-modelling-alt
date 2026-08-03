@@ -1,0 +1,14 @@
+{
+  "status": "complete",
+  "examples": 2000,
+  "epochs": 1,
+  "optimizer_steps": 500,
+  "trainable_parameters": 540672,
+  "corpus_sha256": "e88cfd146069def8ee727bc09b1f3c7657088574e593f2d428c0efdf4bd79721",
+  "loss_first_100": 0.43141624045092614,
+  "loss_last_100": 0.007361038131530222,
+  "training_seconds": 487.16484949999995,
+  "peak_gpu_memory_mb": 1215.4453125,
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "torch_version": "2.8.0+cu128"
+}

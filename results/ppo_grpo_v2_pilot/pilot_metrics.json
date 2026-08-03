@@ -1,0 +1,44 @@
+{
+  "study_id": "ppo_grpo_v2_pilot",
+  "status": "fail",
+  "metrics": {
+    "numeric_parse_rate": 1.0,
+    "numeric_exact_rate": 0.74609375,
+    "tagged_exact_rate": 0.74609375,
+    "truncation_rate": 0.0,
+    "groups_with_reward_contrast": 0.328125,
+    "reward_mean": 0.7611328124999999,
+    "reward_variance": 0.16865008425245098,
+    "n_problems": 64,
+    "n_completions": 256,
+    "runtime_seconds": 113.49518369999987,
+    "peak_gpu_memory_mb": 1001.169921875
+  },
+  "gates": {
+    "numeric_parse_rate_min": 0.5,
+    "numeric_exact_rate_min": 0.1,
+    "truncation_rate_max": 0.25,
+    "groups_with_reward_contrast_min": 0.5
+  },
+  "gate_results": {
+    "numeric_parse_rate": true,
+    "numeric_exact_rate": true,
+    "truncation_rate": true,
+    "groups_with_reward_contrast": false
+  },
+  "pilot_problem_sha256": "946b6738b71ccf8d82e328609b1f7838458e027ee0347fe560513f7ae5c66656",
+  "sft_manifest": {
+    "status": "complete",
+    "examples": 2000,
+    "epochs": 1,
+    "optimizer_steps": 500,
+    "trainable_parameters": 540672,
+    "corpus_sha256": "e88cfd146069def8ee727bc09b1f3c7657088574e593f2d428c0efdf4bd79721",
+    "loss_first_100": 0.43141624045092614,
+    "loss_last_100": 0.007361038131530222,
+    "training_seconds": 487.16484949999995,
+    "peak_gpu_memory_mb": 1215.4453125,
+    "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "torch_version": "2.8.0+cu128"
+  }
+}

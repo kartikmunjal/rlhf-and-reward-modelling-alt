@@ -37,6 +37,12 @@ results/ppo_grpo_v1/*/*
 !results/ppo_grpo_v1/*/run_manifest.json
 !results/ppo_grpo_v1/*/trajectory.json
 !results/ppo_grpo_v1/*/predictions.json
+!results/ppo_grpo_v2_pilot/
+results/ppo_grpo_v2_pilot/*
+!results/ppo_grpo_v2_pilot/pilot_metrics.json
+!results/ppo_grpo_v2_pilot/pilot_predictions.json
+!results/ppo_grpo_v2_pilot/sft_manifest.json
+!results/ppo_grpo_v2_pilot/report.md
 !results/safety_classifier_v1/
 results/safety_classifier_v1/*
 !results/safety_classifier_v1/metrics.json
