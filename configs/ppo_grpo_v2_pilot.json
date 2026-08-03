@@ -1,0 +1,52 @@
+{
+  "study_id": "ppo_grpo_v2_pilot",
+  "status": "outcome_blind_feasibility_not_run",
+  "task_generator_version": 2,
+  "model": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "dtype": "float16",
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.0,
+    "lora_targets": ["q_proj", "v_proj"]
+  },
+  "sft": {
+    "problem_seed": 41021,
+    "examples": 2000,
+    "epochs": 1,
+    "learning_rate": 0.0002,
+    "gradient_accumulation_steps": 4,
+    "max_sequence_tokens": 256
+  },
+  "pilot": {
+    "problem_seed": 41022,
+    "problems": 64,
+    "generations_per_problem": 4,
+    "generation_seed": 41023,
+    "max_prompt_tokens": 160,
+    "max_completion_tokens": 160,
+    "temperature": 0.8,
+    "top_p": 0.95
+  },
+  "reward": {
+    "tagged_exact": 1.0,
+    "numeric_exact_without_tag": 0.8,
+    "correct_intermediate": 0.15,
+    "valid_tag_wrong": 0.05,
+    "invalid_or_wrong": -0.1,
+    "length_penalty_after_tokens": 120,
+    "length_penalty_per_token": -0.001
+  },
+  "feasibility_gates": {
+    "numeric_parse_rate_min": 0.5,
+    "numeric_exact_rate_min": 0.1,
+    "truncation_rate_max": 0.25,
+    "groups_with_reward_contrast_min": 0.5
+  },
+  "separation": {
+    "pilot_data_may_enter_full_training": false,
+    "pilot_data_may_enter_full_evaluation": false,
+    "full_preregistration_occurs_only_after_gate_evaluation": true
+  }
+}
