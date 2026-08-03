@@ -48,6 +48,11 @@ results/ppo_grpo_v2b_pilot/*
 !results/ppo_grpo_v2b_pilot/pilot_metrics.json
 !results/ppo_grpo_v2b_pilot/pilot_predictions.json
 !results/ppo_grpo_v2b_pilot/report.md
+!results/ppo_grpo_v2c_pilot/
+results/ppo_grpo_v2c_pilot/*
+!results/ppo_grpo_v2c_pilot/pilot_metrics.json
+!results/ppo_grpo_v2c_pilot/pilot_predictions.json
+!results/ppo_grpo_v2c_pilot/report.md
 !results/safety_classifier_v1/
 results/safety_classifier_v1/*
 !results/safety_classifier_v1/metrics.json
