@@ -433,13 +433,13 @@ PPO native KL is sequence-summed by TRL and is divided by the locked 64-token co
 | Method | Reward variance | KL/token AUC | Peak VRAM MB | Train seconds | Generated tok/s |
 |---|---:|---:|---:|---:|---:|
 | PPO | 0.000002 [0.000002, 0.000002] | 0.102151 [0.098872, 0.107775] | 3758.9 [3758.9, 3758.9] | 419.0 [417.5, 420.0] | 61.1 [60.9, 61.3] |
-| GRPO | 0.000002 [0.000001, 0.000003] | 0.000213 [0.000164, 0.000243] | 2567.6 [2567.6, 2567.6] | 223.9 [223.1, 225.0] | 114.3 [113.8, 114.7] |
+| GRPO | 0.000002 [0.000001, 0.000003] | 0.000213 [0.000164, 0.000243] | 2567.6 [2567.6, 2567.6] | 223.9 [223.1, 225.0] | 57.2 [56.9, 57.4] |
 
 GRPO groups with zero reward standard deviation: **0.7000 [0.7000, 0.7000]**. Both methods generated to the 64-token cap without producing valid tagged answers on evaluation.
 
 #### Finding
 
-The preregistered comparison is valid as an execution study but uninformative about relative task performance. The base policy almost never entered the verifier's positive-support region: exact-answer reward was absent, format reward was absent on held-out generations, and GRPO frequently had no within-group contrast. Consequently, both algorithms remained at the evaluation floor. GRPO used less GPU memory and trained faster, but those systems differences do not imply better optimization when the reward supplies essentially no task signal.
+The preregistered comparison is valid as an execution study but uninformative about relative task performance. The base policy almost never entered the verifier's positive-support region: exact-answer reward was absent, format reward was absent on held-out generations, and GRPO frequently had no within-group contrast. Consequently, both algorithms remained at the evaluation floor. GRPO used less GPU memory, but the rollout-count deviation precludes a clean wall-time or throughput efficiency claim; those systems observations do not imply better optimization when the reward supplies essentially no task signal.
 
 This replaces the prior scaffold caveat with a real preregistered negative result. A follow-up must be separately preregistered and should add outcome-blind reward shaping or arithmetic SFT so that both methods encounter nonzero correctness signal; this v1 result must not be overwritten or reframed as a tie.
 

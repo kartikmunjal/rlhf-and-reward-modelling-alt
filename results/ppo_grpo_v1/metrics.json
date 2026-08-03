@@ -1,6 +1,6 @@
 {
   "study_id": "ppo_grpo_v1",
-  "status": "complete_negative_finding",
+  "status": "complete_negative_finding_with_protocol_deviation",
   "bootstrap_replicates": 2000,
   "runs": {
     "ppo": [
@@ -22,6 +22,7 @@
         "peak_gpu_memory_mb": 3758.93505859375,
         "generated_tokens": 25600,
         "generated_tokens_per_second": 61.316974191999805,
+        "observed_rollout_groups": 100,
         "trajectory_rows": 100,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       },
@@ -43,6 +44,7 @@
         "peak_gpu_memory_mb": 3758.93505859375,
         "generated_tokens": 25600,
         "generated_tokens_per_second": 61.027924819556716,
+        "observed_rollout_groups": 100,
         "trajectory_rows": 100,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       },
@@ -64,6 +66,7 @@
         "peak_gpu_memory_mb": 3758.93505859375,
         "generated_tokens": 25600,
         "generated_tokens_per_second": 60.94903186111801,
+        "observed_rollout_groups": 100,
         "trajectory_rows": 100,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       }
@@ -85,8 +88,9 @@
         "clip_fraction": 0.0,
         "training_seconds": 224.95603339991067,
         "peak_gpu_memory_mb": 2567.57958984375,
-        "generated_tokens": 25600,
-        "generated_tokens_per_second": 113.80001511002001,
+        "generated_tokens": 12800,
+        "generated_tokens_per_second": 56.900007555010006,
+        "observed_rollout_groups": 50,
         "trajectory_rows": 201,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       },
@@ -106,8 +110,9 @@
         "clip_fraction": 0.0,
         "training_seconds": 223.69038130005356,
         "peak_gpu_memory_mb": 2567.57958984375,
-        "generated_tokens": 25600,
-        "generated_tokens_per_second": 114.44390166093329,
+        "generated_tokens": 12800,
+        "generated_tokens_per_second": 57.221950830466646,
+        "observed_rollout_groups": 50,
         "trajectory_rows": 201,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       },
@@ -127,8 +132,9 @@
         "clip_fraction": 0.0,
         "training_seconds": 223.14765399997123,
         "peak_gpu_memory_mb": 2567.57958984375,
-        "generated_tokens": 25600,
-        "generated_tokens_per_second": 114.72224574677044,
+        "generated_tokens": 12800,
+        "generated_tokens_per_second": 57.36112287338522,
+        "observed_rollout_groups": 50,
         "trajectory_rows": 201,
         "resolved_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
       }
@@ -291,10 +297,10 @@
         "n_trials": 3
       },
       "generated_tokens_per_second": {
-        "estimate": 114.3220541725746,
+        "estimate": 57.1610270862873,
         "ci95": [
-          113.80001511002001,
-          114.72224574677044
+          56.900007555010006,
+          57.36112287338522
         ],
         "n_trials": 3
       },

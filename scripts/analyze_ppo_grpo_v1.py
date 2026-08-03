@@ -90,8 +90,9 @@ def summarize_run(run: dict, method: str, config: dict) -> dict:
         kl = native_kl
         zero_group_fraction = float(np.mean([row["frac_reward_zero_std"] for row in rows]))
         clipped_fraction = float(np.mean([row["clip_ratio/region_mean"] for row in trajectory if "kl" in row]))
+    observed_rollout_groups = len(rows)
     generated_tokens = (
-        config["compute_budget"]["rollout_groups"]
+        observed_rollout_groups
         * config["compute_budget"]["generations_per_group"]
         * config["compute_budget"]["max_completion_tokens"]
     )
@@ -113,6 +114,7 @@ def summarize_run(run: dict, method: str, config: dict) -> dict:
         "peak_gpu_memory_mb": float(run["manifest"]["peak_gpu_memory_mb"]),
         "generated_tokens": generated_tokens,
         "generated_tokens_per_second": generated_tokens / float(run["manifest"]["training_seconds"]),
+        "observed_rollout_groups": observed_rollout_groups,
         "trajectory_rows": len(trajectory),
         "resolved_model_revision": run["manifest"]["resolved_model_revision"],
     }
@@ -172,6 +174,9 @@ def render_report(metrics: dict, config: dict) -> str:
         f"- Evaluation: {config['task']['evaluation_examples']} frozen problems per seed and method; "
         f"bootstrap replicates: {config['evaluation']['bootstrap_replicates']}.",
         "- Smoke outputs were excluded. All six full manifests, trajectories, and prediction sets passed validation.",
+        "- Protocol deviation: both methods completed the locked 200 optimizer steps, but TRL's interaction between "
+        "`num_iterations=2` and `steps_per_generation=2` yielded 50 observed GRPO generation groups rather than the "
+        "preregistered 100. PPO yielded 100. Generated-token throughput below uses observed groups, not the intended count.",
         "",
         "## Primary outcome",
         "",
@@ -222,8 +227,9 @@ def render_report(metrics: dict, config: dict) -> str:
         "The preregistered comparison is valid as an execution study but uninformative about relative task performance. "
         "The base policy almost never entered the verifier's positive-support region: exact-answer reward was absent, "
         "format reward was absent on held-out generations, and GRPO frequently had no within-group contrast. Consequently, "
-        "both algorithms remained at the evaluation floor. GRPO used less GPU memory and trained faster, but those systems "
-        "differences do not imply better optimization when the reward supplies essentially no task signal.",
+        "both algorithms remained at the evaluation floor. GRPO used less GPU memory, but the rollout-count deviation "
+        "precludes a clean wall-time or throughput efficiency claim; those systems observations do not imply better "
+        "optimization when the reward supplies essentially no task signal.",
         "",
         "This replaces the prior scaffold caveat with a real preregistered negative result. A follow-up must be separately "
         "preregistered and should add outcome-blind reward shaping or arithmetic SFT so that both methods encounter nonzero "
@@ -287,7 +293,7 @@ def main() -> None:
         raise ValueError(f"Model revision mismatch: {revisions}")
     metrics = {
         "study_id": config["study_id"],
-        "status": "complete_negative_finding",
+        "status": "complete_negative_finding_with_protocol_deviation",
         "bootstrap_replicates": config["evaluation"]["bootstrap_replicates"],
         "runs": summaries,
         "accuracy": accuracy,
@@ -298,7 +304,7 @@ def main() -> None:
     (args.input_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
     (args.input_dir / "report.md").write_text(report, encoding="utf-8")
     with (args.input_dir / "trajectory_summary.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(summaries["ppo"][0].keys()))
+        writer = csv.DictWriter(handle, fieldnames=list(summaries["ppo"][0].keys()), lineterminator="\n")
         writer.writeheader()
         for method in METHODS:
             for row in summaries[method]:
