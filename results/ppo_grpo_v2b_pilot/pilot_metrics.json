@@ -1,0 +1,33 @@
+{
+  "study_id": "ppo_grpo_v2b_pilot",
+  "status": "fail",
+  "metrics": {
+    "numeric_parse_rate": 1.0,
+    "numeric_exact_rate": 0.08203125,
+    "tagged_exact_rate": 0.08203125,
+    "truncation_rate": 0.0625,
+    "groups_with_reward_contrast": 0.78125,
+    "reward_mean": 0.1705078125,
+    "reward_variance": 0.06519542738970589,
+    "n_problems": 64,
+    "n_completions": 256,
+    "runtime_seconds": 195.8675975000001,
+    "peak_gpu_memory_mb": 1007.1416015625
+  },
+  "gates": {
+    "numeric_parse_rate_min": 0.5,
+    "numeric_exact_rate_min": 0.1,
+    "numeric_exact_rate_max": 0.65,
+    "truncation_rate_max": 0.25,
+    "groups_with_reward_contrast_min": 0.5
+  },
+  "gate_results": {
+    "numeric_parse_rate": true,
+    "numeric_exact_rate_min": false,
+    "numeric_exact_rate_max": true,
+    "truncation_rate": true,
+    "groups_with_reward_contrast": true
+  },
+  "pilot_problem_sha256": "156abcb2ce6da4e58710fd2f1fb68ccd8ac1d3f5a76232c4badfa2c2d1a8c9ff",
+  "parent_pilot": "ppo_grpo_v2_pilot"
+}
