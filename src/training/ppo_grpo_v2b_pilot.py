@@ -15,7 +15,13 @@ from src.training.ppo_grpo_v2_pilot import corpus_hash, render_prompt, set_seed
 
 
 @torch.inference_mode()
-def run_v2b_pilot(config: dict, output_dir: Path) -> dict:
+def run_v2b_pilot(
+    config: dict,
+    output_dir: Path,
+    *,
+    problem_generator=generate_problems_v2b,
+    scorer=score_completion_v2b,
+) -> dict:
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required")
     pilot = config["pilot"]
@@ -26,7 +32,7 @@ def run_v2b_pilot(config: dict, output_dir: Path) -> dict:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
     model = AutoModelForCausalLM.from_pretrained(sft_dir, dtype=torch.float16).cuda().eval()
-    problems = generate_problems_v2b(pilot["problem_seed"], pilot["problems"], id_offset=2_000_000)
+    problems = problem_generator(pilot["problem_seed"], pilot["problems"], id_offset=2_000_000)
     rows, contrasts = [], []
     torch.cuda.reset_peak_memory_stats()
     started = time.perf_counter()
@@ -51,7 +57,7 @@ def run_v2b_pilot(config: dict, output_dir: Path) -> dict:
         for sequence in generated:
             completion_ids = sequence[encoded.input_ids.shape[1] :]
             completion = tokenizer.decode(completion_ids, skip_special_tokens=True)
-            reward, metadata = score_completion_v2b(completion, problem, config["reward"])
+            reward, metadata = scorer(completion, problem, config["reward"])
             truncated = len(completion_ids) >= pilot["max_completion_tokens"] and (
                 len(completion_ids) == 0 or completion_ids[-1].item() != tokenizer.eos_token_id
             )
