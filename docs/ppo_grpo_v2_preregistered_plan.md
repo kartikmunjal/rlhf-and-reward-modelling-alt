@@ -1,6 +1,7 @@
 # PPO vs GRPO v2 — preregistered full comparison
 
-**Status:** preregistered, not run. The machine-readable source of truth is
+**Status:** completed on 2026-08-03; the preregistration remains the immutable
+design record. The machine-readable source of truth is
 [`configs/ppo_grpo_v2.json`](../configs/ppo_grpo_v2.json).
 
 V1 reached a zero-accuracy floor because its 64-token cap prevented answers and
@@ -27,3 +28,9 @@ hierarchical-bootstrap replicates over paired seeds and paired evaluation
 problems. Reward variance, directly comparable per-token KL, clipping,
 truncation, peak VRAM, wall time, and actual generated tokens are diagnostics.
 An interval overlapping zero is inconclusive, not evidence of equivalence.
+
+The confirmatory outputs are in [`results/ppo_grpo_v2/`](../results/ppo_grpo_v2/).
+The generated report records one telemetry limitation: PPO completion token
+counts were not persisted, so exact token throughput and cross-method per-token
+KL could not be reconstructed. This does not affect the primary paired accuracy
+outcome or the hard compute-budget assertions.
