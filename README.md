@@ -16,19 +16,20 @@ from chat models to agents.
 
 ## SummEval LLM-as-Judge Extension
 
-Stage 0 is preregistered for a full-text summarization judge using pointwise
+The full research pipeline is implemented for a full-text summarization judge using pointwise
 rubric scores and bidirectional pairwise preferences. Claude Haiku 4.5 is the
 confirmatory primary judge; GPT-5 mini is a prespecified cross-provider
 pointwise robustness check. Relevance and consistency are primary axes, with a
 document-disjoint 20/80 development/held-out split and article-cluster
-bootstrap inference. Stage 1 has verified the preregistered dataset shape,
-materialized separate development and sealed held-out artifacts, and generated
-the deterministic pair set. No judge outcomes have been produced; exact counts
-and hashes are generated in
+bootstrap inference. The dataset shape is verified, development and sealed
+held-out artifacts are materialized, and the deterministic pair set is fixed.
+Live judge outcomes remain pending API credentials; strict provider adapters,
+resumable ledgers, the prompt-freeze gate, complete run driver, diagnostics,
+and fail-closed report generation are implemented. Exact counts and hashes are generated in
 [`data_manifest.json`](llm_judge_summeval/data_manifest.json).
 
-See [`llm_judge_summeval/`](llm_judge_summeval/) for the frozen design, prompt
-source, machine-readable configuration, and integrity manifest.
+See [`llm_judge_summeval/`](llm_judge_summeval/) for the frozen design, prompt,
+generated cost estimate, execution commands, and analysis contract.
 
 <!-- SAFETY-RESULTS:START -->
 ## Safety Classifier & Fairness Extension

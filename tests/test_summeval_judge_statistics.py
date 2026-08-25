@@ -7,8 +7,17 @@ from llm_judge_summeval.statistics import (
     position_bias_counts,
     rouge_l_fmeasure,
     spearman,
+    partial_spearman,
     wilson_interval,
 )
+
+
+def test_partial_spearman_removes_shared_monotone_length_signal():
+    length = np.arange(1, 21, dtype=float)
+    human = length + np.asarray([0, 1, -1, 0] * 5)
+    judge = length + np.asarray([1, -1, 0, 0] * 5)
+    assert spearman(judge, human) > 0.9
+    assert abs(partial_spearman(judge, human, length)) < 0.5
 
 
 def test_spearman_and_rouge_l_known_cases():

@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-08-25",
+  "currency": "USD",
+  "per_million_tokens": {
+    "claude-haiku-4-5-20251001": {"input": 1.0, "output": 5.0},
+    "gpt-5-mini-2025-08-07": {"input": 0.25, "output": 2.0}
+  },
+  "sources": {
+    "anthropic": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "openai": "https://developers.openai.com/api/docs/models/gpt-5-mini"
+  }
+}

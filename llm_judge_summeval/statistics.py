@@ -23,6 +23,20 @@ def spearman(x, y) -> float:
     return float(np.corrcoef(rankdata(left), rankdata(right))[0, 1])
 
 
+def partial_spearman(x, y, controls) -> float:
+    """Spearman correlation after linearly residualizing ranked controls."""
+    left, right = rankdata(np.asarray(x, dtype=float)), rankdata(np.asarray(y, dtype=float))
+    control = np.asarray(controls, dtype=float)
+    if control.ndim == 1:
+        control = control[:, None]
+    if len(left) != len(right) or control.shape[0] != len(left) or len(left) < 3:
+        raise ValueError("Partial Spearman inputs must have matching rows")
+    design = np.column_stack([np.ones(len(left)), np.apply_along_axis(rankdata, 0, control)])
+    left_residual = left - design @ np.linalg.lstsq(design, left, rcond=None)[0]
+    right_residual = right - design @ np.linalg.lstsq(design, right, rcond=None)[0]
+    return spearman(left_residual, right_residual)
+
+
 def rouge_l_fmeasure(candidate: str, reference: str) -> float:
     cand, ref = TOKEN.findall(candidate.lower()), TOKEN.findall(reference.lower())
     if not cand or not ref:
@@ -38,7 +52,8 @@ def rouge_l_fmeasure(candidate: str, reference: str) -> float:
     return 2 * precision * recall / (precision + recall) if lcs else 0.0
 
 
-def article_cluster_bootstrap(article_ids, values, statistic, *, replicates: int, seed: int) -> dict:
+def article_cluster_bootstrap(article_ids, values, statistic, *, replicates: int, seed: int,
+                              cluster_unit: str = "source_article") -> dict:
     article_ids = np.asarray(article_ids)
     values = tuple(np.asarray(value) for value in values)
     unique = np.unique(article_ids)
@@ -52,8 +67,12 @@ def article_cluster_bootstrap(article_ids, values, statistic, *, replicates: int
     if not len(finite):
         raise ValueError("Bootstrap statistic was never finite")
     estimate = float(statistic(*values))
-    return {"estimate": estimate, "ci95": [float(x) for x in np.quantile(finite, [0.025, 0.975])],
-            "n_articles": len(unique), "replicates": replicates, "finite_replicates": len(finite)}
+    result = {"estimate": estimate, "ci95": [float(x) for x in np.quantile(finite, [0.025, 0.975])],
+              "cluster_unit": cluster_unit, "n_clusters": len(unique), "n_observations": len(article_ids),
+              "replicates": replicates, "finite_replicates": len(finite)}
+    if cluster_unit == "source_article":
+        result["n_articles"] = len(unique)
+    return result
 
 
 def wilson_interval(successes: int, total: int, z: float = 1.959963984540054) -> list[float]:

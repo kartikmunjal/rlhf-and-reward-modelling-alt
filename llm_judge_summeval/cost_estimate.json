@@ -1,0 +1,36 @@
+{
+  "heldout": {
+    "claude": {
+      "budgeted_output_tokens": 1040000,
+      "estimated_input_tokens": 2307587,
+      "estimated_usd": 7.507587,
+      "requests": 2080
+    },
+    "estimated_total_usd": 9.12915525,
+    "openai": {
+      "budgeted_output_tokens": 640000,
+      "estimated_input_tokens": 1366273,
+      "estimated_usd": 1.6215682500000002,
+      "requests": 1280
+    }
+  },
+  "method": "conservative_character_estimate_not_actual_billing",
+  "pricing": {
+    "checked_at_utc": "2026-08-25",
+    "currency": "USD",
+    "per_million_tokens": {
+      "claude-haiku-4-5-20251001": {
+        "input": 1.0,
+        "output": 5.0
+      },
+      "gpt-5-mini-2025-08-07": {
+        "input": 0.25,
+        "output": 2.0
+      }
+    },
+    "sources": {
+      "anthropic": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "openai": "https://developers.openai.com/api/docs/models/gpt-5-mini"
+    }
+  }
+}
