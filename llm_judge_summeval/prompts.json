@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-preregistered",
+  "shared_rubric": {
+    "coherence": "Organization and logical flow as a standalone summary. A 1 is disjointed or incoherent; a 5 is clear, well structured, and easy to follow.",
+    "consistency": "Factual faithfulness to the source article. A 1 contains major unsupported or contradictory claims; a 5 contains no identifiable factual inconsistency.",
+    "fluency": "Grammatical quality and readability. A 1 has pervasive language errors; a 5 is polished and natural. Do not reward extra detail merely for increasing length.",
+    "relevance": "Selection of the source article's important information without irrelevant or redundant material. A 1 misses the central content or is dominated by irrelevant material; a 5 captures the key content concisely. Do not reward length by itself."
+  },
+  "pointwise_system": "You are an impartial evaluator of machine-generated news summaries. Use only the supplied source and rubric. Score each axis independently. Do not infer quality from model identity, style, or length alone. Return only JSON matching the requested schema.",
+  "pointwise_user_template": "SOURCE ARTICLE:\n{source}\n\nCANDIDATE SUMMARY:\n{summary}\n\nRUBRIC:\n{rubric}\n\nReturn integer scores from 1 through 5 and a brief evidence-based rationale for each axis. Schema: {\"coherence\":{\"score\":1,\"rationale\":\"...\"},\"consistency\":{\"score\":1,\"rationale\":\"...\"},\"fluency\":{\"score\":1,\"rationale\":\"...\"},\"relevance\":{\"score\":1,\"rationale\":\"...\"}}",
+  "pairwise_system": "You are an impartial evaluator comparing two machine-generated news summaries. Use only the supplied source and rubric. Judge each axis independently. The labels A and B are arbitrary; do not favor the first or second position. Return only JSON matching the requested schema.",
+  "pairwise_user_template": "SOURCE ARTICLE:\n{source}\n\nSUMMARY A:\n{summary_a}\n\nSUMMARY B:\n{summary_b}\n\nRUBRIC:\n{rubric}\n\nFor each axis choose A, B, or tie and give a brief evidence-based rationale. Schema: {\"coherence\":{\"winner\":\"A|B|tie\",\"rationale\":\"...\"},\"consistency\":{\"winner\":\"A|B|tie\",\"rationale\":\"...\"},\"fluency\":{\"winner\":\"A|B|tie\",\"rationale\":\"...\"},\"relevance\":{\"winner\":\"A|B|tie\",\"rationale\":\"...\"}}"
+}
+

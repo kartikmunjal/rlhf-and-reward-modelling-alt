@@ -14,6 +14,18 @@ validated, how the training system scales from GPT-2-sized experiments toward
 7B+ constraints, and how the same outcome-vs-process evaluation logic transfers
 from chat models to agents.
 
+## SummEval LLM-as-Judge Extension
+
+Stage 0 is preregistered for a full-text summarization judge using pointwise
+rubric scores and bidirectional pairwise preferences. Claude Haiku 4.5 is the
+confirmatory primary judge; GPT-5 mini is a prespecified cross-provider
+pointwise robustness check. Relevance and consistency are primary axes, with a
+document-disjoint 20/80 development/held-out split and article-cluster
+bootstrap inference. No SummEval outcomes have been inspected or scored.
+
+See [`llm_judge_summeval/`](llm_judge_summeval/) for the frozen design, prompt
+source, machine-readable configuration, and integrity manifest.
+
 <!-- SAFETY-RESULTS:START -->
 ## Safety Classifier & Fairness Extension
 

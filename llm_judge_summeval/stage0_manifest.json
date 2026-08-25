@@ -1,0 +1,15 @@
+{
+  "files": {
+    "preregistration.md": {
+      "sha256": "0bd50f3ce5c7f8227f8c86cff3c61d2b011ea7e92447484455c9116a4e23ffc1"
+    },
+    "prompts.json": {
+      "sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c"
+    },
+    "study_config.json": {
+      "sha256": "74290a002cda5ef59e9de374b072dcbe08c3fdeaa198602f6131c7acfad52528"
+    }
+  },
+  "stage": 0,
+  "status": "frozen_before_data_or_results"
+}
