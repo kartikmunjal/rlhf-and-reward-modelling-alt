@@ -21,7 +21,11 @@ rubric scores and bidirectional pairwise preferences. Claude Haiku 4.5 is the
 confirmatory primary judge; GPT-5 mini is a prespecified cross-provider
 pointwise robustness check. Relevance and consistency are primary axes, with a
 document-disjoint 20/80 development/held-out split and article-cluster
-bootstrap inference. No SummEval outcomes have been inspected or scored.
+bootstrap inference. Stage 1 has verified the preregistered dataset shape,
+materialized separate development and sealed held-out artifacts, and generated
+the deterministic pair set. No judge outcomes have been produced; exact counts
+and hashes are generated in
+[`data_manifest.json`](llm_judge_summeval/data_manifest.json).
 
 See [`llm_judge_summeval/`](llm_judge_summeval/) for the frozen design, prompt
 source, machine-readable configuration, and integrity manifest.
