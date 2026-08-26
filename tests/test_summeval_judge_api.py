@@ -5,7 +5,7 @@ import pytest
 
 from llm_judge_summeval.ledger import execute_request, load_latest
 from llm_judge_summeval.prompts import canonical_sha256, verify_final_prompt_manifest
-from llm_judge_summeval.providers import AnthropicProvider, OpenAIProvider
+from llm_judge_summeval.providers import AnthropicProvider, OpenAIProvider, ProviderError
 from llm_judge_summeval.schemas import pointwise_schema, validate_output
 
 
@@ -36,6 +36,7 @@ def test_openai_adapter_builds_structured_request_and_disables_storage(monkeypat
     assert response.parsed == VALID
     assert seen["text"]["format"]["strict"] is True
     assert seen["store"] is False
+    assert "temperature" not in seen
 
 
 def test_validation_rejects_extra_axes_and_bad_score():
@@ -73,6 +74,24 @@ def test_ledger_rejects_unexpected_served_model(monkeypatch, tmp_path: Path):
     )
     assert result["status"] == "provider_error"
     assert "did not match pinned model" in result["error"]
+
+
+def test_amendment_allows_exactly_one_persisted_provider_retry(monkeypatch, tmp_path: Path):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test")
+    calls = {"n": 0}
+    def transport(url, headers, payload, timeout):
+        calls["n"] += 1
+        raise ProviderError("generic provider rejection", retryable=False, status=400)
+    kwargs = dict(
+        ledger_path=tmp_path / "ledger.jsonl", provider=AnthropicProvider("pinned", transport=transport),
+        provider_name="anthropic", model="pinned", kind="pointwise", item_id="x",
+        system="s", user="u", schema=pointwise_schema(), metadata={}, max_transport_attempts=1,
+        allow_one_persisted_provider_retry=True,
+    )
+    execute_request(**kwargs)
+    execute_request(**kwargs)
+    execute_request(**kwargs)
+    assert calls["n"] == 2
 
 
 def test_heldout_gate_requires_matching_manifest(tmp_path: Path):

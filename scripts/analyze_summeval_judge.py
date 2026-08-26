@@ -37,13 +37,19 @@ def render(metrics: dict) -> str:
              "| Provider | Axis | Judge vs human Spearman ρ (95% CI) | ROUGE-L vs human ρ (95% CI) | Judge − ROUGE-L (95% CI) | Length bias ρ (95% CI) | Judge vs human, controlling length (95% CI) |",
              "|---|---|---:|---:|---:|---:|---:|"]
     for provider in ("anthropic", "openai"):
+        if not metrics["pointwise"][provider]["axes"]:
+            lines.append(f"| {provider} | all | infrastructure incomplete | infrastructure incomplete | infrastructure incomplete | infrastructure incomplete | infrastructure incomplete |")
+            continue
         for axis in AXES:
             row = metrics["pointwise"][provider]["axes"][axis]
             lines.append(f"| {provider} | {axis} | {cell(row['judge_human'])} | {cell(row['rouge_human'])} | {cell(row['judge_minus_rouge'])} | {cell(row['length_bias'])} | {cell(row['judge_human_controlling_length'])} |")
     lines += ["", f"Primary success: **{metrics['primary_success']}**. " + ", ".join(f"{axis}={value}" for axis, value in metrics["primary_success_by_axis"].items()),
               "", "## Cross-provider agreement", "", "| Axis | Claude vs GPT-5 mini Spearman ρ (95% CI) |", "|---|---:|"]
-    for axis in AXES:
-        lines.append(f"| {axis} | {cell(metrics['cross_provider']['axes'][axis])} |")
+    if metrics["cross_provider"]["axes"]:
+        for axis in AXES:
+            lines.append(f"| {axis} | {cell(metrics['cross_provider']['axes'][axis])} |")
+    else:
+        lines.append("| all | infrastructure incomplete |")
     lines += ["", "## Pairwise position bias and mitigation", "",
               "| Axis | Preference flip rate | Tie instability | First-order human agreement | Symmetrized human agreement | BT vs human ρ (95% CI) | Symmetrized − first-order agreement (95% CI) |",
               "|---|---:|---:|---:|---:|---:|---:|"]
@@ -67,8 +73,8 @@ def main() -> None:
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding="utf-8"))
     metrics = analyze(args.results_dir, args.processed_dir, args.prompts, args.prompt_manifest, config)
-    if metrics["status"] != "complete":
-        raise SystemExit("Held-out response coverage is below the preregistered 90% threshold; no final report published")
+    if metrics["primary_status"] != "complete":
+        raise SystemExit("Primary Claude response coverage is below the preregistered 90% threshold; no final report published")
     args.results_dir.mkdir(parents=True, exist_ok=True)
     (args.results_dir / "metrics.json").write_text(json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     (args.results_dir / "report.md").write_text(render(metrics), encoding="utf-8")

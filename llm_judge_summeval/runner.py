@@ -34,7 +34,8 @@ def run_pointwise(*, phase: str, provider_name: str, config: dict, processed_dir
         system, user = render_pointwise(prompts, row["source"], row["summary"])
         result = execute_request(ledger_path=ledger_path, provider=provider, provider_name=provider_name, model=judge["model"],
                                  kind="pointwise", item_id=row["summary_id"], system=system, user=user,
-                                 schema=pointwise_schema(), metadata={"phase": phase, "article_id": row["article_id"], "summary_id": row["summary_id"]})
+                                 schema=pointwise_schema(), metadata={"phase": phase, "article_id": row["article_id"], "summary_id": row["summary_id"]},
+                                 allow_one_persisted_provider_retry=(phase == "heldout" and provider_name == "openai"))
         counts["success" if result["status"] == "success" else "failed"] += 1
     return counts
 
@@ -62,6 +63,7 @@ def run_pairwise_heldout(*, config: dict, processed_dir: Path, prompts_path: Pat
                     "order": order, "display_a_id": left_id, "display_b_id": right_id}
         result = execute_request(ledger_path=ledger_path, provider=provider, provider_name="anthropic", model=judge["model"],
                                  kind="pairwise", item_id=f"{pair['pair_id']}:{order}", system=system, user=user,
-                                 schema=pairwise_schema(), metadata=metadata)
+                                 schema=pairwise_schema(), metadata=metadata,
+                                 allow_one_persisted_provider_retry=True)
         counts["success" if result["status"] == "success" else "failed"] += 1
     return counts

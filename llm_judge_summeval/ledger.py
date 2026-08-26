@@ -31,12 +31,20 @@ def append_row(path: Path, row: dict) -> None:
 
 
 def execute_request(*, ledger_path: Path, provider, provider_name: str, model: str, kind: str, item_id: str,
-                    system: str, user: str, schema: dict, metadata: dict, max_transport_attempts: int = 5) -> dict:
+                    system: str, user: str, schema: dict, metadata: dict, max_transport_attempts: int = 5,
+                    allow_one_persisted_provider_retry: bool = False) -> dict:
     request_id = canonical_sha256({"provider": provider_name, "model": model, "kind": kind, "item_id": item_id,
                                   "system": system, "user": user, "schema": schema})
-    prior = load_latest(ledger_path).get(request_id)
+    history = [row for row in load_history(ledger_path) if row["request_id"] == request_id]
+    prior = history[-1] if history else None
     if prior and prior["status"] == "success":
         return prior
+    if prior and prior["status"] == "invalid_output":
+        return prior
+    if prior and prior["status"] == "provider_error":
+        prior_failures = sum(row["status"] == "provider_error" for row in history)
+        if not allow_one_persisted_provider_retry or prior_failures >= 2:
+            return prior
     started = time.time()
     schema_attempt = 0
     transport_attempt = 0
@@ -72,3 +80,9 @@ def execute_request(*, ledger_path: Path, provider, provider_name: str, model: s
                 return row
             time.sleep(min(60, 2 ** (transport_attempt - 1)) + random.random())
     raise AssertionError("Unreachable")
+
+
+def load_history(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]

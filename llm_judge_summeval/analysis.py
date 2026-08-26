@@ -39,6 +39,10 @@ def pointwise_analysis(provider: str, ledger_path: Path, inputs: list[dict], lab
         status = "infrastructure_incomplete"
     else:
         status = "complete"
+    if successes < 2:
+        return {"provider": provider, "status": status, "valid": successes, "total": total,
+                "valid_rate": successes / total, "valid_rate_wilson_ci95": wilson_interval(successes, total),
+                "usage": {"input_tokens": 0, "output_tokens": 0}, "axes": {}, "scores": {}}
     article_ids = np.asarray([row["article_id"] for row in valid])
     rouge = np.asarray([rouge_l_fmeasure(row["summary"], row["reference"]) for row in valid])
     lengths = np.asarray([len(row["summary"].split()) for row in valid])
@@ -69,7 +73,9 @@ def cross_provider_analysis(primary: dict, secondary: dict, inputs: list[dict], 
     joint = sorted(set(primary["scores"]) & set(secondary["scores"]))
     article_by_summary = {row["summary_id"]: row["article_id"] for row in inputs}
     articles = [article_by_summary[item] for item in joint]
-    return {"joint_valid": len(joint), "axes": {
+    if len(joint) < 2:
+        return {"status": "infrastructure_incomplete", "joint_valid": len(joint), "axes": {}}
+    return {"status": "complete", "joint_valid": len(joint), "axes": {
         axis: _metric(articles, [primary["scores"][item][axis] for item in joint],
                       [secondary["scores"][item][axis] for item in joint], config) for axis in AXES
     }}
@@ -215,7 +221,10 @@ def analyze(results_dir: Path, processed_dir: Path, prompts_path: Path, prompt_m
         "anthropic_pairwise_ledger": results_dir / "anthropic_pairwise.jsonl",
         "runtime_pricing": prompts_path.parent / "runtime_pricing.json",
     }
-    return {"study_id": config["study_id"], "status": "complete" if all(part["status"] == "complete" for part in (primary, secondary, pairwise)) else "infrastructure_incomplete",
+    all_complete = all(part["status"] == "complete" for part in (primary, secondary, pairwise))
+    return {"study_id": config["study_id"],
+            "status": "complete" if all_complete else "primary_complete_secondary_infrastructure_incomplete",
+            "primary_status": primary["status"],
             "primary_success_by_axis": success, "primary_success": all(success.values()),
             "actual_api_cost_at_recorded_rates": actual_cost,
             "provenance": {name: {"path": str(path), "sha256": file_sha256(path)}

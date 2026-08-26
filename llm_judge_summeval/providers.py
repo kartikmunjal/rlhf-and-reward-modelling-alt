@@ -77,7 +77,8 @@ class OpenAIProvider:
         if not key:
             raise ProviderError("OPENAI_API_KEY is missing")
         payload = {
-            "model": self.model, "instructions": system, "input": user, "temperature": 0,
+            # Protocol amendment 001: GPT-5-mini rejects the temperature field.
+            "model": self.model, "instructions": system, "input": user,
             "max_output_tokens": max_tokens, "store": False,
             "text": {"format": {"type": "json_schema", "name": "summeval_judgment", "strict": True, "schema": schema}},
         }

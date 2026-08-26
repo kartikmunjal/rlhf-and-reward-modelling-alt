@@ -1,0 +1,19 @@
+{
+  "amendment_id": "summeval_llm_judge_v1_amendment_001",
+  "approved_at_utc_date": "2026-08-26",
+  "approval": "explicit_repository_owner_approval",
+  "outcome_visibility_at_approval": "infrastructure_status_only_no_heldout_quality_metrics",
+  "changes": {
+    "anthropic_pairwise": {
+      "additional_attempts_for_prior_provider_error": 1,
+      "prompt_or_schema_change": false,
+      "retry_prior_invalid_output": false
+    },
+    "openai_pointwise": {
+      "omit_unsupported_temperature_field": true,
+      "model_prompt_schema_or_data_change": false,
+      "claim_role": "amended_secondary_cross_provider_only"
+    }
+  },
+  "confirmatory_primary_changed": false
+}
