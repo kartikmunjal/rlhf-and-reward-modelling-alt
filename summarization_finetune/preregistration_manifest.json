@@ -1,0 +1,25 @@
+{
+  "files": {
+    "dpo_preregistration": {
+      "path": "summarization_finetune/dpo_preregistration.md",
+      "sha256": "43baa694d396f4cec6df20582576a62968d05e2f049b512352211be65d920eb3"
+    },
+    "frozen_judge_manifest": {
+      "path": "llm_judge_summeval/final_prompt_manifest.json",
+      "sha256": "2fb6b925df3be09d4c35df6476b07895790158f2e83d089b906763cb473f94d7"
+    },
+    "frozen_judge_prompts": {
+      "path": "llm_judge_summeval/prompts.json",
+      "sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c"
+    },
+    "sft_preregistration": {
+      "path": "summarization_finetune/sft_preregistration.md",
+      "sha256": "f70ab701ba8f872563c5ba59cf88d7f27b85f9e22076795053034813c0172a4c"
+    },
+    "study_config": {
+      "path": "summarization_finetune/study_config.json",
+      "sha256": "bb179d09c5eabacb5dbaba3e971bb942f3ad57186fe85b5c22747428a065ad8f"
+    }
+  },
+  "status": "locked_before_data_or_training"
+}

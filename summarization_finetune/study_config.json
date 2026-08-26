@@ -1,0 +1,104 @@
+{
+  "study_id": "summarization_finetune_v1",
+  "status": "preregistered_before_data_preparation_or_training",
+  "locked_at_utc_date": "2026-08-26",
+  "seed": 20260826,
+  "judge": {
+    "primary_provider": "anthropic",
+    "primary_model": "claude-haiku-4-5-20251001",
+    "secondary_provider": "openai",
+    "secondary_model": "gpt-5-mini-2025-08-07",
+    "prompts_path": "llm_judge_summeval/prompts.json",
+    "prompts_sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c",
+    "final_prompt_manifest_path": "llm_judge_summeval/final_prompt_manifest.json",
+    "immutable": true
+  },
+  "data": {
+    "dataset": "abisee/cnn_dailymail",
+    "version": "3.0.0",
+    "sft_split": "train",
+    "sft_epochs": 1,
+    "preference_split": "validation",
+    "preference_articles": 256,
+    "sft_eval_articles": 256,
+    "final_eval_split": "test",
+    "final_eval_articles": 200,
+    "selection": "sha256_ranked_by_split_salt",
+    "split_salt": "summarization-finetune-v1-20260826",
+    "summ_eval_exclusion": "canonical_id_and_normalized_source_sha256",
+    "partition_overlap_allowed": false
+  },
+  "model": {
+    "base": "gpt2-medium",
+    "context_tokens": 1024,
+    "source_tokens": 768,
+    "new_summary_tokens": 192,
+    "prompt_template": "Article:\n{source}\n\nSummary:\n",
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "lora_targets": ["c_attn", "c_proj"]
+  },
+  "sft": {
+    "learning_rate": 0.0002,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.05,
+    "scheduler": "cosine",
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 32,
+    "fp16": true,
+    "gradient_checkpointing": true
+  },
+  "evaluation_generation": {
+    "do_sample": false,
+    "max_new_tokens": 192,
+    "no_repeat_ngram_size": 3,
+    "models": ["base", "sft", "dpo"],
+    "same_articles_and_decoding": true
+  },
+  "dpo_candidates": {
+    "candidates_per_article": 4,
+    "all_unordered_pairs": true,
+    "expected_judge_requests": 1536,
+    "do_sample": true,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "top_k": 50,
+    "max_new_tokens": 192,
+    "preference_rule": "relevance_and_consistency_must_choose_same_non_tie_candidate",
+    "conflicts_and_ties": "exclude"
+  },
+  "dpo": {
+    "beta": 0.1,
+    "learning_rate": 0.0001,
+    "epochs": 1,
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "fp16": true,
+    "gradient_checkpointing": true,
+    "reference": "merged_sft_checkpoint"
+  },
+  "statistics": {
+    "primary_axes": ["relevance", "consistency"],
+    "bootstrap_unit": "article",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260826,
+    "confidence_level": 0.95,
+    "validity_interval": "wilson",
+    "minimum_valid_fraction": 0.9
+  },
+  "sft_success": "paired_bootstrap_ci_lower_bound_above_zero_for_sft_minus_base_on_both_primary_axes",
+  "dpo_success": "paired_bootstrap_ci_lower_bound_above_zero_for_dpo_minus_sft_on_both_primary_axes",
+  "length_hacking": {
+    "length_metric": "whitespace_words",
+    "report_paired_length_shift": true,
+    "controlled_estimand": "ols_treatment_coefficient_with_article_fixed_effects_and_standardized_length",
+    "controlled_ci": "article_cluster_bootstrap",
+    "independent_proxies": ["rougeL_fmeasure", "amended_gpt5_mini_pointwise"],
+    "interpretation": "raw_gain_without_positive_controlled_gain_or_reference_proxy_support_is_length_exploitation_risk"
+  },
+  "training_seed_scope": {
+    "n_training_seeds": 1,
+    "limitation": "article_bootstrap_does_not_estimate_training_seed_variability"
+  }
+}
