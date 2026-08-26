@@ -14,22 +14,23 @@ validated, how the training system scales from GPT-2-sized experiments toward
 7B+ constraints, and how the same outcome-vs-process evaluation logic transfers
 from chat models to agents.
 
+<!-- SUMMEVAL-RESULTS:START -->
 ## SummEval LLM-as-Judge Extension
 
-The full research pipeline is implemented for a full-text summarization judge using pointwise
-rubric scores and bidirectional pairwise preferences. Claude Haiku 4.5 is the
-confirmatory primary judge; GPT-5 mini is a prespecified cross-provider
-pointwise robustness check. Relevance and consistency are primary axes, with a
-document-disjoint 20/80 development/held-out split and article-cluster
-bootstrap inference. The dataset shape is verified, development and sealed
-held-out artifacts are materialized, and the deterministic pair set is fixed.
-Live judge outcomes remain pending API credentials; strict provider adapters,
-resumable ledgers, the prompt-freeze gate, complete run driver, diagnostics,
-and fail-closed report generation are implemented. Exact counts and hashes are generated in
-[`data_manifest.json`](llm_judge_summeval/data_manifest.json).
+**Preregistered primary result: PASS.** Claude relevance tracked expert ratings at Spearman rho 0.540 (95% CI 0.490–0.592; N=1274); consistency reached 0.587 (95% CI 0.534–0.642; N=1274). Both exceeded the locked 0.40 threshold.
 
-See [`llm_judge_summeval/`](llm_judge_summeval/) for the frozen design, prompt,
-generated cost estimate, execution commands, and analysis contract.
+Against ROUGE-L, the paired correlation advantage was 0.264 (95% CI 0.188–0.344; N=1274) for relevance and 0.430 (95% CI 0.339–0.521; N=1274) for consistency. Both intervals exclude zero positively, satisfying the second locked condition.
+
+Claude coverage was 1274/1280 (Wilson 95% CI 0.990–0.998). The amended GPT-5-mini secondary run covered 1223/1280 (Wilson 95% CI 0.943–0.965). Cross-provider agreement was 0.677 (95% CI 0.637–0.714; N=1219) for relevance and 0.754 (95% CI 0.715–0.789; N=1219) for consistency.
+
+Length sensitivity was modest but detectable: Claude score-length rho was 0.101 (95% CI 0.032–0.168; N=1274) for relevance and 0.100 (95% CI 0.034–0.169; N=1274) for consistency. Controlling for length left judge-human correlations at 0.519 (95% CI 0.469–0.570; N=1274) and 0.691 (95% CI 0.639–0.738; N=1274), respectively, so verbosity does not mechanically explain the primary result.
+
+**Pairwise limitation:** only 348/400 bidirectional pairs were complete (Wilson 95% CI 0.833–0.899), below the preregistered 90% floor. Pairwise position-bias and mitigation estimates are exploratory. Symmetrization improved agreement for consistency and fluency but reduced it for relevance and coherence, so the proposed mitigation did not generalize across axes.
+
+Recorded-token API cost was $8.17. All correlations and differences use 2,000 deterministic clustered-bootstrap trials; validity rates use Wilson intervals.
+
+See [`llm_judge_summeval/`](llm_judge_summeval/) and [`results/summeval_judge_v1/report.md`](results/summeval_judge_v1/report.md) for the frozen design, amendment, audit ledgers, complete metrics, and interpretation boundaries.
+<!-- SUMMEVAL-RESULTS:END -->
 
 <!-- SAFETY-RESULTS:START -->
 ## Safety Classifier & Fairness Extension

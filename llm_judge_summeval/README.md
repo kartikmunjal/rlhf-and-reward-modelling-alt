@@ -5,8 +5,8 @@ preferences to full-summary evaluation. It uses SummEval human annotations as
 ground truth, a pointwise rubric judge, and a pairwise judge interpreted through
 the same Bradley–Terry preference framework used elsewhere in the repository.
 
-The complete pipeline is implemented; live judge execution is pending provider
-credentials. The immutable design is in [`preregistration.md`](preregistration.md),
+The complete pipeline has been executed; generated findings and limitations are
+reported below. The immutable design is in [`preregistration.md`](preregistration.md),
 the machine-readable lock is [`study_config.json`](study_config.json), and the
 prompt source is [`prompts.json`](prompts.json). [`data_manifest.json`](data_manifest.json)
 records source and output hashes plus the exact article-disjoint split. Raw,
@@ -22,7 +22,8 @@ fail-closed report generator.
 
 ## Run
 
-Set `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`, then run:
+To reproduce with fresh provider calls, set `ANTHROPIC_API_KEY` and
+`OPENAI_API_KEY`, then run:
 
 ```bash
 python3 scripts/run_summeval_study.py
@@ -51,3 +52,13 @@ coherence, fluency, pairwise results, and bias mitigations are secondary and
 cannot rescue a failed primary result. Length controls diagnose whether verbosity
 mechanically explains apparent quality correlation; reversed pair order tests
 whether arbitrary presentation position changes the preferred underlying summary.
+
+<!-- GENERATED-FINDINGS:START -->
+## Generated findings
+
+The preregistered primary result **passed**. Claude judge-human Spearman rho was 0.540 (95% CI 0.490–0.592; N=1274) for relevance and 0.587 (95% CI 0.534–0.642; N=1274) for consistency. Its paired advantage over ROUGE-L was 0.264 (95% CI 0.188–0.344; N=1274) and 0.430 (95% CI 0.339–0.521; N=1274), respectively.
+
+Primary pointwise coverage was 1274/1280 (Wilson 95% CI 0.990–0.998). Pairwise coverage was 348/400 (Wilson 95% CI 0.833–0.899), so pairwise conclusions remain exploratory and infrastructure-incomplete.
+
+The preregistered symmetrization mitigation was not generally supported: its direction differed by axis. See [`../results/summeval_judge_v1/report.md`](../results/summeval_judge_v1/report.md) for every metric and confidence interval.
+<!-- GENERATED-FINDINGS:END -->

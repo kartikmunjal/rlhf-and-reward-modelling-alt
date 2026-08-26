@@ -1,0 +1,11 @@
+{
+  "config_sha256": "c29daa059b053208057cd69b40024c54d588d74f298fdb68ea54cb7f1240a26e",
+  "dev_ledger_sha256": "c0b6b5bbec706e80ec0d665e45ba3a94cbb925c1a99e283dfe5e1b8f6f554d13",
+  "expected_dev_requests": 320,
+  "minimum_required": 288,
+  "model": "claude-haiku-4-5-20251001",
+  "prompts_sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c",
+  "provider": "anthropic",
+  "status": "frozen_after_dev_before_heldout",
+  "successful_dev_requests": 317
+}

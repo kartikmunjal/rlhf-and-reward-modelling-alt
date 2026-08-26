@@ -1,0 +1,2189 @@
+{
+  "axes": {
+    "coherence": {
+      "judge_human": {
+        "ci95": [
+          0.4846264513196641,
+          0.6839783165961785
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.5879501166456825,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_human_controlling_length": {
+        "ci95": [
+          0.5135712066441442,
+          0.6585440376035205
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.5848379635577835,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_minus_rouge": {
+        "ci95": [
+          0.37898911512854244,
+          0.7545702117805855
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.5750174557808593,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "length_bias": {
+        "ci95": [
+          -0.2621314890671125,
+          0.014985427961741656
+        ],
+        "cluster_unit": "source_article",
+        "estimate": -0.12331785337697256,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "rouge_human": {
+        "ci95": [
+          -0.13571478942703968,
+          0.17179775956358934
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.012932660864823208,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      }
+    },
+    "consistency": {
+      "judge_human": {
+        "ci95": [
+          0.5934318062295495,
+          0.7542370508095002
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.6798488066194508,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_human_controlling_length": {
+        "ci95": [
+          -0.1931390505754781,
+          0.8402936545590148
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.7699236606011189,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_minus_rouge": {
+        "ci95": [
+          0.44909652633206865,
+          0.717640213949048
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.5876017130675538,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "length_bias": {
+        "ci95": [
+          -0.06660507831536132,
+          0.15653096709443584
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.05316651902684119,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "rouge_human": {
+        "ci95": [
+          -0.002717117111076517,
+          0.1989855780105707
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.09224709355189696,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      }
+    },
+    "fluency": {
+      "judge_human": {
+        "ci95": [
+          0.32726288342371884,
+          0.496167532544533
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.41236892956972193,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_human_controlling_length": {
+        "ci95": [
+          0.2529635472836535,
+          0.44227065410015953
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.3489713595202273,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_minus_rouge": {
+        "ci95": [
+          0.2670908808516599,
+          0.48528471168424914
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.382520360768028,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "length_bias": {
+        "ci95": [
+          -0.3753588271235164,
+          -0.11838456026655546
+        ],
+        "cluster_unit": "source_article",
+        "estimate": -0.2507372358522853,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "rouge_human": {
+        "ci95": [
+          -0.07534306807351608,
+          0.14542916481619556
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.029848568801693957,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      }
+    },
+    "relevance": {
+      "judge_human": {
+        "ci95": [
+          0.3900852932601531,
+          0.6241074401779786
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.5157640989396176,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_human_controlling_length": {
+        "ci95": [
+          0.3776780757956376,
+          0.5870167596849256
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.48899222984746016,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "judge_minus_rouge": {
+        "ci95": [
+          0.12281238386444043,
+          0.4735539086788651
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.29702178888145503,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "length_bias": {
+        "ci95": [
+          -0.05756325333575489,
+          0.28660652336438486
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.11979680099506702,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      },
+      "rouge_human": {
+        "ci95": [
+          0.02321025038577604,
+          0.38691819958533985
+        ],
+        "cluster_unit": "source_article",
+        "estimate": 0.21874231005816258,
+        "finite_replicates": 2000,
+        "n_articles": 20,
+        "n_clusters": 20,
+        "n_observations": 317,
+        "replicates": 2000
+      }
+    }
+  },
+  "provider": "anthropic",
+  "scores": {
+    "03e271b4305517e02c9ead82d57327d32b99102e:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M10": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M13": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M15": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M17": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M2": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M20": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 1,
+      "relevance": 1
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 3
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M8": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "03e271b4305517e02c9ead82d57327d32b99102e:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M0": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M10": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M20": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "051db270afc32571a08c15124330efe89d80fea8:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M1": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M10": {
+      "coherence": 3,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M11": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M2": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M8": {
+      "coherence": 3,
+      "consistency": 4,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "0783c68a744df6afa009d16e72709f2b4d90dea1:M9": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M1": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M10": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M11": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M2": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M5": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "1749a22e2b6facaa057213cb9b33261b319bbd2b:M9": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M10": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M11": {
+      "coherence": 1,
+      "consistency": 1,
+      "fluency": 1,
+      "relevance": 1
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M14": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M15": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M2": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M20": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 3,
+      "relevance": 1
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M22": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M23": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M8": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "18243373494a1722ddcd162ec67b63dd749633ab:M9": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M0": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M1": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M10": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M13": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M14": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M15": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M20": {
+      "coherence": 1,
+      "consistency": 4,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 3
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M5": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "2c6695b438980783754f7db28129ec2fbb3e6e21:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M0": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M10": {
+      "coherence": 1,
+      "consistency": 4,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 1
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M12": {
+      "coherence": 3,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M13": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M14": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M20": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M22": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M23": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M5": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M8": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "2feca9acf532e33f1ab7442c442c8e19787d8d7b:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M10": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M11": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M12": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M13": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M14": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M17": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M20": {
+      "coherence": 1,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M8": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "3ba3bde4a1440134bb38ec22ba50db59986b544c:M9": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M1": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M10": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M11": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M15": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M17": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M2": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M20": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M22": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M5": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M8": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "6721edf88c95f480a4db2c63649dbb03736aeadf:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M0": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M1": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M10": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M11": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M12": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M13": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M14": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M15": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M2": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M20": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 5,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 3
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M5": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M8": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "8764fb95bfad8ee849274873a92fb8d6b400eee2:M9": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M0": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M1": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M10": {
+      "coherence": 4,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M2": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M20": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M22": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8847383b72167c3f3dd2161b5b091b580c8f4da7:M9": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M10": {
+      "coherence": 4,
+      "consistency": 3,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M11": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M12": {
+      "coherence": 4,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M17": {
+      "coherence": 4,
+      "consistency": 2,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M2": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M22": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M23": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 5
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "8bc8f134bc3ceaeec0df8f29e96e13d319717ab8:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M10": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M11": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 3
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M2": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M20": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "9b5a04b9879fe716a2dcd66dd331f99534603c16:M9": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M10": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M11": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M13": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M14": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M15": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M2": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M20": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 1
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M8": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 2
+    },
+    "a02e362c5b8f049848ce718b37b96117485461cf:M9": {
+      "coherence": 3,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M10": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M11": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M12": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M14": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M15": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M20": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 2
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M8": {
+      "coherence": 4,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "b1f6faac3f406edca1e0cad8cce1319c83e62605:M9": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M0": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M10": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M11": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M13": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M14": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M15": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M2": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M20": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 3,
+      "relevance": 2
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M22": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M23": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b255397ee863bd8faf9def57c0f76769153d905e:M9": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M10": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M11": {
+      "coherence": 1,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M12": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M13": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M14": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M2": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M22": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M8": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "b5925c1a02fa9a8f6b1d5ad764c19a732deac0df:M9": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M1": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M10": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M11": {
+      "coherence": 2,
+      "consistency": 3,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M14": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M15": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M17": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M2": {
+      "coherence": 2,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 2
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M5": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M8": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "cf4ba8f94f2dd5604eb8f8a4e655c10cf0996365:M9": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M0": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 5
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M10": {
+      "coherence": 2,
+      "consistency": 2,
+      "fluency": 1,
+      "relevance": 2
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M11": {
+      "coherence": 2,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 5
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M15": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M17": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M2": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 5
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M20": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M23": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 4
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M8": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 3
+    },
+    "d296270ab4a4cf20f2d9c1aae7514687806f2b35:M9": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M0": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M1": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M10": {
+      "coherence": 3,
+      "consistency": 5,
+      "fluency": 2,
+      "relevance": 3
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M11": {
+      "coherence": 2,
+      "consistency": 1,
+      "fluency": 2,
+      "relevance": 1
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M12": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M13": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M14": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 3
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M15": {
+      "coherence": 3,
+      "consistency": 2,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M17": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 5
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M2": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 4,
+      "relevance": 5
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M20": {
+      "coherence": 5,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 2
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M22": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 5,
+      "relevance": 4
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M23": {
+      "coherence": 4,
+      "consistency": 4,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M5": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M8": {
+      "coherence": 3,
+      "consistency": 4,
+      "fluency": 2,
+      "relevance": 2
+    },
+    "eeef09d26cf30c2124c0399b08eedc6321fe5d20:M9": {
+      "coherence": 4,
+      "consistency": 5,
+      "fluency": 3,
+      "relevance": 4
+    }
+  },
+  "status": "complete",
+  "total": 320,
+  "usage": {
+    "input_tokens": 457647,
+    "output_tokens": 98858
+  },
+  "valid": 317,
+  "valid_rate": 0.990625,
+  "valid_rate_wilson_ci95": [
+    0.9728036253832474,
+    0.9968066312635299
+  ]
+}

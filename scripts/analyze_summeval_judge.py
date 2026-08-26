@@ -22,7 +22,9 @@ def cell(metric: dict) -> str:
 def render(metrics: dict) -> str:
     lines = ["# SummEval LLM-as-Judge v1 — preregistered result", "", "## Integrity", "",
              f"- Study status: `{metrics['status']}`.", "- Primary model: pinned Claude Haiku 4.5 snapshot.",
-             "- Secondary model: pinned GPT-5 mini snapshot.", "- Confidence intervals: 2,000 source-article cluster-bootstrap replicates.",
+             "- Secondary model: pinned GPT-5 mini snapshot; amendment 001 omitted its unsupported temperature field.",
+             "- Claude pairwise recovery used the additional provider-error attempt authorized by amendment 001.",
+             "- Confidence intervals: 2,000 source-article or unordered-pair cluster-bootstrap replicates, as preregistered.",
              "", "## Data completeness and API usage", "",
              "| Component | Valid / preregistered N_trials | Validity rate (Wilson 95% CI) | Input tokens | Output tokens |",
              "|---|---:|---:|---:|---:|"]
@@ -44,13 +46,14 @@ def render(metrics: dict) -> str:
             row = metrics["pointwise"][provider]["axes"][axis]
             lines.append(f"| {provider} | {axis} | {cell(row['judge_human'])} | {cell(row['rouge_human'])} | {cell(row['judge_minus_rouge'])} | {cell(row['length_bias'])} | {cell(row['judge_human_controlling_length'])} |")
     lines += ["", f"Primary success: **{metrics['primary_success']}**. " + ", ".join(f"{axis}={value}" for axis, value in metrics["primary_success_by_axis"].items()),
-              "", "## Cross-provider agreement", "", "| Axis | Claude vs GPT-5 mini Spearman ρ (95% CI) |", "|---|---:|"]
+              "", "## Cross-provider agreement (amended secondary analysis)", "", "| Axis | Claude vs GPT-5 mini Spearman ρ (95% CI) |", "|---|---:|"]
     if metrics["cross_provider"]["axes"]:
         for axis in AXES:
             lines.append(f"| {axis} | {cell(metrics['cross_provider']['axes'][axis])} |")
     else:
         lines.append("| all | infrastructure incomplete |")
-    lines += ["", "## Pairwise position bias and mitigation", "",
+    pairwise_label = "exploratory; infrastructure-incomplete" if metrics["pairwise"]["status"] != "complete" else "secondary analysis"
+    lines += ["", f"## Pairwise position bias and mitigation ({pairwise_label})", "",
               "| Axis | Preference flip rate | Tie instability | First-order human agreement | Symmetrized human agreement | BT vs human ρ (95% CI) | Symmetrized − first-order agreement (95% CI) |",
               "|---|---:|---:|---:|---:|---:|---:|"]
     for axis in AXES:
@@ -59,7 +62,9 @@ def render(metrics: dict) -> str:
                      f"{cell(row['first_order_human_agreement'])} | {cell(row['symmetrized_human_agreement'])} | "
                      f"{cell(row['bradley_terry_human_spearman'])} | {cell(row['symmetrized_minus_first'])} |")
     lines += ["", "## Interpretation boundary", "",
-              "The confirmatory claim applies only to the pinned models, frozen prompts, expert-mean SummEval labels, and document-disjoint held-out split. Secondary axes, cross-provider agreement, pairwise diagnostics, and mitigation results cannot rescue failure of either primary axis."]
+              "The confirmatory claim applies only to the pinned Claude model, frozen prompt, expert-mean SummEval labels, and document-disjoint held-out split. Secondary axes, amended cross-provider agreement, pairwise diagnostics, and mitigation results cannot rescue failure of either primary axis.",
+              "",
+              "Pairwise coverage did not reach the preregistered validity floor. Those estimates describe the complete observed pairs only; provider missingness may be non-random, so they are explicitly exploratory and cannot support a general pairwise claim. The symmetrization prediction is axis-dependent rather than generally supported."]
     return "\n".join(lines) + "\n"
 
 
