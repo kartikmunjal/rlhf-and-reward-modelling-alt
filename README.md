@@ -32,6 +32,21 @@ Recorded-token API cost was $8.17. All correlations and differences use 2,000 de
 See [`llm_judge_summeval/`](llm_judge_summeval/) and [`results/summeval_judge_v1/report.md`](results/summeval_judge_v1/report.md) for the frozen design, amendment, audit ledgers, complete metrics, and interpretation boundaries.
 <!-- SUMMEVAL-RESULTS:END -->
 
+## Summarization SFT + Judge-DPO Extension
+
+The next extension reuses the validated, hash-frozen SummEval judge as an
+unchanged measurement instrument in a complete training loop. It preregisters
+contamination-filtered CNN/DailyMail LoRA-SFT of GPT-2-medium, conservative
+Claude pairwise preference construction, LoRA-DPO, matched held-out generation,
+paired article-bootstrap inference, and an explicit test of whether optimizing
+against the judge exploits its known length sensitivity.
+
+The SFT and DPO protocols were committed before data preparation or training.
+See [`summarization_finetune/`](summarization_finetune/) for the locked design,
+RTX-3070 runner, integrity gates, estimands, and reporting contract. Results
+will be inserted from generated metrics after the preregistered run; no
+unexecuted result is claimed here.
+
 <!-- SAFETY-RESULTS:START -->
 ## Safety Classifier & Fairness Extension
 

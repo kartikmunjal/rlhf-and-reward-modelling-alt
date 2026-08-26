@@ -20,10 +20,15 @@ env/
 !/data/processed/safety_v2/
 /data/processed/safety_v2/*
 !/data/processed/safety_v2/data_manifest.json
+!/data/processed/summarization_finetune_v1/
+/data/processed/summarization_finetune_v1/*
+!/data/processed/summarization_finetune_v1/data_manifest.json
 /checkpoints/
 results/*
 !results/summeval_judge_v1/
 !results/summeval_judge_v1/**
+!results/summarization_finetune_v1/
+!results/summarization_finetune_v1/**
 !results/ppo_grpo_v1/
 results/ppo_grpo_v1/*
 !results/ppo_grpo_v1/metrics.json
