@@ -8,7 +8,9 @@ from llm_judge_summeval.data import AXES
 def pointwise_schema() -> dict:
     item = {
         "type": "object",
-        "properties": {"score": {"type": "integer", "minimum": 1, "maximum": 5}, "rationale": {"type": "string"}},
+        # Anthropic structured outputs do not support numeric range keywords;
+        # validate the preregistered 1--5 range locally in validate_output.
+        "properties": {"score": {"type": "integer"}, "rationale": {"type": "string"}},
         "required": ["score", "rationale"], "additionalProperties": False,
     }
     return {"type": "object", "properties": {axis: item for axis in AXES}, "required": list(AXES), "additionalProperties": False}
