@@ -1,0 +1,21 @@
+{
+  "adapter_dir": "checkpoints\\summarization_dpo_v1\\adapter",
+  "beta": 0.1,
+  "config_sha256": "5ec24ed0e944932ec1fd434e254cdd6a069212b266c091d104477ab386ea16bc",
+  "epochs": 1,
+  "global_steps": 84,
+  "hardware": {
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 3070",
+    "peak_gpu_memory_bytes": 2790113280,
+    "torch": "2.8.0+cu128",
+    "torch_cuda_build": "12.8"
+  },
+  "mean_loss": 0.7162648160455055,
+  "merged_dir": "checkpoints\\summarization_dpo_v1\\merged",
+  "pairs_per_second": 2.0463124148613576,
+  "preference_rows": 1341,
+  "runtime_seconds": 655.3251547813416,
+  "seed": 20260826,
+  "stage": "dpo"
+}

@@ -9,6 +9,7 @@ from summarization_finetune.analysis import controlled_treatment, paired_mean
 from summarization_finetune.data import normalized_text, ranked, text_sha256
 from summarization_finetune.generation import candidate_seed
 from summarization_finetune.judging import balanced_pair_order, build_preferences, verify_frozen_judge
+from scripts.publish_summarization_finetune_readme import coverage, effect
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,3 +77,21 @@ def test_paired_bootstrap_and_length_control_recover_known_effect():
     controlled = controlled_treatment(ids, worse + 0.5 + 0.1 * length_shift, worse,
                                       sft_length + length_shift, sft_length, config)
     assert controlled["estimate"] == pytest.approx(0.5, abs=1e-8)
+
+
+def test_result_publisher_formats_generated_trials_and_intervals():
+    row = {"estimate": 0.25, "ci95": [0.1, 0.4], "n_trials": 20, "bootstrap_replicates": 2000}
+    assert effect(row) == "0.250 (95% CI 0.100–0.400; N_trials=20; 2,000 bootstraps)"
+    validity = {"valid": 90, "total": 100, "wilson_ci95": [0.826, 0.945]}
+    assert coverage(validity) == "90/100 (Wilson 95% CI 0.826–0.945)"
+
+
+def test_published_result_provenance_matches_local_locked_artifacts():
+    metrics = json.loads((ROOT / "results/summarization_finetune_v1/metrics.json").read_text())
+    expected = {
+        "config": ROOT / "summarization_finetune/study_config.json",
+        "preregistration_manifest": ROOT / "summarization_finetune/preregistration_manifest.json",
+        "data_manifest": ROOT / "data/processed/summarization_finetune_v1/data_manifest.json",
+    }
+    for name, path in expected.items():
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == metrics["provenance"][name]["sha256"]

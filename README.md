@@ -32,20 +32,21 @@ Recorded-token API cost was $8.17. All correlations and differences use 2,000 de
 See [`llm_judge_summeval/`](llm_judge_summeval/) and [`results/summeval_judge_v1/report.md`](results/summeval_judge_v1/report.md) for the frozen design, amendment, audit ledgers, complete metrics, and interpretation boundaries.
 <!-- SUMMEVAL-RESULTS:END -->
 
+<!-- SUMMARIZATION-FINETUNE-RESULTS:START -->
 ## Summarization SFT + Judge-DPO Extension
 
-The next extension reuses the validated, hash-frozen SummEval judge as an
-unchanged measurement instrument in a complete training loop. It preregisters
-contamination-filtered CNN/DailyMail LoRA-SFT of GPT-2-medium, conservative
-Claude pairwise preference construction, LoRA-DPO, matched held-out generation,
-paired article-bootstrap inference, and an explicit test of whether optimizing
-against the judge exploits its known length sensitivity.
+**Preregistered SFT result: PASS.** On the same held-out articles, LoRA-SFT improved the frozen Claude judge by 0.995 (95% CI 0.884–1.111; N_trials=198; 2,000 bootstraps) on relevance and 0.596 (95% CI 0.460–0.722; N_trials=198; 2,000 bootstraps) on consistency. The ROUGE-L change was 0.065 (95% CI 0.054–0.076; N_trials=200; 2,000 bootstraps).
 
-The SFT and DPO protocols were committed before data preparation or training.
-See [`summarization_finetune/`](summarization_finetune/) for the locked design,
-RTX-3070 runner, integrity gates, estimands, and reporting contract. Results
-will be inserted from generated metrics after the preregistered run; no
-unexecuted result is claimed here.
+**Preregistered DPO result: FAIL.** Judge-preference DPO improved relevance by 0.101 (95% CI 0.010–0.197; N_trials=198; 2,000 bootstraps), but consistency changed by 0.061 (95% CI -0.040–0.162; N_trials=198; 2,000 bootstraps); its interval includes zero, so the locked two-axis criterion failed. ROUGE-L changed by -0.000 (95% CI -0.006–0.005; N_trials=200; 2,000 bootstraps).
+
+The failure was not explained by verbosity: DPO shifted length by -0.555 (95% CI -2.645–1.565; N_trials=200; 2,000 bootstraps) words. After controlling for length within article, the relevance effect was 0.098 (95% CI 0.007–0.184; N_trials=198; 2,000 bootstraps) and consistency was 0.057 (95% CI -0.043–0.153; N_trials=198; 2,000 bootstraps). This is evidence against length exploitation as the mechanism, not proof of human-rated improvement.
+
+Claude coverage was base 200/200 (Wilson 95% CI 0.981–1.000), SFT 198/200 (Wilson 95% CI 0.964–0.997), and DPO 200/200 (Wilson 95% CI 0.981–1.000). Candidate-pair validity was 1435/1536 (Wilson 95% CI 0.921–0.946), above the locked 90% floor. The GPT-5-mini audit covered base 183/200 (Wilson 95% CI 0.868–0.946), SFT 121/200 (Wilson 95% CI 0.536–0.670), and DPO 131/200 (Wilson 95% CI 0.587–0.717); SFT and DPO coverage missed the floor, so cross-provider DPO results are diagnostic only.
+
+The single RTX 3070 run trained 4,325,376 LoRA parameters over 287,113 examples for 8,973 optimizer steps in 11.18 hours (peak allocated GPU memory 2.14 GiB). DPO used 1,341 conservative preference pairs for 84 optimizer steps in 10.92 minutes (peak 2.60 GiB). N_training_seeds=1, so article-bootstrap intervals do not estimate seed variability.
+
+See [`summarization_finetune/`](summarization_finetune/), [`results/summarization_finetune_v1/report.md`](results/summarization_finetune_v1/report.md), and [`results/summarization_finetune_v1/metrics.json`](results/summarization_finetune_v1/metrics.json) for the locked protocols, complete generated results, and provenance manifests.
+<!-- SUMMARIZATION-FINETUNE-RESULTS:END -->
 
 <!-- SAFETY-RESULTS:START -->
 ## Safety Classifier & Fairness Extension

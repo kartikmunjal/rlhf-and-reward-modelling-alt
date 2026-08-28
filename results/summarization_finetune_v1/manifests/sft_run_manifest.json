@@ -1,0 +1,28 @@
+{
+  "adapter_dir": "checkpoints\\summarization_sft_v1\\adapter",
+  "base_model": "gpt2-medium",
+  "config_sha256": "5ec24ed0e944932ec1fd434e254cdd6a069212b266c091d104477ab386ea16bc",
+  "epochs": 1,
+  "global_steps": 8973,
+  "hardware": {
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 3070",
+    "peak_gpu_memory_bytes": 2298500096,
+    "torch": "2.8.0+cu128",
+    "torch_cuda_build": "12.8"
+  },
+  "merged_dir": "checkpoints\\summarization_sft_v1\\merged",
+  "seed": 20260826,
+  "stage": "sft",
+  "train_examples": 287113,
+  "train_loss": 1.1617126184257525,
+  "trainable_parameters": 4325376,
+  "trainer_metrics": {
+    "epoch": 1.0,
+    "total_flos": 3.847522893029376e+17,
+    "train_loss": 1.1617126184257525,
+    "train_runtime": 40256.8611,
+    "train_samples_per_second": 7.132,
+    "train_steps_per_second": 0.223
+  }
+}

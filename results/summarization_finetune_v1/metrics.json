@@ -1,0 +1,388 @@
+{
+  "candidate_pair_validity": {
+    "rate": 0.9342447916666666,
+    "total": 1536,
+    "valid": 1435,
+    "wilson_ci95": [
+      0.9207345989046751,
+      0.9455883542528918
+    ]
+  },
+  "comparisons": {
+    "dpo_minus_sft": {
+      "anthropic": {
+        "coherence": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.09595959595959595,
+            0.09090909090909091
+          ],
+          "estimate": 0.0,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "consistency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.04040404040404041,
+            0.16161616161616163
+          ],
+          "estimate": 0.06060606060606061,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "fluency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.12626262626262627,
+            0.08080808080808081
+          ],
+          "estimate": -0.025252525252525252,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "relevance": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.010101010101010102,
+            0.19696969696969696
+          ],
+          "estimate": 0.10101010101010101,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        }
+      },
+      "length_words": {
+        "bootstrap_replicates": 2000,
+        "ci95": [
+          -2.645125,
+          1.565
+        ],
+        "estimate": -0.555,
+        "n_article_clusters": 200,
+        "n_trials": 200
+      },
+      "openai": {
+        "coherence": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.2840909090909091,
+            0.03409090909090909
+          ],
+          "estimate": -0.125,
+          "n_article_clusters": 88,
+          "n_trials": 88
+        },
+        "consistency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.29545454545454547,
+            0.17045454545454544
+          ],
+          "estimate": -0.06818181818181818,
+          "n_article_clusters": 88,
+          "n_trials": 88
+        },
+        "fluency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.26136363636363635,
+            0.1590909090909091
+          ],
+          "estimate": -0.045454545454545456,
+          "n_article_clusters": 88,
+          "n_trials": 88
+        },
+        "relevance": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            -0.20454545454545456,
+            0.13636363636363635
+          ],
+          "estimate": -0.03409090909090909,
+          "n_article_clusters": 88,
+          "n_trials": 88
+        }
+      },
+      "rougeL": {
+        "bootstrap_replicates": 2000,
+        "ci95": [
+          -0.005667637040487349,
+          0.004853793483471176
+        ],
+        "estimate": -0.0004995173121372312,
+        "n_article_clusters": 200,
+        "n_trials": 200
+      }
+    },
+    "sft_minus_base": {
+      "anthropic": {
+        "coherence": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.9696969696969697,
+            1.2626262626262625
+          ],
+          "estimate": 1.1161616161616161,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "consistency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.4595959595959596,
+            0.7222222222222222
+          ],
+          "estimate": 0.5959595959595959,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "fluency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.7525252525252525,
+            1.0353535353535352
+          ],
+          "estimate": 0.8939393939393939,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        },
+        "relevance": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.8837121212121213,
+            1.1111111111111112
+          ],
+          "estimate": 0.9949494949494949,
+          "n_article_clusters": 198,
+          "n_trials": 198
+        }
+      },
+      "length_words": {
+        "bootstrap_replicates": 2000,
+        "ci95": [
+          -36.906125,
+          -21.518875000000005
+        ],
+        "estimate": -29.115,
+        "n_article_clusters": 200,
+        "n_trials": 200
+      },
+      "openai": {
+        "coherence": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.9196428571428571,
+            1.3214285714285714
+          ],
+          "estimate": 1.1160714285714286,
+          "n_article_clusters": 112,
+          "n_trials": 112
+        },
+        "consistency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.5803571428571429,
+            1.0714285714285714
+          ],
+          "estimate": 0.8214285714285714,
+          "n_article_clusters": 112,
+          "n_trials": 112
+        },
+        "fluency": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.5089285714285714,
+            1.0625
+          ],
+          "estimate": 0.7946428571428571,
+          "n_article_clusters": 112,
+          "n_trials": 112
+        },
+        "relevance": {
+          "bootstrap_replicates": 2000,
+          "ci95": [
+            0.9642857142857143,
+            1.3482142857142858
+          ],
+          "estimate": 1.1607142857142858,
+          "n_article_clusters": 112,
+          "n_trials": 112
+        }
+      },
+      "rougeL": {
+        "bootstrap_replicates": 2000,
+        "ci95": [
+          0.05398261702365829,
+          0.07567528080289344
+        ],
+        "estimate": 0.06476876363569245,
+        "n_article_clusters": 200,
+        "n_trials": 200
+      }
+    }
+  },
+  "coverage": {
+    "anthropic": {
+      "base": {
+        "rate": 1.0,
+        "total": 200,
+        "valid": 200,
+        "wilson_ci95": [
+          0.9811546736227335,
+          1.0
+        ]
+      },
+      "dpo": {
+        "rate": 1.0,
+        "total": 200,
+        "valid": 200,
+        "wilson_ci95": [
+          0.9811546736227335,
+          1.0
+        ]
+      },
+      "sft": {
+        "rate": 0.99,
+        "total": 200,
+        "valid": 198,
+        "wilson_ci95": [
+          0.9642782382838231,
+          0.9972533418664555
+        ]
+      }
+    },
+    "openai": {
+      "base": {
+        "rate": 0.915,
+        "total": 200,
+        "valid": 183,
+        "wilson_ci95": [
+          0.8681041292843443,
+          0.9462542498225244
+        ]
+      },
+      "dpo": {
+        "rate": 0.655,
+        "total": 200,
+        "valid": 131,
+        "wilson_ci95": [
+          0.5867558925905368,
+          0.7174020562325106
+        ]
+      },
+      "sft": {
+        "rate": 0.605,
+        "total": 200,
+        "valid": 121,
+        "wilson_ci95": [
+          0.5358834915928536,
+          0.6701589898679203
+        ]
+      }
+    }
+  },
+  "dpo_length_controlled": {
+    "consistency": {
+      "bootstrap_replicates": 2000,
+      "ci95": [
+        -0.04257344032291965,
+        0.15260846128286773
+      ],
+      "estimate": 0.057013408382899096,
+      "n_article_clusters": 198,
+      "n_trials": 198
+    },
+    "relevance": {
+      "bootstrap_replicates": 2000,
+      "ci95": [
+        0.007240229146413291,
+        0.18420657982304486
+      ],
+      "estimate": 0.09765669836630143,
+      "n_article_clusters": 198,
+      "n_trials": 198
+    }
+  },
+  "dpo_success": false,
+  "dpo_success_by_axis": {
+    "consistency": false,
+    "relevance": true
+  },
+  "infrastructure": {
+    "dpo_evaluation_complete": true,
+    "dpo_preference_judging_complete": true,
+    "sft_evaluation_complete": true
+  },
+  "provenance": {
+    "anthropic_pointwise": {
+      "path": "results\\summarization_finetune_v1\\judge\\anthropic_pointwise.jsonl",
+      "sha256": "5f9f86f65837102252eb63befb29207461296e195dfd6055844ba5ab7a418705"
+    },
+    "base_generations": {
+      "path": "results\\summarization_finetune_v1\\generations\\base.jsonl",
+      "sha256": "19824d85d9ed3b9f8b19fb129882471882407aa8b991ee30de6aa3e180340455"
+    },
+    "candidate_pairs": {
+      "path": "results\\summarization_finetune_v1\\judge\\anthropic_candidate_pairs.jsonl",
+      "sha256": "5a44b50fdb5073a1a902ebca20696faaf7a85c68b2514786f1192a8af107202f"
+    },
+    "config": {
+      "path": "C:\\Users\\Kunal Munjal\\Desktop\\Kartik\\rlhf-and-reward-modelling-alt\\summarization_finetune\\study_config.json",
+      "sha256": "bb179d09c5eabacb5dbaba3e971bb942f3ad57186fe85b5c22747428a065ad8f"
+    },
+    "data_manifest": {
+      "path": "data\\processed\\summarization_finetune_v1\\data_manifest.json",
+      "sha256": "31b738c21d70475541ed10e7283fbac4c5755b0bffb329026decaf4677ff561a"
+    },
+    "dpo_generations": {
+      "path": "results\\summarization_finetune_v1\\generations\\dpo.jsonl",
+      "sha256": "63262abcea0b151c3a1b7d47231eaed1029a7b12ec2e55aa1b36749ec9c6b7e9"
+    },
+    "openai_pointwise": {
+      "path": "results\\summarization_finetune_v1\\judge\\openai_pointwise.jsonl",
+      "sha256": "83d08cf7f193996927ca97a17df662a5831188c878a57b8c86525f3833b0cf9b"
+    },
+    "preregistration_manifest": {
+      "path": "C:\\Users\\Kunal Munjal\\Desktop\\Kartik\\rlhf-and-reward-modelling-alt\\summarization_finetune\\preregistration_manifest.json",
+      "sha256": "e897d93eb8d4d5bc1ffe351cfbeed4cb3e91f66a2c30f44bdae1d5ac5f3b7801"
+    },
+    "sft_generations": {
+      "path": "results\\summarization_finetune_v1\\generations\\sft.jsonl",
+      "sha256": "8be87bc2eea8258474df14a12918dafa3e4f784345d54a1737953b528f7ac18a"
+    }
+  },
+  "reward_hacking": {
+    "consistency": {
+      "classification": "inconclusive",
+      "cross_provider_positive": false,
+      "length_controlled_positive": false,
+      "raw_claude_positive": false,
+      "rouge_positive": false
+    },
+    "relevance": {
+      "classification": "inconclusive",
+      "cross_provider_positive": false,
+      "length_controlled_positive": true,
+      "raw_claude_positive": true,
+      "rouge_positive": false
+    }
+  },
+  "sft_success": true,
+  "sft_success_by_axis": {
+    "consistency": true,
+    "relevance": true
+  },
+  "study_id": "summarization_finetune_v1",
+  "training_seeds": 1,
+  "usage": {
+    "anthropic_pointwise": {
+      "input_tokens": 1148613,
+      "output_tokens": 219161
+    },
+    "openai_pointwise": {
+      "input_tokens": 599379,
+      "output_tokens": 330719
+    }
+  }
+}

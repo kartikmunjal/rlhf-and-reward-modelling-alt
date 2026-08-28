@@ -50,9 +50,10 @@ Get-Content ".\logs\summarization_finetune_v1.log" -Tail 50
 ```
 
 The end-to-end runner downloads CNN/DailyMail and GPT-2-medium through the
-standard Hugging Face cache. Checkpoints and bulk processed data remain
-gitignored; locked manifests, API audit ledgers, generated summaries, metrics,
-and reports are publishable after the run and integrity audit.
+standard Hugging Face cache. Checkpoints, source-bearing API ledgers, generated
+summaries, and bulk processed data remain gitignored. Aggregate metrics,
+reports, the locked data manifest, and lightweight run manifests are published
+after the integrity audit.
 
 ## Claims
 
@@ -62,3 +63,15 @@ evaluation must also meet the locked validity floor. A raw DPO gain that does
 not survive within-article length adjustment and lacks independent proxy support
 is reported as length-exploitation risk. No secondary metric can rescue a failed
 primary claim.
+
+<!-- GENERATED-FINDINGS:START -->
+## Generated findings
+
+SFT **passed** its locked criterion: relevance improved by 0.995 (95% CI 0.884–1.111; N_trials=198; 2,000 bootstraps) and consistency by 0.596 (95% CI 0.460–0.722; N_trials=198; 2,000 bootstraps).
+
+DPO **failed** its locked two-axis criterion. Relevance changed by 0.101 (95% CI 0.010–0.197; N_trials=198; 2,000 bootstraps); consistency changed by 0.061 (95% CI -0.040–0.162; N_trials=198; 2,000 bootstraps). DPO length changed by -0.555 (95% CI -2.645–1.565; N_trials=200; 2,000 bootstraps) words, providing no evidence of verbosity exploitation.
+
+The run used N_training_seeds=1, 287,113 SFT examples, and 1,341 conservative judge-preference pairs. Claude confirmatory coverage met the locked floor; GPT-5-mini SFT/DPO coverage did not and remains diagnostic.
+
+Complete estimates, 95% intervals, validity rates, and interpretation boundaries are generated in [`../results/summarization_finetune_v1/report.md`](../results/summarization_finetune_v1/report.md). Lightweight training provenance is in [`../results/summarization_finetune_v1/manifests/`](../results/summarization_finetune_v1/manifests/).
+<!-- GENERATED-FINDINGS:END -->

@@ -28,7 +28,13 @@ results/*
 !results/summeval_judge_v1/
 !results/summeval_judge_v1/**
 !results/summarization_finetune_v1/
-!results/summarization_finetune_v1/**
+results/summarization_finetune_v1/*
+!results/summarization_finetune_v1/metrics.json
+!results/summarization_finetune_v1/report.md
+!results/summarization_finetune_v1/manifests/
+results/summarization_finetune_v1/manifests/*
+!results/summarization_finetune_v1/manifests/sft_run_manifest.json
+!results/summarization_finetune_v1/manifests/dpo_run_manifest.json
 !results/ppo_grpo_v1/
 results/ppo_grpo_v1/*
 !results/ppo_grpo_v1/metrics.json
