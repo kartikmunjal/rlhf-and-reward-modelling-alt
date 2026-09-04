@@ -1,0 +1,34 @@
+{
+  "files": {
+    "dpo_run_manifest": {
+      "path": "results/summarization_finetune_v1/manifests/dpo_run_manifest.json",
+      "sha256": "0258f0791c71e8b7f2476e071bc2a99d76a837bff2b79af68b19eed3419a6d72"
+    },
+    "frozen_judge_manifest": {
+      "path": "llm_judge_summeval/final_prompt_manifest.json",
+      "sha256": "2fb6b925df3be09d4c35df6476b07895790158f2e83d089b906763cb473f94d7"
+    },
+    "frozen_judge_prompts": {
+      "path": "llm_judge_summeval/prompts.json",
+      "sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c"
+    },
+    "preregistration": {
+      "path": "inference_serving/preregistration.md",
+      "sha256": "7355b08e8f18e732ca234afe6aae41bd6c65a27fe4ed935a53664e462cc9ea59"
+    },
+    "sft_run_manifest": {
+      "path": "results/summarization_finetune_v1/manifests/sft_run_manifest.json",
+      "sha256": "5971b45dc91a839a76dd3cf2aa580cf50926fbc7fd818917b6f5d7165a6643d6"
+    },
+    "source_data_manifest": {
+      "path": "data/processed/summarization_finetune_v1/data_manifest.json",
+      "sha256": "31b738c21d70475541ed10e7283fbac4c5755b0bffb329026decaf4677ff561a"
+    },
+    "study_config": {
+      "path": "inference_serving/study_config.json",
+      "sha256": "ad0453e7469ee4839938aeec89b14db7431a23b324e0365ce335217a1ed5f551"
+    }
+  },
+  "status": "frozen_before_execution",
+  "study_id": "inference_serving_v1"
+}

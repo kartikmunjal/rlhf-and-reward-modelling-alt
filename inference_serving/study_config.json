@@ -1,0 +1,131 @@
+{
+  "study_id": "inference_serving_v1",
+  "status": "preregistered_before_draft_training_quantization_or_serving_benchmarks",
+  "locked_at_utc_date": "2026-09-04",
+  "seed": 20260904,
+  "scope": {
+    "targets": ["base", "sft", "dpo"],
+    "grpo_excluded": true,
+    "grpo_exclusion_reason": "No comparable GPT-2-medium GRPO checkpoint exists; existing PPO/GRPO adapters target Qwen2.5-0.5B and a new GRPO run is out of scope.",
+    "engine": "vllm",
+    "engine_version": "0.28.0",
+    "platform": "WSL2 Ubuntu on Windows 11",
+    "gpu": "NVIDIA GeForce RTX 3070 8GB"
+  },
+  "artifacts": {
+    "base": {
+      "model": "openai-community/gpt2-medium",
+      "revision": "6dcaa7a952f72f9298047fd5137cd6e4f05f41da"
+    },
+    "sft": "checkpoints/summarization_sft_v1/merged",
+    "dpo": "checkpoints/summarization_dpo_v1/merged",
+    "draft_initialization": {
+      "model": "openai-community/gpt2",
+      "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+    },
+    "draft_teacher": "unaligned_base_gpt2_medium",
+    "tokenizer_identity_required": true
+  },
+  "data": {
+    "source_manifest": "data/processed/summarization_finetune_v1/data_manifest.json",
+    "final_articles_source": "data/processed/summarization_finetune_v1/final_eval_articles.jsonl",
+    "partition_method": "sha256_rank_by_seed_and_article_id",
+    "pilot_articles": 32,
+    "heldout_articles": 168,
+    "pilot_never_in_confirmatory_estimates": true
+  },
+  "draft_training": {
+    "dataset": "abisee/cnn_dailymail",
+    "dataset_version": "3.0.0",
+    "train_split": "train",
+    "train_examples": 50000,
+    "validation_examples": 2000,
+    "selection": "sha256_rank_by_seed_and_article_id",
+    "summ_eval_exclusion": "reuse_locked_contamination_filter",
+    "max_tokens": 512,
+    "epochs": 1,
+    "temperature": 2.0,
+    "kl_weight": 0.8,
+    "hard_label_weight": 0.2,
+    "learning_rate": 0.00005,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.05,
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "fp16": true,
+    "checkpoint_steps": 500,
+    "success_rule": "heldout_teacher_student_token_kl_and_hard_label_nll_both_improve_over_untrained_gpt2_initialization"
+  },
+  "generation": {
+    "prompt_template": "Article:\n{source}\n\nSummary:\n",
+    "source_tokens": 768,
+    "performance_new_tokens": 64,
+    "quality_new_tokens": 192,
+    "temperature": 0.0,
+    "same_tokenized_prompts_required": true
+  },
+  "stage1": {
+    "comparison": "naive_huggingface_generate_vs_vllm_fp16_on_dpo",
+    "concurrency": [1, 8, 32],
+    "warmup_requests": 16,
+    "benchmark_trials": 10,
+    "requests_per_trial": 128,
+    "primary_concurrency": 32,
+    "primary_success": "paired_trial_bootstrap_ci_lower_bound_above_zero_for_vllm_minus_hf_output_tokens_per_second",
+    "metrics": ["output_tokens_per_second", "request_throughput", "ttft_ms_p50", "ttft_ms_p95", "itl_ms_p50", "itl_ms_p95", "peak_gpu_memory_bytes"]
+  },
+  "stage2": {
+    "method": "gptq",
+    "gptqmodel_version": "7.3.6",
+    "bits": 4,
+    "group_size": 128,
+    "symmetric": true,
+    "desc_act": false,
+    "calibration_articles": 128,
+    "calibration_source": "pilot_and_training_only_never_heldout",
+    "quantize_targets": ["base", "sft", "dpo"],
+    "performance_comparison": "vllm_gptq_dpo_vs_vllm_fp16_dpo",
+    "quality_comparison": "gptq_dpo_vs_fp16_dpo_on_168_heldout_articles",
+    "quality_primary_axes": ["relevance", "consistency"],
+    "quality_equivalence_margin_points": -0.15,
+    "quality_success": "paired_article_bootstrap_ci_lower_bound_at_or_above_minus_0.15_on_both_primary_axes",
+    "performance_success": "paired_trial_bootstrap_ci_lower_bound_above_zero_for_gptq_minus_fp16_output_tokens_per_second",
+    "failure_boundary": "If GPTQModel or vLLM cannot execute GPT-2 GPTQ, report incompatibility; do not silently substitute another quantizer."
+  },
+  "stage3": {
+    "draft": "trained_gpt2_small_checkpoint",
+    "targets": ["base_gptq", "sft_gptq", "dpo_gptq"],
+    "pilot_speculative_tokens": [2, 4, 6],
+    "selection_rule": "highest_pilot_median_output_tokens_per_second_on_dpo_gptq; smallest_k_breaks_ties",
+    "selected_k_frozen_before_heldout": true,
+    "primary_comparison": "speculative_vs_non_speculative_dpo_gptq",
+    "primary_success": "paired_trial_bootstrap_ci_lower_bound_above_zero_for_output_tokens_per_second",
+    "alignment_estimand": "acceptance_rate_difference_for_base_vs_sft_and_sft_vs_dpo_using_same_fixed_draft",
+    "alignment_hypothesis": "acceptance decreases as post-training moves the target away from the unaligned teacher distribution",
+    "metrics": ["output_tokens_per_second", "ttft_ms", "itl_ms", "draft_tokens", "accepted_tokens", "acceptance_rate"]
+  },
+  "quality_evaluation": {
+    "primary": "frozen_claude_pointwise_summeval_judge",
+    "prompts_sha256": "08fffed8d72cd2f682eec5440167e9f54f64fa7932d2ece9556326e9c1e62b3c",
+    "secondary": ["rougeL_fmeasure", "reward_model_ensemble_if_checkpoint_loadable"],
+    "minimum_valid_fraction": 0.9,
+    "failed_optional_evaluator_cannot_invalidate_primary_but_must_be_reported": true
+  },
+  "statistics": {
+    "confidence_level": 0.95,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260904,
+    "performance_bootstrap_unit": "benchmark_trial",
+    "quality_bootstrap_unit": "article",
+    "validity_interval": "wilson",
+    "multiple_testing": "Holm correction within each stage metric family",
+    "report_all_planned_comparisons": true
+  },
+  "interpretation_boundaries": [
+    "Single RTX 3070 results do not generalize to datacenter GPUs or multi-GPU serving.",
+    "The 355M target is a systems validation workload, not evidence of production-scale vLLM gains.",
+    "Acceptance-rate differences are descriptive consequences of target distributions; they are not general claims about SFT or DPO.",
+    "One trained draft seed does not estimate draft-training seed variability.",
+    "No benchmark result may be claimed until the exact environment, artifacts, and command hashes are recorded."
+  ]
+}
