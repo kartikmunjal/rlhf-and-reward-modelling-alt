@@ -46,6 +46,23 @@ Claude coverage was base 200/200 (Wilson 95% CI 0.981–1.000), SFT 198/200 (Wil
 The single RTX 3070 run trained 4,325,376 LoRA parameters over 287,113 examples for 8,973 optimizer steps in 11.18 hours (peak allocated GPU memory 2.14 GiB). DPO used 1,341 conservative preference pairs for 84 optimizer steps in 10.92 minutes (peak 2.60 GiB). N_training_seeds=1, so article-bootstrap intervals do not estimate seed variability.
 
 See [`summarization_finetune/`](summarization_finetune/), [`results/summarization_finetune_v1/report.md`](results/summarization_finetune_v1/report.md), and [`results/summarization_finetune_v1/metrics.json`](results/summarization_finetune_v1/metrics.json) for the locked protocols, complete generated results, and provenance manifests.
+
+## Alignment-Aware Inference Serving Extension
+
+The next systems extension serves the repository's actual GPT-2-medium DPO
+artifact with both naive Hugging Face decoding and vLLM, quantizes the same
+base/SFT/DPO model family with locked 4-bit GPTQ, and tests a real distilled
+GPT-2-small draft through speculative decoding. The study measures throughput,
+TTFT, inter-token latency, GPU memory, quantized-output quality with the frozen
+SummEval judge, and speculative-token acceptance with trial-level or
+article-level 95% bootstrap intervals.
+
+The comparison intentionally stops at base/SFT/DPO. No comparable
+GPT-2-medium GRPO checkpoint predates this study; the repository's existing
+GRPO artifacts use Qwen2.5-0.5B, so manufacturing a new GRPO run would not be a
+fair artifact-controlled comparison. See [`inference_serving/`](inference_serving/)
+for the frozen preregistration, executable pipeline, and explicit claim
+boundaries. Results remain unclaimed until the WSL2 runs complete.
 <!-- SUMMARIZATION-FINETUNE-RESULTS:END -->
 
 <!-- SAFETY-RESULTS:START -->
