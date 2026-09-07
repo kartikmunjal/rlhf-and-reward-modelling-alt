@@ -33,7 +33,10 @@ def test_final_partition_is_deterministic_disjoint_and_complete():
 
 
 class FakeTokenizer:
-    def __init__(self, vocab, special): self.vocab, self.special = vocab, special
+    def __init__(self, vocab, special, ids=None):
+        self.vocab, self.special = vocab, special
+        ids = ids or {"bos_token": 0, "eos_token": 0, "unk_token": 0, "pad_token": 0}
+        for name, value in ids.items(): setattr(self, name + "_id", value)
     def get_vocab(self): return self.vocab
     @property
     def special_tokens_map(self): return self.special
@@ -44,6 +47,13 @@ def test_tokenizer_identity_fails_closed():
     assert verify_tokenizer_identity({"a": same, "b": same})["identical"]
     with pytest.raises(ValueError, match="vocabulary mismatch"):
         verify_tokenizer_identity({"a": same, "b": FakeTokenizer({"b": 0}, {"eos_token": "a"})})
+
+
+def test_tokenizer_identity_allows_gpt2_pad_equals_eos_alias():
+    no_pad = FakeTokenizer({"a": 0}, {}, {"bos_token": 0, "eos_token": 0, "unk_token": 0, "pad_token": None})
+    pad_eos = FakeTokenizer({"a": 0}, {}, {"bos_token": 0, "eos_token": 0, "unk_token": 0, "pad_token": 0})
+    result = verify_tokenizer_identity({"base": no_pad, "trained": pad_eos})
+    assert result["identical"] and result["normalized_special_token_ids"]["pad_token"] == 0
 
 
 def test_distillation_loss_rewards_matching_teacher():
