@@ -62,7 +62,10 @@ GPT-2-medium GRPO checkpoint predates this study; the repository's existing
 GRPO artifacts use Qwen2.5-0.5B, so manufacturing a new GRPO run would not be a
 fair artifact-controlled comparison. See [`inference_serving/`](inference_serving/)
 for the frozen preregistration, executable pipeline, and explicit claim
-boundaries. Results remain unclaimed until the WSL2 runs complete.
+boundaries. The local WSL2 path proved unattainable because VMX prevented the
+available host from booting; the documented alternative plan preserves the
+study on a supported Linux GPU. Results remain unclaimed until that run
+completes.
 <!-- SUMMARIZATION-FINETUNE-RESULTS:END -->
 
 <!-- SAFETY-RESULTS:START -->

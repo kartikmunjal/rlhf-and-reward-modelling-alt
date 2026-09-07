@@ -30,3 +30,12 @@ The speculative pilot must cover k=2, 4, and 6 with the locked trial count.
 `scripts/select_speculative_tokens.py` then creates a one-time selection file;
 it refuses to overwrite that decision. Only the selected value is allowed in
 the confirmatory held-out run.
+
+## Local execution blocker
+
+The WSL2 path on the available RTX 3070 host was declared unattainable before
+any study run. See
+[`environment_blocker_and_alternatives.md`](environment_blocker_and_alternatives.md)
+for the observed failure, claim boundary, and ranked execution alternatives.
+The frozen preregistration has not been edited and no performance result is
+claimed.
