@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from inference_serving.analysis import paired_trial_family
-from inference_serving.data import partition_final_articles, stable_rank, verify_tokenizer_identity
+from inference_serving.data import partition_final_articles, prepare_calibration, stable_rank, verify_tokenizer_identity
 from inference_serving.distillation import distillation_loss
 from inference_serving.statistics import bootstrap_ci, holm_adjust, paired_bootstrap, wilson
 
@@ -78,3 +78,14 @@ def test_paired_trial_family_uses_matched_trial_ids():
     result = paired_trial_family(indexed, ("vllm", "dpo", "fp16", False), ("hf", "dpo", "fp16", False), 32, CONFIG)
     assert result["n_trials"] == 5
     assert result["metrics"]["output_tokens_per_second"]["estimate"] == 10
+
+
+def test_calibration_accepts_locked_summarization_parquet_schema(tmp_path):
+    pandas = pytest.importorskip("pandas")
+    pytest.importorskip("pyarrow")
+    rows = [{"id": f"id-{i}", "article": f"source-{i}", "highlights": f"reference-{i}"} for i in range(140)]
+    source = tmp_path / "train.parquet"
+    pandas.DataFrame(rows).to_parquet(source)
+    manifest = prepare_calibration(CONFIG, source, tmp_path / "out")
+    assert manifest["count"] == 128
+    assert len(set(manifest["ids"])) == 128

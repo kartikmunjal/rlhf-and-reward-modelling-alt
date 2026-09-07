@@ -44,7 +44,15 @@ class TokenDataset:
     def __init__(self, parquet_path: Path, tokenizer, *, limit: int, seed: int, namespace: str, max_tokens: int,
                  exclude_ids: set[str] | None = None):
         import pandas as pd
-        frame = pd.read_parquet(parquet_path, columns=["article_id", "source", "reference"])
+        frame = pd.read_parquet(parquet_path)
+        if {"article_id", "source", "reference"}.issubset(frame.columns):
+            frame = frame[["article_id", "source", "reference"]]
+        elif {"id", "article", "highlights"}.issubset(frame.columns):
+            frame = frame[["id", "article", "highlights"]].rename(
+                columns={"id": "article_id", "article": "source", "highlights": "reference"}
+            )
+        else:
+            raise ValueError(f"Unsupported training parquet schema: {sorted(frame.columns)}")
         frame["rank"] = frame["article_id"].astype(str).map(
             lambda value: hashlib.sha256(f"{seed}\0{namespace}\0{value}".encode()).hexdigest()
         )

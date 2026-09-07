@@ -70,7 +70,15 @@ def prepare_partitions(config: dict, source_path: Path, output_dir: Path) -> dic
 def prepare_calibration(config: dict, train_parquet: Path, output_dir: Path) -> dict:
     import pandas as pd
     count = config["stage2"]["calibration_articles"]
-    frame = pd.read_parquet(train_parquet, columns=["article_id", "source", "reference"])
+    frame = pd.read_parquet(train_parquet)
+    if {"article_id", "source", "reference"}.issubset(frame.columns):
+        frame = frame[["article_id", "source", "reference"]]
+    elif {"id", "article", "highlights"}.issubset(frame.columns):
+        frame = frame[["id", "article", "highlights"]].rename(
+            columns={"id": "article_id", "article": "source", "highlights": "reference"}
+        )
+    else:
+        raise ValueError(f"Unsupported training parquet schema: {sorted(frame.columns)}")
     frame["rank"] = frame["article_id"].astype(str).map(
         lambda value: stable_rank(config["seed"], "gptq-calibration", value)
     )
