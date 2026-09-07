@@ -50,13 +50,21 @@ serving result.
 
 ## Ranked alternatives
 
-### 1. Recommended: short-lived Linux GPU pod
+### 1. Cheapest and recommended: hybrid RTX 3070 training plus A5000 serving
 
-Use an SSH-accessible Ubuntu pod with one 24 GB RTX 4090 and persistent storage
-for the duration of the study. RunPod is the lowest-friction candidate because
-it offers on-demand Linux GPU pods, per-second billing, and current RTX 4090
-listings. A 24 GB device gives ample margin for the 355M target, 117M draft,
-GPTQ calibration, and vLLM KV cache.
+Train the real GPT-2-small draft with native PyTorch on the existing Windows
+RTX 3070, which does not require WSL and adds no cloud-compute cost. After the
+draft passes its preregistered validation gate, transfer it together with the
+base/SFT/DPO targets to one on-demand RunPod Community Cloud Ubuntu pod with a
+24 GB RTX A5000. Perform every quantization, serving, quality-generation, and
+speculative-decoding measurement on that single cloud GPU.
+
+RunPod is the lowest-friction candidate because it offers SSH-accessible Linux
+GPU pods and per-second billing. Its current GPU list shows the 24 GB RTX A5000
+from $0.16/GPU-hour, subject to availability. This is cheaper than the listed
+16 GB A4000 and provides more VRAM. The target is only 355M parameters and the
+draft 117M, so 24 GB gives comfortable margin for GPTQ calibration, both models
+during speculative decoding, concurrency testing, and vLLM KV cache.
 
 This preserves the substantive design:
 
@@ -67,20 +75,34 @@ This preserves the substantive design:
 - frozen-judge quality validation;
 - vLLM speculative decoding and acceptance counters.
 
-It changes the platform and GPU. Before looking at any outputs, add a
-timestamped protocol amendment that replaces only `WSL2/RTX 3070` with the
-exact pod image and GPU. Preserve all datasets, seeds, trial counts, thresholds,
-comparisons, and GRPO exclusion. Results must be described as 4090-specific,
-not as validation of 3070 capacity.
+It changes the execution topology and serving GPU. Before looking at any
+outputs, add a timestamped protocol amendment recording native-Windows RTX
+3070 draft training and the exact A5000 pod image for serving. Preserve all
+datasets, seeds, trial counts, thresholds, comparisons, and the GRPO exclusion.
+Never combine timings across the two GPUs: the RTX 3070 produces only the draft
+artifact; every comparative timing is measured on the same A5000.
 
-RunPod currently advertises RTX 4090 Community Cloud from $0.34/GPU-hour and
-Secure Cloud from $0.74/GPU-hour, subject to availability. For budgeting, cost
-must be calculated from the provider's displayed rate multiplied by actual pod
-uptime; it must not be presented later as a benchmark result.
+A planning allowance of 6--12 cloud hours corresponds to roughly $1--$2 of
+compute at the advertised starting rate. A $5 cap provides room for setup and
+storage. These are prospective budgeting calculations, not measured runtime or
+performance results. Actual cost must be generated from the provider's billed
+pod uptime, storage, and displayed rate. Use an on-demand pod, not Spot, because
+interruptions would compromise timing trials; delete both pod and volume after
+results and provenance are copied out.
+
+Source: [RunPod current GPU models and pod pricing](https://www.runpod.io/gpu-models)
+
+### 2. Faster but more expensive: RTX 4090 pod
+
+If wall-clock time becomes more important than minimum cost, run the entire
+pipeline on a 24 GB RTX 4090 Ubuntu pod. RunPod currently lists Community Cloud
+from $0.34/GPU-hour and Secure Cloud from $0.74/GPU-hour. This simplifies the
+topology and accelerates draft training, but it is unnecessary for the small
+models in this study and is not the preferred budget option.
 
 Source: [RunPod RTX 4090 pricing and specifications](https://www.runpod.io/gpu-models/rtx-4090)
 
-### 2. Acceptable fallback: dedicated GCP L4 VM
+### 3. Acceptable fallback: dedicated GCP L4 VM
 
 A `g2-standard-4` Linux VM supplies one 24 GB L4 and a stable, dedicated
 runtime. Google currently lists that complete VM at approximately
@@ -90,7 +112,7 @@ quota, image configuration, and cost controls are heavier than a GPU pod.
 
 Source: [Google Cloud accelerator-optimized VM pricing](https://cloud.google.com/products/compute/pricing/accelerator-optimized)
 
-### 3. Pilot/debug only: Google Colab
+### 4. Pilot/debug only: Google Colab
 
 Colab can test installation, artifact loading, and a reduced dry run on Linux.
 It is not recommended for the confirmatory matrix: Google explicitly states
@@ -100,7 +122,7 @@ the ten-trial serving matrix and persistent raw ledgers unnecessarily fragile.
 
 Source: [Google Colab resource-limit FAQ](https://research.google.com/colaboratory/faq.html)
 
-### 4. Not equivalent: native Windows inference engine
+### 5. Not equivalent: native Windows inference engine
 
 Using llama.cpp, ONNX Runtime, or another Windows-native runtime could form a
 separate engineering study, but it would replace vLLM scheduling, GPTQ with a
@@ -108,7 +130,7 @@ different quantization representation, and vLLM's speculative-decoding
 instrumentation. It would not answer the preregistered question and must not be
 reported as if it did. It is therefore not recommended for this extension.
 
-### 5. Not recommended: another VMX attempt or dual boot
+### 6. Not recommended: another VMX attempt or dual boot
 
 Firmware repair or a native Ubuntu dual boot might eventually expose the RTX
 3070 to Linux, but both require physical access and introduce avoidable boot
@@ -117,11 +139,12 @@ temporary Linux GPU pod.
 
 ## Recommended execution decision
 
-Provision one persistent Ubuntu RTX 4090 pod; record its immutable image,
-driver, CUDA, Python, vLLM, GPTQModel, PyTorch, CPU, RAM, and disk details; add
-a platform-only preregistration amendment; then run the existing pipeline
-unchanged. Keep the Windows RTX 3070 available for unrelated native-PyTorch
-work, but do not combine timings across the two GPUs.
+Train and validate the draft on the existing Windows RTX 3070, then provision
+one on-demand persistent Ubuntu RTX A5000 pod for every serving-stage operation.
+Record both environments, including immutable image, driver, CUDA, Python,
+vLLM, GPTQModel, PyTorch, CPU, RAM, disk, commands, and artifact hashes. Add a
+platform-only preregistration amendment before training and run the substantive
+pipeline unchanged. Do not combine timings across GPUs.
 
 The alternative is honest and defensible: the local path was attempted and
 failed for a documented firmware constraint, while the research estimands and
