@@ -142,8 +142,12 @@ def train_draft(config: dict, train_parquet: Path, output_dir: Path, *, resume: 
         state = torch.load(state_path, map_location="cpu", weights_only=False)
         student.load_state_dict(state["student"]); optimizer.load_state_dict(state["optimizer"]); scheduler.load_state_dict(state["scheduler"])
         global_step, seen_batches, baseline = state["global_step"], state["seen_batches"], state["baseline"]
+    print(json.dumps({"event": "draft_preflight_complete", "train_examples": len(train),
+                      "validation_examples": len(valid), "total_optimizer_steps": total_steps}), flush=True)
     if baseline is None:
+        print(json.dumps({"event": "baseline_evaluation_started"}), flush=True)
         baseline = evaluate(student, teacher, valid_loader, config)
+        print(json.dumps({"event": "baseline_evaluation_complete", **baseline}), flush=True)
     started = time.time(); torch.cuda.reset_peak_memory_stats(); student.train(); optimizer.zero_grad(set_to_none=True)
     for epoch in range(settings["epochs"]):
         for batch_index, batch in enumerate(train_loader):
@@ -155,14 +159,24 @@ def train_draft(config: dict, train_parquet: Path, output_dir: Path, *, resume: 
                 student_logits = student(input_ids=batch["input_ids"], attention_mask=batch["attention_mask"]).logits
                 loss, _, _ = distillation_loss(student_logits, teacher_logits, batch["labels"],
                     temperature=settings["temperature"], kl_weight=settings["kl_weight"])
+                raw_loss = float(loss.detach())
                 loss = loss / accumulation
             scaler.scale(loss).backward(); seen_batches = batch_index + 1
             if seen_batches % accumulation == 0 or seen_batches == len(train_loader):
                 scaler.unscale_(optimizer); torch.nn.utils.clip_grad_norm_(student.parameters(), 1.0)
                 scaler.step(optimizer); scaler.update(); scheduler.step(); optimizer.zero_grad(set_to_none=True); global_step += 1
+                if global_step % min(50, settings["checkpoint_steps"]) == 0 or global_step == total_steps:
+                    progress = {"event": "training_progress", "global_step": global_step,
+                                "total_optimizer_steps": total_steps, "seen_batches": seen_batches,
+                                "latest_loss": raw_loss, "elapsed_seconds": time.time() - started,
+                                "peak_gpu_memory_bytes": torch.cuda.max_memory_allocated()}
+                    (output_dir / "progress.json").write_text(
+                        json.dumps(progress, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                    print(json.dumps(progress), flush=True)
                 if global_step % settings["checkpoint_steps"] == 0:
                     torch.save({"student": student.state_dict(), "optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(),
                         "global_step": global_step, "seen_batches": seen_batches, "baseline": baseline}, state_path)
+    print(json.dumps({"event": "final_evaluation_started"}), flush=True)
     final = evaluate(student, teacher, valid_loader, config)
     success = final["token_kl"] < baseline["token_kl"] and final["hard_nll"] < baseline["hard_nll"]
     student.config.use_cache = True; student.save_pretrained(output_dir / "model", safe_serialization=True); student_tok.save_pretrained(output_dir / "model")
