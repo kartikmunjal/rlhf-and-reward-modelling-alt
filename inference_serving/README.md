@@ -39,3 +39,9 @@ any study run. See
 for the observed failure, claim boundary, and ranked execution alternatives.
 The frozen preregistration has not been edited and no performance result is
 claimed.
+
+The approved hybrid execution change is separately frozen in
+[`protocol_amendment_001_hybrid.json`](protocol_amendment_001_hybrid.json).
+It assigns draft training only to native Windows/RTX 3070 and assigns every
+quantization and comparative serving measurement to one on-demand Ubuntu/RTX
+A5000 pod. All scientific choices and thresholds remain unchanged.

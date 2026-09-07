@@ -1,0 +1,6 @@
+{
+  "amendment_id": "inference_serving_v1_platform_001",
+  "bytes_sha256": "eb882d9f8dca569580f9ee0c8abe704650555d864e8e7bbfb53865fdcbeadb58",
+  "canonical_sha256": "f0fc4bfe0e2842f98dea3a97f85ed4d61896b434d64f3153805376a55bf060ee",
+  "file": "inference_serving/protocol_amendment_001_hybrid.json"
+}

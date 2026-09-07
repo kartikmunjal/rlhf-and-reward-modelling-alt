@@ -1,0 +1,45 @@
+{
+  "amendment_id": "inference_serving_v1_platform_001",
+  "recorded_date": "2026-09-07",
+  "recorded_before": [
+    "draft_training",
+    "quantization",
+    "pilot_selection",
+    "serving_benchmarks",
+    "quality_evaluation"
+  ],
+  "reason": "The preregistered WSL2 path is unattainable because the host reports firmware virtualization disabled, Ubuntu registration fails with HCS_E_HYPERV_NOT_INSTALLED, and enabling Intel VMX prevents the host from booting normally.",
+  "original_environment": {
+    "platform": "WSL2 Ubuntu on Windows 11",
+    "gpu": "NVIDIA GeForce RTX 3070 8GB"
+  },
+  "amended_execution": {
+    "draft_training": {
+      "platform": "native Windows 11",
+      "gpu": "NVIDIA GeForce RTX 3070 8GB",
+      "framework": "PyTorch CUDA"
+    },
+    "quantization_and_all_serving_measurements": {
+      "platform": "RunPod Community Cloud Ubuntu Linux pod",
+      "gpu": "NVIDIA RTX A5000 24GB",
+      "billing_mode": "on-demand_non-spot",
+      "maximum_total_budget_usd": 5,
+      "exact_runtime_image_and_environment": "must_be_hash_recorded_before_first_measurement"
+    }
+  },
+  "timing_boundary": "No timing or memory measurements may be compared across the RTX 3070 and RTX A5000. The RTX 3070 only produces the fixed draft artifact; every comparative serving measurement is made on the same A5000 pod.",
+  "unchanged_locked_items": [
+    "models_and_base_revisions",
+    "base_sft_dpo_scope_and_grpo_exclusion",
+    "datasets_and_deterministic_splits",
+    "draft_training_seed_data_budget_and_success_gate",
+    "generation_configuration",
+    "quantization_method_and_parameters",
+    "benchmark_trial_counts_and_concurrency",
+    "speculative_token_pilot_and_selection_rule",
+    "quality_judge_prompts_axes_and_equivalence_margin",
+    "bootstrap_and_multiple_testing_procedure",
+    "all_success_thresholds"
+  ],
+  "interpretation": "Results will be described as A5000-specific serving measurements with a draft trained on an RTX 3070, not as RTX 3070 serving results. This amendment changes infrastructure only and creates no new scientific comparison."
+}
