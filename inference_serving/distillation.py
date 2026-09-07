@@ -116,7 +116,12 @@ def train_draft(config: dict, train_parquet: Path, output_dir: Path, *, resume: 
     teacher_tok.pad_token = teacher_tok.eos_token; student_tok.pad_token = student_tok.eos_token
     teacher = AutoModelForCausalLM.from_pretrained(teacher_info["model"], revision=teacher_info["revision"], torch_dtype=torch.float16).cuda().eval()
     for parameter in teacher.parameters(): parameter.requires_grad_(False)
-    student = AutoModelForCausalLM.from_pretrained(student_info["model"], revision=student_info["revision"], torch_dtype=torch.float16).cuda()
+    # Keep trainable master weights in FP32. Autocast supplies FP16 compute,
+    # while GradScaler requires FP32 parameter gradients for safe unscaling.
+    # The frozen teacher can remain FP16 because it has no gradients.
+    student = AutoModelForCausalLM.from_pretrained(
+        student_info["model"], revision=student_info["revision"], torch_dtype=torch.float32
+    ).cuda()
     student.gradient_checkpointing_enable(); student.config.use_cache = False
 
     valid = TokenDataset(train_parquet, student_tok, limit=settings["validation_examples"], seed=config["seed"], namespace="draft-valid", max_tokens=settings["max_tokens"])
