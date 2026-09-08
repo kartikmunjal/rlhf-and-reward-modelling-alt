@@ -99,7 +99,12 @@ async def _stream_request(session, url: str, model: str, row: dict, new_tokens: 
                 event = json.loads(body)
                 if event.get("usage"):
                     usage_tokens = event["usage"].get("completion_tokens")
-                text = event.get("choices", [{}])[0].get("text", "")
+                # OpenAI-compatible servers emit a final usage-only event with
+                # ``choices: []`` when include_usage is requested.
+                choices = event.get("choices") or []
+                if not choices:
+                    continue
+                text = choices[0].get("text", "")
                 if not text: continue
                 now = time.perf_counter(); intervals.append(now - (previous or started)); previous = now
                 token_count += 1
