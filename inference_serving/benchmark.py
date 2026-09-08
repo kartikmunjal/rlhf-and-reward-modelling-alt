@@ -11,11 +11,25 @@ from pathlib import Path
 from inference_serving.data import article_id, prompt_text, read_jsonl, write_jsonl
 
 
-def benchmark_prompts(articles_path: Path, config: dict, count: int) -> list[dict]:
+def benchmark_prompts(articles_path: Path, config: dict, count: int, tokenizer) -> list[dict]:
     rows = read_jsonl(articles_path)
     if len(rows) < count:
         raise ValueError(f"Need {count} benchmark prompts, found {len(rows)}")
-    return [{"article_id": article_id(row), "prompt": prompt_text(row["source"], config)} for row in rows[:count]]
+    prompts = []
+    for row in rows[:count]:
+        source_ids = tokenizer.encode(
+            row["source"], add_special_tokens=False, truncation=True,
+            max_length=config["generation"]["source_tokens"],
+        )
+        truncated_source = tokenizer.decode(source_ids, skip_special_tokens=False)
+        prompt = prompt_text(truncated_source, config)
+        prompts.append({
+            "article_id": article_id(row),
+            "prompt": prompt,
+            "source_tokens": len(source_ids),
+            "prompt_tokens": len(tokenizer.encode(prompt, add_special_tokens=False)),
+        })
+    return prompts
 
 
 def percentile(values: list[float], q: float) -> float:

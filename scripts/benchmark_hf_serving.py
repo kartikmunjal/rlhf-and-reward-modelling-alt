@@ -19,7 +19,7 @@ model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.float
 tokenizer = AutoTokenizer.from_pretrained(args.model)
 trials = args.trials or config["stage1"]["benchmark_trials"]
 requests = args.requests or config["stage1"]["requests_per_trial"]
-prompts = benchmark_prompts(args.articles, config, requests)
+prompts = benchmark_prompts(args.articles, config, requests, tokenizer)
 for concurrency in args.concurrency or config["stage1"]["concurrency"]:
     run_hf_trial(model, tokenizer, prompts[:config["stage1"]["warmup_requests"]], concurrency=concurrency, new_tokens=config["generation"]["performance_new_tokens"])
     for trial_index in range(trials):

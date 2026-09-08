@@ -1,7 +1,8 @@
 import asyncio
 import json
 
-from inference_serving.benchmark import _stream_request
+from inference_serving.benchmark import _stream_request, benchmark_prompts
+from inference_serving.data import write_jsonl
 
 
 class _Content:
@@ -59,3 +60,28 @@ def test_stream_request_accepts_usage_only_terminal_event():
     )
     assert result["output_tokens"] == 2
     assert result["stream_chunks"] == 2
+
+
+class _WhitespaceTokenizer:
+    def encode(self, text, **kwargs):
+        values = text.split()
+        maximum = kwargs.get("max_length")
+        return values[:maximum] if kwargs.get("truncation") and maximum else values
+
+    def decode(self, values, **_kwargs):
+        return " ".join(values)
+
+
+def test_benchmark_prompts_apply_locked_source_token_limit(tmp_path):
+    articles = tmp_path / "articles.jsonl"
+    write_jsonl(articles, [{"article_id": "a", "source": "one two three four five"}])
+    config = {
+        "generation": {
+            "source_tokens": 3,
+            "prompt_template": "Article: {source} Summary:",
+        }
+    }
+    rows = benchmark_prompts(articles, config, 1, _WhitespaceTokenizer())
+    assert rows[0]["prompt"] == "Article: one two three Summary:"
+    assert rows[0]["source_tokens"] == 3
+    assert rows[0]["prompt_tokens"] == 5

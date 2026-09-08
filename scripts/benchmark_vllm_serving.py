@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--config", type=Path, default=Path("inference_serving/study_config.json"))
 parser.add_argument("--base-url", default="http://127.0.0.1:8000")
 parser.add_argument("--served-model", required=True)
+parser.add_argument("--tokenizer", required=True, help="Tokenizer path used to create identical locked prompts")
 parser.add_argument("--target", choices=("base", "sft", "dpo"), required=True)
 parser.add_argument("--precision", choices=("fp16", "gptq"), required=True)
 parser.add_argument("--speculative", action="store_true")
@@ -21,7 +22,9 @@ parser.add_argument("--phase", choices=("pilot", "heldout"), default="heldout")
 args = parser.parse_args(); config = json.loads(args.config.read_text(encoding="utf-8"))
 trials = args.trials or config["stage1"]["benchmark_trials"]
 requests = args.requests or config["stage1"]["requests_per_trial"]
-prompts = benchmark_prompts(args.articles, config, requests)
+from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+prompts = benchmark_prompts(args.articles, config, requests, tokenizer)
 for concurrency in args.concurrency or config["stage1"]["concurrency"]:
     asyncio.run(run_vllm_trial(args.base_url, args.served_model, prompts[:config["stage1"]["warmup_requests"]], concurrency=concurrency, new_tokens=config["generation"]["performance_new_tokens"]))
     for trial_index in range(trials):
