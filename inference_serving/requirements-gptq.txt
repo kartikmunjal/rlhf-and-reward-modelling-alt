@@ -1,1 +1,5 @@
 gptqmodel==7.3.6
+# GPTQModel imports its full architecture registry at module import time; the
+# registry includes InternVL image transforms but 7.3.6 does not declare this
+# runtime dependency. 0.29.0 is the matching release for GPTQModel's torch 2.14.
+torchvision==0.29.0
