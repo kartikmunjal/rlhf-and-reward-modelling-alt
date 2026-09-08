@@ -102,8 +102,11 @@ def prometheus_snapshot(metrics_url: str) -> dict[str, float]:
 async def _stream_request(session, url: str, model: str, row: dict, new_tokens: int, gate: asyncio.Semaphore) -> dict:
     payload = {"model": model, "prompt": row["prompt"], "max_tokens": new_tokens, "temperature": 0,
                "stream": True, "stream_options": {"include_usage": True}, "ignore_eos": True}
-    intervals, token_count, usage_tokens, started, previous = [], 0, None, time.perf_counter(), None
+    intervals, token_count, usage_tokens = [], 0, None
     async with gate:
+        # Service latency starts when the request is admitted, not while it is
+        # queued in the load generator behind the configured concurrency gate.
+        started, previous = time.perf_counter(), None
         async with session.post(url, json=payload) as response:
             response.raise_for_status()
             async for raw in response.content:

@@ -85,3 +85,25 @@ def test_benchmark_prompts_apply_locked_source_token_limit(tmp_path):
     assert rows[0]["prompt"] == "Article: one two three Summary:"
     assert rows[0]["source_tokens"] == 3
     assert rows[0]["prompt_tokens"] == 5
+
+
+def test_stream_latency_excludes_client_semaphore_queue_time():
+    async def exercise():
+        gate = asyncio.Semaphore(0)
+        events = [
+            _sse({"choices": [{"text": "a"}]}),
+            _sse({"choices": [], "usage": {"completion_tokens": 1}}),
+            b"data: [DONE]\n",
+        ]
+        task = asyncio.create_task(
+            _stream_request(
+                _Session(events), "http://example/v1/completions", "model",
+                {"article_id": "a", "prompt": "p"}, 1, gate,
+            )
+        )
+        await asyncio.sleep(0.05)
+        gate.release()
+        return await task
+
+    result = asyncio.run(exercise())
+    assert result["request_wall_ms"] < 25
