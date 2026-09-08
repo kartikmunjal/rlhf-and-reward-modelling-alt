@@ -19,8 +19,11 @@ are complete.
 Run the Linux serving stack inside WSL2; vLLM is not supported by the native
 Windows Python environment used for training. Install with
 `bash scripts/setup_inference_wsl.sh "$PWD"`. The script creates an isolated
-`.venv-serving`, installs the preregistered vLLM and GPTQModel versions, saves
-the resolved package lock, and verifies GPU visibility. Draft training uses
+separate `.venv-vllm` and `.venv-gptq` environments, installs the
+preregistered versions, saves both resolved package locks, and verifies GPU
+visibility. The separation is required because the locked releases have
+incompatible protobuf constraints; GPTQ creates the artifact and vLLM serves
+it, so no method or version is substituted. Draft training uses
 `scripts/train_gpt2_small_draft.py`; it is resumable and writes its validation
 metrics from the locked data split. Model servers are launched only through
 `scripts/run_vllm_server.sh`, and every measurement is appended to the raw

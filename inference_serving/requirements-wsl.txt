@@ -1,5 +1,3 @@
-# Linux/WSL-only serving environment, frozen for this study.
-vllm==0.28.0
-gptqmodel==7.3.6
-aiohttp>=3.10,<4
-psutil>=6,<8
+# Compatibility shim. The two locked tools have incompatible protobuf bounds
+# and must be installed from their separate requirement files/environments.
+-r requirements-vllm.txt
