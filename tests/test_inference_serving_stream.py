@@ -1,7 +1,7 @@
 import asyncio
 import json
 
-from inference_serving.benchmark import _stream_request, benchmark_prompts
+from inference_serving.benchmark import _stream_request, benchmark_prompts, gpu_memory_used_bytes
 from inference_serving.data import write_jsonl
 
 
@@ -85,6 +85,14 @@ def test_benchmark_prompts_apply_locked_source_token_limit(tmp_path):
     assert rows[0]["prompt"] == "Article: one two three Summary:"
     assert rows[0]["source_tokens"] == 3
     assert rows[0]["prompt_tokens"] == 5
+
+
+def test_gpu_memory_sampler_converts_mib_to_bytes(monkeypatch):
+    class _Completed:
+        stdout = "123.0\n"
+
+    monkeypatch.setattr("inference_serving.benchmark.subprocess.run", lambda *args, **kwargs: _Completed())
+    assert gpu_memory_used_bytes() == 123 * 1024 * 1024
 
 
 def test_stream_latency_excludes_client_semaphore_queue_time():

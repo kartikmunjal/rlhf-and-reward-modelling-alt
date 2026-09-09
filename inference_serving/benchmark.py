@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import subprocess
 import time
 import urllib.request
 from pathlib import Path
@@ -99,6 +100,34 @@ def prometheus_snapshot(metrics_url: str) -> dict[str, float]:
     return values
 
 
+def gpu_memory_used_bytes() -> int:
+    """Return device-wide GPU memory use for the dedicated benchmark worker.
+
+    vLLM 0.28 does not expose allocated GPU bytes on its Prometheus endpoint.
+    The study runs on a dedicated single-GPU pod, so device-wide nvidia-smi
+    memory is the serving-process footprint plus stable driver overhead.
+    """
+    completed = subprocess.run(
+        ["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"],
+        check=True, capture_output=True, text=True, timeout=10,
+    )
+    used_mib = [int(float(line.strip())) for line in completed.stdout.splitlines() if line.strip()]
+    if len(used_mib) != 1:
+        raise RuntimeError(f"Expected exactly one benchmark GPU, found {len(used_mib)}")
+    return used_mib[0] * 1024 * 1024
+
+
+async def _sample_gpu_memory(stop: asyncio.Event, interval_seconds: float = 0.2) -> int:
+    peak = 0
+    while not stop.is_set():
+        peak = max(peak, await asyncio.to_thread(gpu_memory_used_bytes))
+        try:
+            await asyncio.wait_for(stop.wait(), timeout=interval_seconds)
+        except asyncio.TimeoutError:
+            pass
+    return max(peak, await asyncio.to_thread(gpu_memory_used_bytes))
+
+
 async def _stream_request(session, url: str, model: str, row: dict, new_tokens: int, gate: asyncio.Semaphore) -> dict:
     payload = {"model": model, "prompt": row["prompt"], "max_tokens": new_tokens, "temperature": 0,
                "stream": True, "stream_options": {"include_usage": True}, "ignore_eos": True}
@@ -134,13 +163,18 @@ async def _stream_request(session, url: str, model: str, row: dict, new_tokens: 
 
 
 async def run_vllm_trial(base_url: str, model: str, prompts: list[dict], *, concurrency: int,
-                         new_tokens: int, peak_gpu_memory_bytes: int = 0) -> dict:
+                         new_tokens: int) -> dict:
     import aiohttp
     before = prometheus_snapshot(base_url.rstrip("/") + "/metrics")
     started = time.perf_counter(); gate = asyncio.Semaphore(concurrency)
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=3600)) as session:
-        requests = await asyncio.gather(*[_stream_request(session, base_url.rstrip("/") + "/v1/completions",
-                                                          model, row, new_tokens, gate) for row in prompts])
+    stop = asyncio.Event(); memory_task = asyncio.create_task(_sample_gpu_memory(stop))
+    try:
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=3600)) as session:
+            requests = await asyncio.gather(*[_stream_request(session, base_url.rstrip("/") + "/v1/completions",
+                                                              model, row, new_tokens, gate) for row in prompts])
+    finally:
+        stop.set()
+    peak_gpu_memory_bytes = await memory_task
     wall = time.perf_counter() - started
     after = prometheus_snapshot(base_url.rstrip("/") + "/metrics")
     result = aggregate_trial(requests, wall, peak_gpu_memory_bytes)
