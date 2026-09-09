@@ -16,7 +16,9 @@
   "user_approved_completion": {
     "pilot_trials_per_candidate": 10,
     "requests_per_trial": 32,
-    "article_set": "all_32_locked_pilot_articles"
+    "article_set": "all_32_locked_pilot_articles",
+    "concurrency": 32,
+    "concurrency_approved_at_utc": "2026-09-09T02:37:33Z"
   },
   "unchanged_locked_items": [
     "pilot_candidates_2_4_6",
