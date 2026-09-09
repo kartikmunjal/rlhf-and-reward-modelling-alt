@@ -1,0 +1,46 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_unique_prompts_002",
+  "recorded_date": "2026-09-09",
+  "recorded_before": [
+    "partition_materialization",
+    "model_training",
+    "result_inspection"
+  ],
+  "observed_data_structure": {
+    "dataset_revision": "09be8c5bbc57cb3887f3a9732ad6aa7ec602a1fa",
+    "train_rows": 42537,
+    "unique_normalized_train_prompts": 16941,
+    "conflicting_extra_train_rows": 25596,
+    "test_rows": 2312,
+    "unique_normalized_test_prompts": 2177,
+    "conflicting_extra_test_rows": 135
+  },
+  "reason": "Prompt-level deduplication leaves 16941 unique train prompts, so the first amendment's 40000 train allocations remain infeasible.",
+  "approved_partition": {
+    "sft_train_pairs": 8000,
+    "reward_train_pairs": 5000,
+    "reward_validation_pairs": 1000,
+    "improvement_prompts": 2500,
+    "independent_eval_prompts": 400,
+    "independent_eval_source_split": "test",
+    "unused_unique_train_prompt_reserve": 441
+  },
+  "duplicate_resolution": {
+    "unit": "normalized_prompt",
+    "rule": "retain_pair_with_smallest_sha256_of_normalized_chosen_null_rejected",
+    "selection_uses_quality_or_reward": false,
+    "order_independent": true
+  },
+  "unchanged_locked_items": [
+    "dataset_subset_and_revision",
+    "prompt_normalization",
+    "prompt_level_partition_disjointness",
+    "sha256_partitioning",
+    "model_family",
+    "training_and_evaluation_methods",
+    "curve_selection",
+    "stage3_conditions",
+    "success_and_degradation_criteria"
+  ],
+  "interpretation": "This amendment responds only to observed dataset cardinality and duplicate structure, not model outcomes."
+}

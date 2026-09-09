@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import unicodedata
 from pathlib import Path
 from typing import Iterable
 
@@ -13,7 +14,6 @@ NORMALIZATION_VERSION = "nfkc_whitespace_lower_v1"
 
 
 def normalize_prompt(text: str) -> str:
-    import unicodedata
     text = unicodedata.normalize("NFKC", text)
     return re.sub(r"\s+", " ", text).strip().lower()
 
@@ -66,13 +66,12 @@ def partition_allocations(rows: Iterable[dict], *, seed: int, allocations: list[
     for row in rows:
         key = prompt_id(row["prompt"])
         candidate = {**row, "prompt_id": key}
-        if key in unique:
-            if (unique[key].get("chosen"), unique[key].get("rejected")) != (
-                candidate.get("chosen"), candidate.get("rejected")
-            ):
-                raise ValueError(f"Conflicting duplicate prompt: {key}")
-            continue
-        unique[key] = candidate
+        pair_hash = hashlib.sha256(
+            (normalize_prompt(candidate.get("chosen", "")) + "\0" + normalize_prompt(candidate.get("rejected", ""))).encode("utf-8")
+        ).hexdigest()
+        candidate["duplicate_pair_sha256"] = pair_hash
+        if key not in unique or pair_hash < unique[key]["duplicate_pair_sha256"]:
+            unique[key] = candidate
     ordered = sorted(unique.values(), key=lambda row: stable_rank(seed, row["prompt"]))
     required = sum(count for _, count in allocations)
     if len(ordered) < required:

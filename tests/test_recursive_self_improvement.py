@@ -24,8 +24,9 @@ def test_preregistration_is_hash_frozen():
 
 def test_approved_amendment_is_hash_verified_and_applied():
     effective = load_effective_config(ROOT)
-    assert effective["data"]["sft_train_pairs"] == 20000
+    assert effective["data"]["sft_train_pairs"] == 8000
     assert effective["data"]["independent_eval_source_split"] == "test"
+    assert len(effective["applied_amendments"]) == 2
 
 
 def test_partitions_are_deterministic_and_disjoint():
@@ -55,6 +56,16 @@ def test_general_allocator_is_order_invariant():
     second = partition_allocations(reversed(rows), seed=7, allocations=[("a", 4), ("b", 3)])
     assert first == second
     assert_disjoint(first)
+
+
+def test_general_allocator_resolves_conflicts_by_pair_hash():
+    rows = [
+        {"prompt": "same", "chosen": "z", "rejected": "x"},
+        {"prompt": " Same ", "chosen": "a", "rejected": "b"},
+    ]
+    forward = partition_allocations(rows, seed=7, allocations=[("a", 1)])
+    reverse = partition_allocations(reversed(rows), seed=7, allocations=[("a", 1)])
+    assert forward == reverse
 
 
 def test_curve_selector_prefers_saturation_for_clear_saturating_data():
