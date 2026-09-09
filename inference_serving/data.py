@@ -48,6 +48,16 @@ def prompt_text(source: str, config: dict) -> str:
     return config["generation"]["prompt_template"].format(source=source)
 
 
+def token_limited_prompt(source: str, config: dict, tokenizer) -> tuple[str, int]:
+    """Build the shared prompt after enforcing the preregistered source limit."""
+    source_ids = tokenizer.encode(
+        source, add_special_tokens=False, truncation=True,
+        max_length=config["generation"]["source_tokens"],
+    )
+    truncated_source = tokenizer.decode(source_ids, skip_special_tokens=False)
+    return prompt_text(truncated_source, config), len(source_ids)
+
+
 def prepare_partitions(config: dict, source_path: Path, output_dir: Path) -> dict:
     rows = read_jsonl(source_path)
     pilot, heldout = partition_final_articles(rows, config)

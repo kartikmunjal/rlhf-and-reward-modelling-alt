@@ -9,7 +9,7 @@ import time
 import urllib.request
 from pathlib import Path
 
-from inference_serving.data import article_id, prompt_text, read_jsonl, write_jsonl
+from inference_serving.data import article_id, read_jsonl, token_limited_prompt, write_jsonl
 
 
 def benchmark_prompts(articles_path: Path, config: dict, count: int, tokenizer) -> list[dict]:
@@ -18,16 +18,11 @@ def benchmark_prompts(articles_path: Path, config: dict, count: int, tokenizer) 
         raise ValueError(f"Need {count} benchmark prompts, found {len(rows)}")
     prompts = []
     for row in rows[:count]:
-        source_ids = tokenizer.encode(
-            row["source"], add_special_tokens=False, truncation=True,
-            max_length=config["generation"]["source_tokens"],
-        )
-        truncated_source = tokenizer.decode(source_ids, skip_special_tokens=False)
-        prompt = prompt_text(truncated_source, config)
+        prompt, source_tokens = token_limited_prompt(row["source"], config, tokenizer)
         prompts.append({
             "article_id": article_id(row),
             "prompt": prompt,
-            "source_tokens": len(source_ids),
+            "source_tokens": source_tokens,
             "prompt_tokens": len(tokenizer.encode(prompt, add_special_tokens=False)),
         })
     return prompts
