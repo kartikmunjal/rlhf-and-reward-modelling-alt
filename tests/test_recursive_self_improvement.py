@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 
 from recursive_self_improvement.curves import select_curve
-from recursive_self_improvement.config import load_effective_config
+from recursive_self_improvement.config import canonical_text_sha256, load_effective_config
 from recursive_self_improvement.data import assert_disjoint, partition_allocations, partition_pairs, prompt_id
 from recursive_self_improvement.mixture import choose_by_normalized_log_likelihood, use_self_label
 from recursive_self_improvement.statistics import paired_bootstrap
@@ -30,6 +30,12 @@ def test_approved_amendment_is_hash_verified_and_applied():
     assert effective["peft"]["rank"] == 16
     assert effective["smoke_gate"]["optimizer_steps"] == 2
     assert len(effective["applied_amendments"]) == 4
+
+
+def test_canonical_protocol_hash_is_eol_portable(tmp_path):
+    lf = tmp_path / "lf.json"; crlf = tmp_path / "crlf.json"
+    lf.write_bytes(b'{"a": 1}\n'); crlf.write_bytes(b'{"a": 1}\r\n')
+    assert canonical_text_sha256(lf) == canonical_text_sha256(crlf)
 
 
 def test_partitions_are_deterministic_and_disjoint():
