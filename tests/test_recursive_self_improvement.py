@@ -26,7 +26,8 @@ def test_approved_amendment_is_hash_verified_and_applied():
     effective = load_effective_config(ROOT)
     assert effective["data"]["sft_train_pairs"] == 8000
     assert effective["data"]["independent_eval_source_split"] == "test"
-    assert len(effective["applied_amendments"]) == 2
+    assert effective["data"]["independent_eval_prompts"] == 250
+    assert len(effective["applied_amendments"]) == 3
 
 
 def test_partitions_are_deterministic_and_disjoint():

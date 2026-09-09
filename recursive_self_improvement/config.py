@@ -21,5 +21,11 @@ def load_effective_config(root: Path) -> dict:
     second = json.loads(second_path.read_text(encoding="utf-8"))
     config["data"].update(second["approved_partition"])
     config["data"]["duplicate_resolution"] = second["duplicate_resolution"]
-    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"]]
+    third_path = module / "protocol_amendment_003_eval_capacity.json"
+    third_manifest = json.loads((module / "protocol_amendment_003_manifest.json").read_text(encoding="utf-8"))
+    if hashlib.sha256(third_path.read_bytes()).hexdigest() != third_manifest["sha256"]:
+        raise ValueError("Evaluation-capacity amendment hash mismatch")
+    third = json.loads(third_path.read_text(encoding="utf-8"))
+    config["data"].update(third["approved_change"])
+    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"]]
     return config

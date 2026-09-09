@@ -1,0 +1,21 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_eval_capacity_003",
+  "recorded_date": "2026-09-09",
+  "recorded_before": ["partition_materialization", "model_training", "result_inspection"],
+  "observed_data_structure": {
+    "unique_test_prompts": 2177,
+    "test_prompts_overlapping_selected_train_partitions": 1912,
+    "fully_disjoint_test_prompts": 265
+  },
+  "reason": "Only 265 test prompts remain after enforcing prompt-level disjointness from every selected train partition, below the previously requested 400.",
+  "approved_change": {
+    "independent_eval_prompts": 250,
+    "unused_disjoint_test_prompt_reserve": 15,
+    "backfill_from_train_split": false
+  },
+  "unchanged_locked_items": [
+    "all_train_partition_sizes", "test-only independent evaluation", "prompt-level disjointness",
+    "duplicate resolution", "models", "training methods", "metrics", "curve rules", "stage3 conditions"
+  ],
+  "interpretation": "The smaller evaluation suite may widen prompt-bootstrap intervals; no threshold or analysis rule changes."
+}
