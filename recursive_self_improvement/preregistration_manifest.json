@@ -1,0 +1,14 @@
+{
+  "files": {
+    "preregistration.md": {
+      "path": "recursive_self_improvement/preregistration.md",
+      "sha256": "8c175fee5e69c3c37115153ed4b98894fd32dd8839e69c3f843c038ff3a43ed3"
+    },
+    "study_config.json": {
+      "path": "recursive_self_improvement/study_config.json",
+      "sha256": "5f06537794f506724181b8c1782ad619c3db2a31222889d8ed87f6afa9268803"
+    }
+  },
+  "schema_version": 1,
+  "study_id": "recursive_self_improvement_v1"
+}

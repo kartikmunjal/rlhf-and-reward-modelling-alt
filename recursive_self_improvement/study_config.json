@@ -1,0 +1,110 @@
+{
+  "study_id": "recursive_self_improvement_v1",
+  "status": "preregistered_before_training_or_result_inspection",
+  "seed": 20260909,
+  "scope": {
+    "primary_family": ["base", "sft", "dpo", "iterative_dpo_round_1", "iterative_dpo_round_2", "iterative_dpo_round_3", "iterative_dpo_round_4", "iterative_dpo_round_5", "iterative_dpo_round_6", "iterative_dpo_round_7", "iterative_dpo_round_8"],
+    "ppo_grpo_deferred": true,
+    "deferred_reason": "Existing PPO/GRPO checkpoints use Qwen2.5-0.5B and are not comparable to the GPT-2-medium family; no new PPO/GRPO run will be manufactured for this study.",
+    "training_seeds": [20260909],
+    "single_seed_boundary": "Intervals over prompts do not estimate training-seed variability."
+  },
+  "model": {
+    "base": "openai-community/gpt2-medium",
+    "base_revision": "6dcaa7a952f72f9298047fd5137cd6e4f05f41da",
+    "tokenizer_identity_required": true,
+    "context_length": 512
+  },
+  "data": {
+    "dataset": "Anthropic/hh-rlhf",
+    "subset": "harmless-base",
+    "revision": "resolve_and_hash_before_execution",
+    "split_unit": "sha256_rank_of_normalized_prompt",
+    "sft_train_pairs": 40000,
+    "reward_train_pairs": 40000,
+    "reward_validation_pairs": 4000,
+    "improvement_prompts": 4096,
+    "independent_eval_prompts": 400,
+    "disjointness_required": true,
+    "deduplicate_normalized_prompts": true
+  },
+  "sft": {
+    "source": "human_chosen_responses_only",
+    "epochs": 1,
+    "learning_rate": 0.00005,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.05,
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "fp16": true
+  },
+  "reward_ensemble": {
+    "members": 3,
+    "member_seeds": [20260909, 20260910, 20260911],
+    "training_source": "human_preference_pairs_only",
+    "minimum_pairwise_accuracy": 0.6,
+    "evaluation_only_in_stage3": true
+  },
+  "ordinary_dpo": {
+    "starting_checkpoint": "sft",
+    "human_preference_pairs": 4096,
+    "steps": 200,
+    "beta": 0.1,
+    "learning_rate": 0.0000005
+  },
+  "stage1": {
+    "buffer": "rolling2",
+    "rounds": 8,
+    "rollout_prompts_per_round": 256,
+    "candidates_per_prompt": 2,
+    "dpo_steps_per_round": 200,
+    "beta": 0.1,
+    "learning_rate": 0.0000005,
+    "training_labeler": "frozen_k3_reward_ensemble_mean",
+    "primary_metric": "independent_pairwise_win_rate_vs_sft",
+    "plateau_definition": "round_gain_ci95_includes_zero_for_two_consecutive_rounds",
+    "curve_candidates": ["linear", "saturating_exponential"],
+    "curve_selection": "lowest_leave_one_round_out_mean_squared_prediction_error",
+    "tie_rule": "prefer_linear_if_errors_differ_by_less_than_1e-6"
+  },
+  "stage2": {
+    "primary_metric": "independent_pairwise_win_rate_vs_sft",
+    "secondary_metrics": ["external_reward_mean", "kl_from_sft", "response_length"],
+    "compute_axis": "cumulative_non_padding_training_tokens",
+    "curve_candidates": ["linear", "saturating_exponential"],
+    "curve_selection": "lowest_leave_one_checkpoint_out_mean_squared_prediction_error",
+    "no_cross_family_curve": true
+  },
+  "stage3": {
+    "label_mixture_percent_self": [0, 25, 50, 75, 100],
+    "rounds_per_condition": 4,
+    "starting_checkpoint": "stage1_round_3",
+    "external_training_labeler": "frozen_claude_pairwise_prompt_separate_from_evaluator",
+    "self_labeler": "current_policy_length_normalized_conditional_log_likelihood",
+    "evaluation_labeler": "frozen_k3_human_trained_reward_ensemble",
+    "evaluation_labeler_never_used_for_stage3_training": true,
+    "mixture_assignment": "sha256_rank_by_seed_condition_round_prompt",
+    "primary_estimand": "round4_external_evaluator_win_rate_minus_zero_percent_condition",
+    "reward_hacking_diagnostics": ["external_vs_training_label_agreement", "ensemble_disagreement", "response_length_shift", "kl_from_stage3_start"],
+    "degradation_rule": "paired_bootstrap_ci95_upper_bound_below_zero_on_external_evaluator_win_rate"
+  },
+  "evaluation": {
+    "suite_frozen_before_training": true,
+    "generation_temperature": 0.0,
+    "max_new_tokens": 128,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260909,
+    "confidence_level": 0.95,
+    "bootstrap_unit": "heldout_prompt",
+    "minimum_valid_fraction": 0.9,
+    "validity_interval": "wilson",
+    "multiple_testing": "holm_within_each_planned_family"
+  },
+  "interpretation_boundaries": [
+    "This is a small-model controlled study, not evidence about frontier-scale recursive self-improvement.",
+    "The external evaluator is still a learned proxy; agreement with human preferences must be reported.",
+    "One training seed cannot establish algorithm-level variance.",
+    "Curve selection describes this checkpoint family only and is not an extrapolation law.",
+    "Self-likelihood labels operationalize self-reliance but are not equivalent to a frontier model acting as a deliberative judge."
+  ]
+}
