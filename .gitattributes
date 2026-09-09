@@ -1,0 +1,3 @@
+recursive_self_improvement/*.json text eol=lf
+recursive_self_improvement/*.md text eol=lf
+data/processed/recursive_self_improvement_v1/data_manifest.json text eol=lf
