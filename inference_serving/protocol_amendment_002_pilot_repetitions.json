@@ -1,0 +1,28 @@
+{
+  "amendment_id": "inference_serving_v1_pilot_repetitions_002",
+  "recorded_at_utc": "2026-09-09T01:50:25Z",
+  "recorded_after": [
+    "stage1_performance",
+    "stage2_performance",
+    "stage2_quality_generation"
+  ],
+  "recorded_before": [
+    "stage2_quality_scoring_completion",
+    "stage3_speculative_pilot",
+    "stage3_selection",
+    "stage3_confirmatory_measurements"
+  ],
+  "reason": "The locked preregistration specified pilot candidates and articles but omitted the pilot repetition count expected by the selection script.",
+  "user_approved_completion": {
+    "pilot_trials_per_candidate": 10,
+    "requests_per_trial": 32,
+    "article_set": "all_32_locked_pilot_articles"
+  },
+  "unchanged_locked_items": [
+    "pilot_candidates_2_4_6",
+    "selection_rule_highest_median_throughput_with_smaller_k_tiebreak",
+    "heldout_articles",
+    "all_confirmatory_estimands_thresholds_and_statistics"
+  ],
+  "interpretation": "This amendment resolves a missing execution parameter after explicit user approval. It does not use pilot or Stage 3 outcomes and changes no success criterion."
+}
