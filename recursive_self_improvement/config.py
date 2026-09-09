@@ -48,5 +48,12 @@ def load_effective_config(root: Path) -> dict:
     config["stage1"]["prompt_schedule"] = fifth["stage1_prompt_schedule"]
     config["evaluator_roles"] = fifth["evaluator_roles"]
     config["claude_evaluation_protocol"] = fifth["claude_evaluation_protocol"]
-    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"]]
+    sixth_path = module / "protocol_amendment_006_reward_execution_correction.json"
+    sixth_manifest = json.loads((module / "protocol_amendment_006_manifest.json").read_text(encoding="utf-8"))
+    if canonical_text_sha256(sixth_path) != sixth_manifest["sha256"]:
+        raise ValueError("Reward execution correction hash mismatch")
+    sixth = json.loads(sixth_path.read_text(encoding="utf-8"))
+    config["reward_execution"] = sixth["corrected_reward_protocol"]
+    config["reward_ensemble"]["gate_scope"] = sixth["gate_interpretation"]["scope"]
+    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"], sixth["amendment_id"]]
     return config

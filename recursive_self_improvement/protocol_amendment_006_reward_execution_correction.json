@@ -1,0 +1,42 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_reward_execution_correction_006",
+  "recorded_date": "2026-09-09",
+  "recorded_after": "failed_reward_seed20260909_attempt1_accuracy_0.562",
+  "recorded_before": ["corrected_reward_training", "remaining_reward_members", "policy_optimization"],
+  "classification": "implementation_correction_and_ambiguity_resolution",
+  "incident": {
+    "cause": "The first confirmatory runner did not reproduce the repository's established RewardConfig training protocol.",
+    "deviations": [
+      "one_epoch_instead_of_two",
+      "no_cosine_learning_rate_schedule",
+      "no_5_percent_warmup",
+      "no_gradient_clipping_at_1.0",
+      "no_fp16_gradient_scaler"
+    ],
+    "disposition": "Retain the failed checkpoint, raw validation margins, log, and manifest; exclude it from confirmatory results. Rerun the same seed from the identical initial state and data."
+  },
+  "corrected_reward_protocol": {
+    "source": "src.training.reward.RewardConfig_defaults_existing_before_this_study",
+    "epochs": 2,
+    "learning_rate": 0.00001,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.05,
+    "scheduler": "cosine_with_warmup",
+    "gradient_accumulation_steps": 4,
+    "gradient_clip_norm": 1.0,
+    "fp16_gradient_scaler": true,
+    "microbatch_pairs": 1,
+    "context_length": 512,
+    "lora": "unchanged_from_amendment_004"
+  },
+  "gate_interpretation": {
+    "minimum_pairwise_accuracy": 0.6,
+    "scope": "every_reward_ensemble_member",
+    "ensemble_aggregate_also_reported": true,
+    "failure_action": "stop_before_policy_optimization"
+  },
+  "unchanged_locked_items": [
+    "data_and_splits", "model_revision", "three_seeds", "lora_configuration",
+    "minimum_accuracy", "downstream_training_budgets", "evaluation_protocol"
+  ]
+}
