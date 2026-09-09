@@ -1,0 +1,21 @@
+{
+  "candidates": {
+    "2": {
+      "median_output_tokens_per_second": 3062.5388703275585,
+      "n_trials": 10
+    },
+    "4": {
+      "median_output_tokens_per_second": 2717.0019510019183,
+      "n_trials": 10
+    },
+    "6": {
+      "median_output_tokens_per_second": 2557.958256733503,
+      "n_trials": 10
+    }
+  },
+  "config_sha256": "ad0453e7469ee4839938aeec89b14db7431a23b324e0365ce335217a1ed5f551",
+  "pilot_amendment_sha256": "82af8253dafd6ba83e288a620011de335bcf337d9f054d021f2e3d0bff4485c2",
+  "rule": "highest median pilot throughput; ties choose smaller k",
+  "selected_speculative_tokens": 2,
+  "trials_sha256": "15a9dc99a65eaca34b40da6ab41ed41f4c109299483c120ffd2365aee38e2140"
+}

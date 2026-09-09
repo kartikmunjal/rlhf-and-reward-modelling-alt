@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from inference_serving.analysis import paired_trial_family
+from inference_serving.analysis import _is_confirmatory, paired_trial_family, speculative_acceptance
 from inference_serving.data import partition_final_articles, prepare_calibration, stable_rank, verify_tokenizer_identity
 from inference_serving.distillation import distillation_loss
 from inference_serving.statistics import bootstrap_ci, holm_adjust, paired_bootstrap, wilson
@@ -88,6 +88,37 @@ def test_paired_trial_family_uses_matched_trial_ids():
     result = paired_trial_family(indexed, ("vllm", "dpo", "fp16", False), ("hf", "dpo", "fp16", False), 32, CONFIG)
     assert result["n_trials"] == 5
     assert result["metrics"]["output_tokens_per_second"]["estimate"] == 10
+
+
+def test_speculative_acceptance_uses_heldout_total_metric_only():
+    rows = [{
+        "target": "base", "speculative": True, "phase": "pilot",
+        "speculative_counter_delta": {
+            'vllm:spec_decode_num_draft_tokens_total{engine="0"}': 100,
+            'vllm:spec_decode_num_accepted_tokens_total{engine="0"}': 100,
+        },
+    }, {
+        "target": "base", "speculative": True, "phase": "heldout",
+        "speculative_counter_delta": {
+            'vllm:spec_decode_num_draft_tokens_total{engine="0"}': 100,
+            'vllm:spec_decode_num_draft_tokens_created{engine="0"}': 900,
+            'vllm:spec_decode_num_accepted_tokens_total{engine="0"}': 50,
+            'vllm:spec_decode_num_accepted_tokens_per_pos_total{engine="0",position="0"}': 50,
+        },
+    }]
+    config = {
+        "scope": {"targets": ["base"]},
+        "statistics": {"bootstrap_replicates": 100, "bootstrap_seed": 3},
+    }
+    result = speculative_acceptance(rows, config)["base"]
+    assert result["n_trials"] == 1
+    assert result["estimate"] == 0.5
+
+
+def test_legacy_unphased_hf_rows_are_confirmatory_but_other_unphased_rows_are_not():
+    assert _is_confirmatory({"system": "hf"})
+    assert not _is_confirmatory({"system": "vllm"})
+    assert _is_confirmatory({"system": "vllm", "phase": "heldout"})
 
 
 def test_calibration_accepts_locked_summarization_parquet_schema(tmp_path):

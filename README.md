@@ -47,25 +47,23 @@ The single RTX 3070 run trained 4,325,376 LoRA parameters over 287,113 examples 
 
 See [`summarization_finetune/`](summarization_finetune/), [`results/summarization_finetune_v1/report.md`](results/summarization_finetune_v1/report.md), and [`results/summarization_finetune_v1/metrics.json`](results/summarization_finetune_v1/metrics.json) for the locked protocols, complete generated results, and provenance manifests.
 
+<!-- INFERENCE-SERVING-RESULTS:START -->
 ## Alignment-Aware Inference Serving Extension
 
-The next systems extension serves the repository's actual GPT-2-medium DPO
-artifact with both naive Hugging Face decoding and vLLM, quantizes the same
-base/SFT/DPO model family with locked 4-bit GPTQ, and tests a real distilled
-GPT-2-small draft through speculative decoding. The study measures throughput,
-TTFT, inter-token latency, GPU memory, quantized-output quality with the frozen
-SummEval judge, and speculative-token acceptance with trial-level or
-article-level 95% bootstrap intervals.
+This completed, preregistered extension serves the repository's real GPT-2-medium DPO artifact, quantizes the same base/SFT/DPO family with 4-bit GPTQ, and uses a trained GPT-2-small draft for speculative decoding. All comparative serving measurements ran on the same NVIDIA RTX A5000; only draft training ran on the RTX 3070.
 
-The comparison intentionally stops at base/SFT/DPO. No comparable
-GPT-2-medium GRPO checkpoint predates this study; the repository's existing
-GRPO artifacts use Qwen2.5-0.5B, so manufacturing a new GRPO run would not be a
-fair artifact-controlled comparison. See [`inference_serving/`](inference_serving/)
-for the frozen preregistration, executable pipeline, and explicit claim
-boundaries. The local WSL2 path proved unattainable because VMX prevented the
-available host from booting; the documented alternative plan preserves the
-study on a supported Linux GPU. Results remain unclaimed until that run
-completes.
+**Stage 1 — PASS.** At concurrency 32, vLLM delivered 3809.1 output tokens/s versus 1054.6 for Hugging Face `generate()`: a paired gain of 2754.5 (95% CI 2701.1 to 2812.6; N_trials=10). This is a 3.61x throughput ratio. vLLM's larger device-memory reading reflects its preallocated KV cache, so it is not a model-weight footprint comparison.
+
+**Stage 2 performance — PASS.** GPTQ delivered 4021.7 versus 3809.1 output tokens/s for FP16, a paired gain of 212.7 (95% CI 122.8 to 295.9; N_trials=10). **Stage 2 quality equivalence — FAIL.** Across 168/168 held-out articles, GPTQ minus FP16 was -0.089 (95% CI -0.232 to 0.060) for relevance and 0.030 (95% CI -0.179 to 0.244) for consistency. Both lower bounds had to remain at or above the frozen −0.15-point margin; neither did.
+
+**Stage 3 — FAIL on throughput.** The pilot selected k=2 from locked k=2/4/6 candidates (median output tokens/s: k=2: 3062.5, k=4: 2717.0, k=6: 2558.0). On held-out DPO trials, speculative decoding delivered 4164.3 versus 4021.7 output tokens/s, a paired difference of 142.5 (95% CI -236.2 to 493.1; N_trials=10); its interval includes zero.
+
+Draft-token acceptance was base 71.42% (95% CI 71.30%–71.55%), SFT 71.53% (71.47%–71.60%), and DPO 75.25% (75.18%–75.32%), each over N_trials=10. Base minus SFT was -0.12% (95% CI -0.24% to 0.02%); SFT minus DPO was -3.71% (-3.81% to -3.62%; Holm-adjusted p=0.0036). The preregistered expectation that acceptance would decrease with post-training is therefore rejected for these artifacts.
+
+Interpretation is deliberately narrow: N_training_seeds=1; the 355M target is a systems-validation workload; vLLM used its V1 runner for draft-model speculation; and these A5000 results do not establish datacenter-scale or multi-GPU behavior. GRPO remains excluded because the available GRPO artifact uses a different Qwen base. A failed base-server startup caused by `ninja` not being on the subprocess PATH was preserved as an audit log and occurred before measurement.
+
+See [`inference_serving/`](inference_serving/), [`results/inference_serving_v1/report.md`](results/inference_serving_v1/report.md), and [`results/inference_serving_v1/metrics.json`](results/inference_serving_v1/metrics.json).
+<!-- INFERENCE-SERVING-RESULTS:END -->
 <!-- SUMMARIZATION-FINETUNE-RESULTS:END -->
 
 <!-- SAFETY-RESULTS:START -->

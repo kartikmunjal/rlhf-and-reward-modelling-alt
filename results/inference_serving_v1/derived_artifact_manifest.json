@@ -1,0 +1,186 @@
+{
+  "artifacts": [
+    {
+      "files": [
+        {
+          "bytes": 2366,
+          "path": "checkpoints/inference_serving_v1/gptq/base/config.json",
+          "sha256": "5e5df65dd6ec6a8c4f61d7a622cc0e63fa0d9d409ccbcb53eb0993a6be01ea07"
+        },
+        {
+          "bytes": 165,
+          "path": "checkpoints/inference_serving_v1/gptq/base/generation_config.json",
+          "sha256": "9113180b021ede54ff45362620f79258e796c91ac45810332c4fd6fb949cf3db"
+        },
+        {
+          "bytes": 263308488,
+          "path": "checkpoints/inference_serving_v1/gptq/base/model.safetensors",
+          "sha256": "ab0f24f973a49f7af9e668b9d82c46f841385eaf19e033afe328a6fff5ba4b3f"
+        },
+        {
+          "bytes": 4029,
+          "path": "checkpoints/inference_serving_v1/gptq/base/quant_log.csv",
+          "sha256": "cfa78810d81469b17e3fc13e85d1495a2fd84c1bb3f649776bf769a29570b083"
+        },
+        {
+          "bytes": 389,
+          "path": "checkpoints/inference_serving_v1/gptq/base/quantization_manifest.json",
+          "sha256": "70c916502625fea2c1342900d394cc0d8a904b8f4d5697c897b6768ffcd5752f"
+        },
+        {
+          "bytes": 1149,
+          "path": "checkpoints/inference_serving_v1/gptq/base/quantize_config.json",
+          "sha256": "26daea8a6cfe5501e5b4a4bbf74f71ad9dba82c39a41d0d8faa8d2bad0aeb784"
+        },
+        {
+          "bytes": 3557680,
+          "path": "checkpoints/inference_serving_v1/gptq/base/tokenizer.json",
+          "sha256": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e"
+        },
+        {
+          "bytes": 354,
+          "path": "checkpoints/inference_serving_v1/gptq/base/tokenizer_config.json",
+          "sha256": "37dccfb4fccdcc4e51ab9a5cdf6da038eb1f008137546fc345f1f6b61b6a89b6"
+        }
+      ],
+      "quantization": {
+        "calibration_examples": 128,
+        "config_sha256": "f4e915aedbb2c6d5a1b2c1d115d20c5828db35c903c89131574ab2ef9db651a5",
+        "error": null,
+        "method": "gptq",
+        "runtime_seconds": 347.9700632095337,
+        "settings": {
+          "bits": 4,
+          "desc_act": false,
+          "group_size": 128,
+          "symmetric": true
+        },
+        "source_model": "checkpoints/inference_serving_v1/base_fp16",
+        "status": "success"
+      },
+      "target": "base"
+    },
+    {
+      "files": [
+        {
+          "bytes": 2366,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/config.json",
+          "sha256": "92b26e07be1674bd7bad249df3132426baa589d31f70393efdbf832623dc115d"
+        },
+        {
+          "bytes": 165,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/generation_config.json",
+          "sha256": "9113180b021ede54ff45362620f79258e796c91ac45810332c4fd6fb949cf3db"
+        },
+        {
+          "bytes": 263308488,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/model.safetensors",
+          "sha256": "54e31c3176a636153eafa0de02c021bad7e87a5fda05a546f58c8525ac45d33e"
+        },
+        {
+          "bytes": 4029,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/quant_log.csv",
+          "sha256": "a4ae711d7c0a4592fed0d42beb01aa39c23a0e31f31a38b5df3e0f963d63d956"
+        },
+        {
+          "bytes": 386,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/quantization_manifest.json",
+          "sha256": "b9cd0bafe4c0524fe426ac3e86e6e5daffee62ed915469eed3dc6211f6ce3902"
+        },
+        {
+          "bytes": 1149,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/quantize_config.json",
+          "sha256": "ac0b91b636de2f4fd624a857e0a12171321a453bf02a94cab870d83a5717c945"
+        },
+        {
+          "bytes": 3557680,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/tokenizer.json",
+          "sha256": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e"
+        },
+        {
+          "bytes": 381,
+          "path": "checkpoints/inference_serving_v1/gptq/sft/tokenizer_config.json",
+          "sha256": "16d9ec7262c981db14dc032d4e01f2837aee8944e022f080367a706000229129"
+        }
+      ],
+      "quantization": {
+        "calibration_examples": 128,
+        "config_sha256": "f4e915aedbb2c6d5a1b2c1d115d20c5828db35c903c89131574ab2ef9db651a5",
+        "error": null,
+        "method": "gptq",
+        "runtime_seconds": 303.4256205558777,
+        "settings": {
+          "bits": 4,
+          "desc_act": false,
+          "group_size": 128,
+          "symmetric": true
+        },
+        "source_model": "checkpoints/summarization_sft_v1/merged",
+        "status": "success"
+      },
+      "target": "sft"
+    },
+    {
+      "files": [
+        {
+          "bytes": 2365,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/config.json",
+          "sha256": "922d4dd68f59d3e0a863cd6fef669765b0d80596aa10982e0a8a4daddba0c760"
+        },
+        {
+          "bytes": 165,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/generation_config.json",
+          "sha256": "9113180b021ede54ff45362620f79258e796c91ac45810332c4fd6fb949cf3db"
+        },
+        {
+          "bytes": 263308384,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/model.safetensors",
+          "sha256": "e19273e9603da7ba9683f1a41c73521883d7734a69648f19760102ccfd2c0321"
+        },
+        {
+          "bytes": 4029,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/quant_log.csv",
+          "sha256": "4a151e8a2f8e23fc7503c82b7245b71417bda5ff49de707a36eb112aa1cdc386"
+        },
+        {
+          "bytes": 387,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/quantization_manifest.json",
+          "sha256": "3a756e3a9983c245bdc19f40a5f5043f51225bdb945866b887ff3d52d1e820e8"
+        },
+        {
+          "bytes": 1149,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/quantize_config.json",
+          "sha256": "ab1801c42fbb3a08fd2edd8bbd443b051c0eca6fd5cd8bca0777b6638f00f2e0"
+        },
+        {
+          "bytes": 3557680,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/tokenizer.json",
+          "sha256": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e"
+        },
+        {
+          "bytes": 381,
+          "path": "checkpoints/inference_serving_v1/gptq/dpo/tokenizer_config.json",
+          "sha256": "16d9ec7262c981db14dc032d4e01f2837aee8944e022f080367a706000229129"
+        }
+      ],
+      "quantization": {
+        "calibration_examples": 128,
+        "config_sha256": "f4e915aedbb2c6d5a1b2c1d115d20c5828db35c903c89131574ab2ef9db651a5",
+        "error": null,
+        "method": "gptq",
+        "runtime_seconds": 261.01748490333557,
+        "settings": {
+          "bits": 4,
+          "desc_act": false,
+          "group_size": 128,
+          "symmetric": true
+        },
+        "source_model": "checkpoints/summarization_dpo_v1/merged",
+        "status": "success"
+      },
+      "target": "dpo"
+    }
+  ],
+  "captured_at_utc": "2026-09-08T23:59:22.697682+00:00",
+  "schema_version": 1
+}
