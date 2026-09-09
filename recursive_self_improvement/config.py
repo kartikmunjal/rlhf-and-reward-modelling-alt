@@ -40,5 +40,13 @@ def load_effective_config(root: Path) -> dict:
     config["peft"] = fourth["parameter_efficient_method"]
     config["hybrid_execution"] = fourth["hybrid_execution"]
     config["smoke_gate"] = fourth["smoke_gate"]
-    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"]]
+    fifth_path = module / "protocol_amendment_005_rounds_and_evaluators.json"
+    fifth_manifest = json.loads((module / "protocol_amendment_005_manifest.json").read_text(encoding="utf-8"))
+    if canonical_text_sha256(fifth_path) != fifth_manifest["sha256"]:
+        raise ValueError("Round/evaluator amendment hash mismatch")
+    fifth = json.loads(fifth_path.read_text(encoding="utf-8"))
+    config["stage1"]["prompt_schedule"] = fifth["stage1_prompt_schedule"]
+    config["evaluator_roles"] = fifth["evaluator_roles"]
+    config["claude_evaluation_protocol"] = fifth["claude_evaluation_protocol"]
+    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"]]
     return config

@@ -1,0 +1,33 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_rounds_and_evaluators_005",
+  "recorded_date": "2026-09-09",
+  "recorded_before": ["confirmatory_training", "independent_evaluation", "result_inspection"],
+  "reason": "Remove ambiguity in round-prompt scheduling and prevent the same learned proxy from both supplying training preferences and measuring the resulting policy within a stage.",
+  "stage1_prompt_schedule": {
+    "method": "ascending_sha256_rank_then_contiguous_non_overlapping_blocks",
+    "prompts_per_round": 256,
+    "rounds": 8,
+    "required_unique_prompts": 2048,
+    "unused_reserved_prompts": 452,
+    "reuse_across_rounds": false
+  },
+  "evaluator_roles": {
+    "stage1_training_labeler": "frozen_k3_human_preference_reward_ensemble_mean",
+    "stage1_stage2_independent_evaluator": "frozen_claude_pairwise_prompt",
+    "stage3_external_training_labeler": "frozen_claude_pairwise_prompt",
+    "stage3_independent_evaluator": "frozen_k3_human_preference_reward_ensemble_mean",
+    "within_stage_train_evaluate_proxy_reuse": false
+  },
+  "claude_evaluation_protocol": {
+    "model_and_prompt": "reuse_the_repository_frozen_pairwise_judge_without_retuning",
+    "position_control": "score_both_candidate_orders_and_aggregate",
+    "comparison_reference": "same_frozen_sft_output_per_heldout_prompt",
+    "raw_responses_retained": true,
+    "resume_key": "stage_checkpoint_prompt_id_order"
+  },
+  "unchanged_locked_items": [
+    "data_partitions", "model_and_lora_configuration", "training_budgets",
+    "rolling2_buffer", "eight_round_horizon", "curve_selection",
+    "stage3_mixtures", "bootstrap_procedure", "PPO_GRPO_exclusion"
+  ]
+}
