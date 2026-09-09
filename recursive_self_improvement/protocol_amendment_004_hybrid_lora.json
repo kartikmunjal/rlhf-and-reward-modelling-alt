@@ -1,0 +1,40 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_hybrid_lora_004",
+  "recorded_date": "2026-09-09",
+  "recorded_before": ["training_smoke_tests", "model_training", "model_evaluation"],
+  "reason": "Use the available RTX 3070 for every feasible stage while retaining an objective A5000 fallback and a single comparable parameter-efficient GPT-2-medium lineage.",
+  "parameter_efficient_method": {
+    "method": "lora",
+    "rank": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": ["c_attn", "c_proj"],
+    "bias": "none",
+    "applies_to": ["sft", "ordinary_dpo", "iterative_dpo", "stage3_policies"],
+    "reward_models": "same LoRA configuration plus trainable scalar reward head",
+    "evaluation_artifact": "merged_base_plus_adapter_with_sha256",
+    "interpretation": "parameter-efficient self-improvement; not full-parameter recursive training"
+  },
+  "hybrid_execution": {
+    "primary": {"platform": "native Windows 11", "gpu": "NVIDIA GeForce RTX 3070 8GB"},
+    "fallback": {"platform": "RunPod Ubuntu", "gpu": "NVIDIA RTX A5000 24GB", "scope": "only_the_stage_that_fails_a_gate"},
+    "timing_boundary": "Never compare timing, throughput, or memory across GPUs; capability evaluation remains identical."
+  },
+  "smoke_gate": {
+    "per_stage_examples": {"sft": 32, "reward": 64, "dpo": 32, "rollout_prompts": 16},
+    "optimizer_steps": 2,
+    "required": [
+      "no_cuda_out_of_memory",
+      "finite_loss_and_gradients",
+      "checkpoint_save_reload_identity",
+      "peak_allocated_gpu_memory_below_7.6_GiB"
+    ],
+    "wall_clock_fallback": "A stage projected from smoke telemetry to exceed 72 hours may move to A5000 before its confirmatory run.",
+    "failure_handling": "Record the failed smoke manifest; do not change batch, rank, sequence length, data, steps, or thresholds after failure."
+  },
+  "unchanged_locked_items": [
+    "base_revision_and_tokenizer", "data_partitions", "ordinary_and_iterative_DPO_budgets",
+    "eight_round_horizon", "independent_evaluation", "curve_selection", "stage3_mixtures",
+    "bootstrap_procedure", "success_and_degradation_criteria", "PPO_GRPO_exclusion"
+  ]
+}
