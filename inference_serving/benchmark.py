@@ -89,7 +89,11 @@ def prometheus_snapshot(metrics_url: str) -> dict[str, float]:
     for line in text.splitlines():
         if not line or line.startswith("#") or " " not in line: continue
         name, raw = line.rsplit(" ", 1)
-        if "spec" in name.lower() or "accept" in name.lower() or "draft" in name.lower():
+        # Inspect only the metric family, never label values such as a served
+        # model name containing "spec". Otherwise every metric for a server
+        # named dpo-gptq-spec-k2 is accidentally copied into each trial row.
+        family = name.split("{", 1)[0].lower()
+        if "spec" in family or "accept" in family or "draft" in family:
             try: values[name] = float(raw)
             except ValueError: pass
     return values

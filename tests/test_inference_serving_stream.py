@@ -1,7 +1,9 @@
 import asyncio
 import json
 
-from inference_serving.benchmark import _stream_request, benchmark_prompts, gpu_memory_used_bytes
+from inference_serving.benchmark import (
+    _stream_request, benchmark_prompts, gpu_memory_used_bytes, prometheus_snapshot,
+)
 from inference_serving.data import write_jsonl
 
 
@@ -93,6 +95,20 @@ def test_gpu_memory_sampler_converts_mib_to_bytes(monkeypatch):
 
     monkeypatch.setattr("inference_serving.benchmark.subprocess.run", lambda *args, **kwargs: _Completed())
     assert gpu_memory_used_bytes() == 123 * 1024 * 1024
+
+
+def test_prometheus_snapshot_ignores_spec_in_label_values(monkeypatch):
+    payload = b'vllm:num_requests_running{model_name="dpo-spec-k2"} 3\n' \
+              b'vllm:spec_decode_num_draft_tokens_total{model_name="dpo-spec-k2"} 7\n'
+
+    class _Response:
+        def read(self):
+            return payload
+
+    monkeypatch.setattr("inference_serving.benchmark.urllib.request.urlopen", lambda *args, **kwargs: _Response())
+    assert prometheus_snapshot("http://example/metrics") == {
+        'vllm:spec_decode_num_draft_tokens_total{model_name="dpo-spec-k2"}': 7.0,
+    }
 
 
 def test_stream_latency_excludes_client_semaphore_queue_time():
