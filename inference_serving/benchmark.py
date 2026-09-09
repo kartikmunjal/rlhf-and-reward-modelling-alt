@@ -112,7 +112,7 @@ def gpu_memory_used_bytes() -> int:
     return used_mib[0] * 1024 * 1024
 
 
-async def _sample_gpu_memory(stop: asyncio.Event, interval_seconds: float = 0.2) -> int:
+async def _sample_gpu_memory(stop: asyncio.Event, interval_seconds: float = 1.0) -> int:
     peak = 0
     while not stop.is_set():
         peak = max(peak, await asyncio.to_thread(gpu_memory_used_bytes))
