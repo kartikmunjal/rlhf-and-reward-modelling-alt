@@ -1,0 +1,34 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_data_001",
+  "recorded_date": "2026-09-09",
+  "recorded_before": [
+    "dataset_download",
+    "dataset_partition_materialization",
+    "model_training",
+    "result_inspection"
+  ],
+  "reason": "The frozen configuration requested 88496 disjoint harmless-base prompts, exceeding the approximately 42000 training pairs available in that subset. This was detected during implementation before data or results were inspected.",
+  "approved_partition": {
+    "sft_train_pairs": 20000,
+    "reward_train_pairs": 14000,
+    "reward_validation_pairs": 2000,
+    "improvement_prompts": 4000,
+    "independent_eval_prompts": 400,
+    "independent_eval_source_split": "test",
+    "all_other_partitions_source_split": "train",
+    "unused_examples": "reserve"
+  },
+  "unchanged_locked_items": [
+    "dataset_and_subset",
+    "prompt_normalization_and_deduplication",
+    "sha256_partitioning",
+    "partition_disjointness",
+    "models_and_checkpoint_family",
+    "training_methods_and_round_counts",
+    "evaluation_metrics",
+    "curve_selection_rule",
+    "stage3_label_mixtures",
+    "all_success_and_degradation criteria"
+  ],
+  "interpretation": "This amendment repairs an infeasible sample allocation and does not respond to observed model performance."
+}
