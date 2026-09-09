@@ -1,0 +1,45 @@
+{
+  "applied_amendments": [
+    "recursive_self_improvement_v1_data_001",
+    "recursive_self_improvement_v1_unique_prompts_002",
+    "recursive_self_improvement_v1_eval_capacity_003"
+  ],
+  "dataset": "Anthropic/hh-rlhf",
+  "dataset_fingerprints": {
+    "test": "4ffb3e3e48d34fd8",
+    "train": "eb6c04c093c6f4c9"
+  },
+  "files": {
+    "improvement": {
+      "path": "data/processed/recursive_self_improvement_v1/improvement.jsonl",
+      "rows": 2500,
+      "sha256": "bbf6e5f21f18899ae98a40d459664b97e44afa3440c3c63e3c50414bf193b190"
+    },
+    "independent_eval": {
+      "path": "data/processed/recursive_self_improvement_v1/independent_eval.jsonl",
+      "rows": 250,
+      "sha256": "906166c535ca19dce24cde6f12a306e9c13f5733bf51dca38e7815900f52e129"
+    },
+    "reward_train": {
+      "path": "data/processed/recursive_self_improvement_v1/reward_train.jsonl",
+      "rows": 5000,
+      "sha256": "96093fe6699d63b64d37f3d3b288261486bf65a4f1f9f84c250b9fb6d7826ff4"
+    },
+    "reward_validation": {
+      "path": "data/processed/recursive_self_improvement_v1/reward_validation.jsonl",
+      "rows": 1000,
+      "sha256": "ac91436b0349e2f7ba9dd97b1404819ecef2be889c4d3b522d9e5407e202e714"
+    },
+    "sft_train": {
+      "path": "data/processed/recursive_self_improvement_v1/sft_train.jsonl",
+      "rows": 8000,
+      "sha256": "6a6d88f140d10b2e627c9da2407ca4d6274e7d9c465bcb9b47a505ea65532277"
+    }
+  },
+  "normalization_version": "nfkc_whitespace_lower_v1",
+  "revision": "09be8c5bbc57cb3887f3a9732ad6aa7ec602a1fa",
+  "schema_version": 1,
+  "selected_prompt_ids_sha256": "da886f7e3f5b9a160ddb1e88c84bf624d77e6fe3c163f8eb24524a59fb8cb73f",
+  "study_id": "recursive_self_improvement_v1",
+  "subset": "harmless-base"
+}
