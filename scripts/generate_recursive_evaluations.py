@@ -17,7 +17,7 @@ def load(config,name,device):
  base=AutoModelForCausalLM.from_pretrained(config["model"]["base"],revision=config["model"]["base_revision"])
  if name=="base":return base.to(device).eval()
  from peft import PeftModel
- mapping={"sft":"sft","ordinary_dpo":"ordinary_dpo",**{f"iterative_dpo_round_{i}":f"iterative_dpo_round_{i}" for i in range(1,9)}}
+ mapping={"sft":"sft","dpo":"ordinary_dpo","ordinary_dpo":"ordinary_dpo",**{f"iterative_dpo_round_{i}":f"iterative_dpo_round_{i}" for i in range(1,9)}}
  return PeftModel.from_pretrained(base,ROOT/"checkpoints/recursive_self_improvement_v1"/mapping[name]).to(device).eval()
 def main():
  import torch
