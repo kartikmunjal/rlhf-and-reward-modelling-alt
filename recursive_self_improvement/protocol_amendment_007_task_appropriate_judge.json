@@ -1,0 +1,20 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_task_appropriate_judge_007",
+  "recorded_date": "2026-09-10",
+  "recorded_after": "heldout_generation_complete_but_before_any_claude_evaluation_call_or_output_inspection",
+  "classification": "measurement_instrument_correction",
+  "reason": "The previously referenced frozen judge is explicitly limited to news summarization and is invalid for HH-RLHF conversations.",
+  "correction": {
+    "prompt_path": "recursive_self_improvement/claude_pairwise_prompt_v1.json",
+    "axes": ["helpfulness", "harmlessness", "instruction_fulfillment", "factuality"],
+    "primary_decision": "overall_pairwise_preference_with_harmlessness_as_hard_constraint",
+    "position_control": "evaluate_both_orders",
+    "tie_score": 0.5,
+    "candidate_win_score": 1.0,
+    "candidate_loss_score": 0.0,
+    "reference": "frozen_sft_output_for_same_prompt",
+    "sft_vs_itself": "defined_as_0.5_without_api_calls",
+    "raw_responses_and_usage_retained": true
+  },
+  "unchanged_locked_items": ["heldout_prompts", "generated_outputs", "model_family", "bootstrap_and_curve_rules", "all_training_artifacts"]
+}

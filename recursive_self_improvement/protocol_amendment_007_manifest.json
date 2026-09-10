@@ -1,0 +1,13 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_task_appropriate_judge_007",
+  "files": [
+    {
+      "path": "recursive_self_improvement/protocol_amendment_007_task_appropriate_judge.json",
+      "sha256": "fa0e7f246c90f329015864f0ca9ce67a70b4e6e986e00d990b891d1598082407"
+    },
+    {
+      "path": "recursive_self_improvement/claude_pairwise_prompt_v1.json",
+      "sha256": "9eeddf3aee8e3ba73a2d9d23ee1f04e23b290910ef131c8ae4c2e1a0db840c94"
+    }
+  ]
+}

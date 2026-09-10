@@ -55,5 +55,11 @@ def load_effective_config(root: Path) -> dict:
     sixth = json.loads(sixth_path.read_text(encoding="utf-8"))
     config["reward_execution"] = sixth["corrected_reward_protocol"]
     config["reward_ensemble"]["gate_scope"] = sixth["gate_interpretation"]["scope"]
-    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"], sixth["amendment_id"]]
+    seventh_manifest = json.loads((module / "protocol_amendment_007_manifest.json").read_text(encoding="utf-8"))
+    for item in seventh_manifest["files"]:
+        if canonical_text_sha256(root / item["path"]) != item["sha256"]:
+            raise ValueError("Task-appropriate judge amendment hash mismatch")
+    seventh = json.loads((module / "protocol_amendment_007_task_appropriate_judge.json").read_text(encoding="utf-8"))
+    config["independent_judge"] = seventh["correction"]
+    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"], sixth["amendment_id"], seventh["amendment_id"]]
     return config
