@@ -89,8 +89,11 @@ def rollout(config,tok,adapter,prompt_rows,round_dir,seed,torch,device):
         for i,row in enumerate(prompt_rows,1):
             enc=encode(tok,[row["prompt"]],256,device); outputs=[]
             for candidate in range(2):
-                generator=torch.Generator(device=device).manual_seed(seed+i*17+candidate)
-                out=policy.generate(**enc,do_sample=True,temperature=.8 if candidate==0 else 1.0,top_p=.9 if candidate==0 else .95,max_new_tokens=config["evaluation"]["max_new_tokens"],pad_token_id=tok.eos_token_id,generator=generator)
+                # Transformers 5.x no longer forwards ``generator`` for this
+                # model. Reset all RNGs to the same preregistered per-candidate
+                # seed immediately before generation instead.
+                seed_all(seed+i*17+candidate,torch)
+                out=policy.generate(**enc,do_sample=True,temperature=.8 if candidate==0 else 1.0,top_p=.9 if candidate==0 else .95,max_new_tokens=config["evaluation"]["max_new_tokens"],pad_token_id=tok.eos_token_id)
                 response=tok.decode(out[0,enc["input_ids"].shape[1]:],skip_special_tokens=True);outputs.append(response);tokens+=int(out.shape[1]-enc["input_ids"].shape[1])
             rows.append({"prompt_id":row["prompt_id"],"prompt":row["prompt"],"candidate_a":outputs[0],"candidate_b":outputs[1]})
             if i%32==0:print(json.dumps({"stage":round_dir.name,"rollout_prompts":i}),flush=True)
