@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import ssl
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -22,7 +23,14 @@ Transport = Callable[[str, dict[str, str], dict, float], dict]
 def urllib_transport(url: str, headers: dict[str, str], payload: dict, timeout: float) -> dict:
     request = urllib.request.Request(url, data=json.dumps(payload).encode(), headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
+        # Python.org macOS builds do not always inherit the Keychain trust
+        # store. Prefer Certifi when installed; verification remains enabled.
+        try:
+            import certifi
+            context = ssl.create_default_context(cafile=certifi.where())
+        except ImportError:
+            context = ssl.create_default_context()
+        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
             return json.loads(response.read())
     except urllib.error.HTTPError as error:
         body = error.read().decode(errors="replace")[:2000]
