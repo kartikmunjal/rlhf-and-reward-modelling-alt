@@ -24,7 +24,7 @@ def main():
  provider=AnthropicProvider(prompt["model"]);lock=threading.Lock()
  def run(task):
   rid,name,row,ref,order=task;a_text,b_text=(row["response"],ref["response"]) if order=="candidate_first" else (ref["response"],row["response"])
-  user=prompt["user_template"].format(prompt=row["prompt"],response_a=a_text,response_b=b_text)
+  user=(prompt["user_template"].replace("{prompt}",row["prompt"]).replace("{response_a}",a_text).replace("{response_b}",b_text))
   for attempt in range(6):
    try:
     result=provider.request(prompt["system"],user,prompt["schema"],max_tokens=350);out={"status":"success","request_id":rid,"checkpoint":name,"prompt_id":row["prompt_id"],"order":order,"parsed":result.parsed,"input_tokens":result.input_tokens,"output_tokens":result.output_tokens,"response_id":result.response_id,"served_model":result.model,"attempt":attempt,"completed_unix":time.time()};break
