@@ -114,3 +114,11 @@ def test_stage3_ssh_non_capture_path_executes(monkeypatch):
     assert orchestrator.ssh_ps("Write-Output ok", capture=False) == ""
     assert len(calls) == 1
     assert calls[0][0][:4] == ["ssh", "norgate", "powershell", "-NoProfile"]
+
+
+def test_stage3_jsonl_reader_preserves_unicode_line_separator(tmp_path):
+    from scripts.label_recursive_stage3_round import read
+
+    path = tmp_path / "generated.jsonl"
+    path.write_text('{"text":"before\u0085after"}\n', encoding="utf-8")
+    assert read(path) == [{"text": "before\u0085after"}]

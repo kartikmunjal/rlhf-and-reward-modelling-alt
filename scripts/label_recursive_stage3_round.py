@@ -7,7 +7,8 @@ from llm_judge_summeval.providers import AnthropicProvider
 from recursive_self_improvement.config import load_effective_config
 from recursive_self_improvement.mixture import choose_by_normalized_log_likelihood,use_self_label
 
-def read(p):return [json.loads(x) for x in Path(p).read_text(encoding="utf-8").splitlines() if x]
+def read(p):
+ with Path(p).open(encoding="utf-8") as handle:return [json.loads(line) for line in handle if line.strip()]
 def score(row):
  w=row["parsed"]["winner"]
  if w=="tie":return .5
