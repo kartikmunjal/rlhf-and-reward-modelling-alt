@@ -10,8 +10,10 @@ def run(cmd,**kw):
  print("RUN",cmd[0],*("<redacted>" if "KEY" in x else x for x in cmd[1:3]),flush=True);return subprocess.run(cmd,check=True,text=True,**kw)
 def ssh_ps(code,capture=False):
  encoded=base64.b64encode(code.encode("utf-16le")).decode("ascii")
- completed=run(["ssh","norgate","powershell","-NoProfile","-EncodedCommand",encoded],capture_output=capture)
+ completed=run(["ssh","norgate","powershell","-NoProfile","-EncodedCommand",encoded],capture_output=True)
  return completed.stdout if capture else ""
+def remote_exists(path):
+ return ssh_ps(f"if (Test-Path '{path}') {{ 'yes' }} else {{ 'no' }}",True).strip().endswith("yes")
 def task_info(task):
  code=f"$t=Get-ScheduledTask -TaskName '{task}' -ErrorAction SilentlyContinue; if ($null -eq $t) {{ 'Missing|NA' }} else {{ $i=Get-ScheduledTaskInfo -TaskName '{task}'; [string]$t.State+'|'+[string]$i.LastTaskResult }}"
  out=ssh_ps(code,True).strip().splitlines();return out[-1].strip() if out else "Missing|NA"
@@ -26,7 +28,7 @@ def wait_task(task,artifact):
   info=task_info(task);print(json.dumps({"task":task,"state":info}),flush=True)
   state,result=info.split("|",1)
   if state=="Ready":
-   exists=ssh_ps(f"if (Test-Path '{artifact}') {{ 'yes' }} else {{ 'no' }}",True).strip().endswith("yes")
+   exists=remote_exists(artifact)
    # The registration includes a redundant +5 minute trigger. Windows may
    # record "already running" for that trigger even when the explicitly
    # started worker later publishes its atomic completion artifact.
@@ -46,11 +48,15 @@ def main():
  for percent in c["stage3"]["label_mixture_percent_self"]:
   for round_index in range(1,c["stage3"]["rounds_per_condition"]+1):
    relative=f"results\\recursive_self_improvement_v1\\stage3\\self_{percent}\\round_{round_index}"
-   remote_candidates=f"{REMOTE}\\{relative}\\candidates_with_self_scores.jsonl";task=launch("prepare",percent,round_index);wait_task(task,remote_candidates)
+   remote_candidates=f"{REMOTE}\\{relative}\\candidates_with_self_scores.jsonl"
+   if not remote_exists(remote_candidates):
+    task=launch("prepare",percent,round_index);wait_task(task,remote_candidates)
    here=local/f"self_{percent}/round_{round_index}";here.mkdir(parents=True,exist_ok=True);candidates=here/"candidates_with_self_scores.jsonl";preferences=here/"preferences.jsonl"
    if not candidates.exists():run(["scp",f"norgate:{remote_candidates.replace(chr(92),'/')}",str(candidates)])
    if not preferences.exists():run([sys.executable,"scripts/label_recursive_stage3_round.py","--candidates",str(candidates),"--output",str(preferences),"--percent-self",str(percent),"--round",str(round_index),"--workers","16"],cwd=ROOT)
    run(["scp",str(preferences),f"norgate:{REMOTE.replace(chr(92),'/')}/{relative.replace(chr(92),'/')}/preferences.jsonl"])
-   remote_manifest=f"{REMOTE}\\checkpoints\\recursive_self_improvement_v1\\stage3_self_{percent}_round_{round_index}\\run_manifest.json";task=launch("train",percent,round_index);wait_task(task,remote_manifest)
+   remote_manifest=f"{REMOTE}\\checkpoints\\recursive_self_improvement_v1\\stage3_self_{percent}_round_{round_index}\\run_manifest.json"
+   if not remote_exists(remote_manifest):
+    task=launch("train",percent,round_index);wait_task(task,remote_manifest)
  print("STAGE3_MATRIX_COMPLETE",flush=True)
 if __name__=="__main__":main()
