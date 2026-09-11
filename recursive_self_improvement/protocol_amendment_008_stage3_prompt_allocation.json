@@ -1,0 +1,19 @@
+{
+  "amendment_id": "recursive_self_improvement_v1_stage3_prompt_allocation_008",
+  "recorded_date": "2026-09-10",
+  "recorded_before": ["stage3_candidate_generation", "stage3_labeling", "stage3_training"],
+  "reason": "Freeze the previously unspecified Stage-3 prompt slice while preserving paired comparisons and preventing exposure by the common round-3 starting checkpoint.",
+  "allocation": {
+    "source": "data/processed/recursive_self_improvement_v1/improvement.jsonl",
+    "zero_based_start_inclusive": 768,
+    "zero_based_stop_exclusive": 1792,
+    "rounds": 4,
+    "prompts_per_round": 256,
+    "round_blocks": [[768, 1024], [1024, 1280], [1280, 1536], [1536, 1792]],
+    "same_prompt_blocks_across_conditions": true,
+    "reuse_within_a_condition": false,
+    "unseen_by_common_round3_start": true,
+    "reserved_unused_prompts": 708
+  },
+  "unchanged_locked_items": ["five_conditions", "mixture_assignment", "four_rounds", "starting_checkpoint", "training_and_evaluation_labeler_roles", "all_thresholds"]
+}

@@ -61,5 +61,11 @@ def load_effective_config(root: Path) -> dict:
             raise ValueError("Task-appropriate judge amendment hash mismatch")
     seventh = json.loads((module / "protocol_amendment_007_task_appropriate_judge.json").read_text(encoding="utf-8"))
     config["independent_judge"] = seventh["correction"]
-    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"], sixth["amendment_id"], seventh["amendment_id"]]
+    eighth_path = module / "protocol_amendment_008_stage3_prompt_allocation.json"
+    eighth_manifest = json.loads((module / "protocol_amendment_008_manifest.json").read_text(encoding="utf-8"))
+    if canonical_text_sha256(eighth_path) != eighth_manifest["sha256"]:
+        raise ValueError("Stage-3 prompt-allocation amendment hash mismatch")
+    eighth = json.loads(eighth_path.read_text(encoding="utf-8"))
+    config["stage3"]["prompt_allocation"] = eighth["allocation"]
+    config["applied_amendments"] = [amendment["amendment_id"], second["amendment_id"], third["amendment_id"], fourth["amendment_id"], fifth["amendment_id"], sixth["amendment_id"], seventh["amendment_id"], eighth["amendment_id"]]
     return config
