@@ -25,7 +25,10 @@ def wait_task(task,artifact):
   state,result=info.split("|",1)
   if state=="Ready":
    exists=ssh_ps(f"if (Test-Path '{artifact}') {{ 'yes' }} else {{ 'no' }}",True).strip().endswith("yes")
-   if result=="0" and exists:return
+   # The registration includes a redundant +5 minute trigger. Windows may
+   # record "already running" for that trigger even when the explicitly
+   # started worker later publishes its atomic completion artifact.
+   if exists:return
    raise RuntimeError(f"{task} failed: {info}, artifact={exists}")
   if state=="Missing":raise RuntimeError(f"Missing task {task}")
   time.sleep(60)
