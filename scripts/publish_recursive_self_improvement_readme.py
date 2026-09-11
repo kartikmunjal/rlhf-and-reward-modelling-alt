@@ -75,6 +75,12 @@ def build(metrics: dict, integrity: dict, config: dict) -> str:
     for checkpoint, entry in metrics["capability"].items():
         if entry["win_rate"] is not None:
             lines.append(f"| `{checkpoint}` | {ci(entry['win_rate'])} |")
+    reward = metrics.get("reward_ensemble_validation")
+    if not reward or reward.get("status") != "pass":
+        raise ValueError("Frozen reward-ensemble validation audit has not passed")
+    lines.extend(["", "Frozen K=3 reward-ensemble validation (Wilson intervals):"])
+    for member in reward["members"]:
+        lines.append(f"- Seed {member['seed']}: {member['validation_pairwise_accuracy']:.3f} [{member['wilson_ci95'][0]:.3f}, {member['wilson_ci95'][1]:.3f}] (N={member['validation_examples']:,}); gate {'passed' if member['gate_passed'] else 'failed'}.")
     lines.extend(
         [
             "",

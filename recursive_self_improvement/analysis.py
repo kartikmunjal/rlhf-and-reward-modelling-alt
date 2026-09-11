@@ -31,7 +31,7 @@ def _mean_interval(values, config, seed):
     ) if values else None
 
 
-def analyze(config, evaluations, compute_rows, stage3_rows, stage3_training_audit=None):
+def analyze(config, evaluations, compute_rows, stage3_rows, stage3_training_audit=None, reward_audit=None):
     checkpoints = config["scope"]["primary_family"]
     capability, valid_sets = {}, {}
     planned = config["data"]["independent_eval_prompts"]
@@ -141,6 +141,7 @@ def analyze(config, evaluations, compute_rows, stage3_rows, stage3_training_audi
         "stage3_round_metrics": stage3_rounds,
         "stage3_vs_zero_percent": comparisons, "stage3_round4_length_shift_vs_zero": length_shifts,
         "stage3_training_label_agreement": label_agreement,
+        "reward_ensemble_validation": reward_audit,
         "training_seeds": len(config["scope"]["training_seeds"]),
     }
 
@@ -179,6 +180,12 @@ def write_results(metrics, output_dir: Path):
         density = metrics["stage2_density_curve"]
         dc = density["candidates"]
         lines.extend(["", f"The selected descriptive capability–compute curve is **{density['selected']}** (linear LOO MSE {dc['linear']['loo_mse']:.6g}; saturating-exponential LOO MSE {dc['saturating_exponential']['loo_mse']:.6g})."])
+        reward = metrics.get("reward_ensemble_validation")
+        if reward:
+            lines.extend(["", "### Frozen reward-ensemble validation", "", "| Seed | Pairwise accuracy | Wilson 95% CI | N | Gate |", "|---:|---:|---:|---:|---:|"])
+            for member in reward["members"]:
+                lines.append(f"| {member['seed']} | {member['validation_pairwise_accuracy']:.3f} | [{member['wilson_ci95'][0]:.3f}, {member['wilson_ci95'][1]:.3f}] | {member['validation_examples']} | {'pass' if member['gate_passed'] else 'fail'} |")
+            lines.append(f"\nRetained excluded protocol attempts: **{len(reward.get('failed_attempts_retained', []))}**.")
     if any(value is not None for value in metrics["stage3_vs_zero_percent"].values()):
         lines.extend(["", "## Stage 3: self-label reliance", "", "### Primary round-4 comparisons", "", "| Self labels | Round-4 win-rate difference vs 0% | 95% CI | N | Holm p |", "|---:|---:|---:|---:|---:|"])
         for percent, value in metrics["stage3_vs_zero_percent"].items():

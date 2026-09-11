@@ -10,9 +10,11 @@ parser.add_argument("--evaluations", type=Path, default=Path("results/recursive_
 parser.add_argument("--compute", type=Path, default=Path("results/recursive_self_improvement_v1/compute.jsonl"))
 parser.add_argument("--stage3", type=Path, default=Path("results/recursive_self_improvement_v1/stage3_evaluations.jsonl"))
 parser.add_argument("--stage3-training-audit", type=Path, default=Path("results/recursive_self_improvement_v1/stage3_training_label_audit.jsonl"))
+parser.add_argument("--reward-audit", type=Path, default=Path("results/recursive_self_improvement_v1/reward_ensemble_audit.json"))
 parser.add_argument("--output-dir", type=Path, default=Path("results/recursive_self_improvement_v1"))
 args = parser.parse_args(); config = load_effective_config(ROOT)
 audit = read_jsonl(args.stage3_training_audit) if args.stage3_training_audit.exists() else []
 stage3 = read_jsonl(args.stage3) if args.stage3.exists() else []
-metrics = analyze(config, read_jsonl(args.evaluations), read_jsonl(args.compute), stage3, audit)
+reward_audit = __import__("json").loads(args.reward_audit.read_text(encoding="utf-8")) if args.reward_audit.exists() else None
+metrics = analyze(config, read_jsonl(args.evaluations), read_jsonl(args.compute), stage3, audit, reward_audit)
 write_results(metrics, args.output_dir); print(args.output_dir / "metrics.json")
