@@ -100,3 +100,17 @@ def test_paired_sign_flip_test_is_deterministic_and_retains_trial_count():
     first = paired_sign_flip_test([1, 1, 1, 1], [0, 0, 0, 0], replicates=1000, seed=7)
     second = paired_sign_flip_test([1, 1, 1, 1], [0, 0, 0, 0], replicates=1000, seed=7)
     assert first == second and first["n_trials"] == 4 and first["observed_mean_difference"] == 1
+
+
+def test_stage3_ssh_non_capture_path_executes(monkeypatch):
+    from scripts import orchestrate_recursive_stage3 as orchestrator
+
+    calls = []
+
+    class Completed:
+        stdout = "unused"
+
+    monkeypatch.setattr(orchestrator, "run", lambda command, **kwargs: calls.append((command, kwargs)) or Completed())
+    assert orchestrator.ssh_ps("Write-Output ok", capture=False) == ""
+    assert len(calls) == 1
+    assert calls[0][0][:4] == ["ssh", "norgate", "powershell", "-NoProfile"]
