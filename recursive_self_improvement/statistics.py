@@ -41,3 +41,23 @@ def holm_adjust(values: dict[str, float]) -> dict[str, float]:
         running = max(running, min(1.0, (total - rank) * value))
         output[name] = running
     return output
+
+
+def paired_sign_flip_test(left, right, *, replicates: int, seed: int) -> dict:
+    """Two-sided paired randomization test of a zero mean difference."""
+    left, right = np.asarray(left, dtype=float), np.asarray(right, dtype=float)
+    if left.shape != right.shape or left.ndim != 1 or not len(left):
+        raise ValueError("Paired vectors must be non-empty and identically shaped")
+    differences = left - right
+    observed = abs(float(np.mean(differences)))
+    rng = np.random.default_rng(seed)
+    exceedances = 0
+    for _ in range(replicates):
+        signs = rng.choice(np.asarray([-1.0, 1.0]), size=len(differences))
+        exceedances += abs(float(np.mean(differences * signs))) >= observed
+    return {
+        "p_value_two_sided": float((exceedances + 1) / (replicates + 1)),
+        "observed_mean_difference": float(np.mean(differences)),
+        "n_trials": int(len(differences)),
+        "randomization_replicates": int(replicates),
+    }

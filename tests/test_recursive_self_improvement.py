@@ -8,7 +8,7 @@ from recursive_self_improvement.curves import select_curve
 from recursive_self_improvement.config import canonical_text_sha256, load_effective_config
 from recursive_self_improvement.data import assert_disjoint, partition_allocations, partition_pairs, prompt_id
 from recursive_self_improvement.mixture import choose_by_normalized_log_likelihood, use_self_label
-from recursive_self_improvement.statistics import paired_bootstrap
+from recursive_self_improvement.statistics import paired_bootstrap, paired_sign_flip_test
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -94,3 +94,9 @@ def test_mixture_assignment_and_tie_break_are_deterministic():
 def test_paired_bootstrap_retains_trial_count():
     result = paired_bootstrap([1, 1, 1], [0, 0, 0], replicates=100, seed=2)
     assert result["estimate"] == 1 and result["ci95"] == [1, 1] and result["n_trials"] == 3
+
+
+def test_paired_sign_flip_test_is_deterministic_and_retains_trial_count():
+    first = paired_sign_flip_test([1, 1, 1, 1], [0, 0, 0, 0], replicates=1000, seed=7)
+    second = paired_sign_flip_test([1, 1, 1, 1], [0, 0, 0, 0], replicates=1000, seed=7)
+    assert first == second and first["n_trials"] == 4 and first["observed_mean_difference"] == 1
