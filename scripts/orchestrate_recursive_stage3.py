@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Resume the frozen Stage-3 Windows/Claude hybrid matrix end to end."""
-import json,os,subprocess,sys,time
+import base64,json,os,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from recursive_self_improvement.config import load_effective_config
@@ -9,7 +9,8 @@ REMOTE=r"C:\Users\Kunal Munjal\Desktop\Kartik\rlhf-recursive-run"
 def run(cmd,**kw):
  print("RUN",cmd[0],*("<redacted>" if "KEY" in x else x for x in cmd[1:3]),flush=True);return subprocess.run(cmd,check=True,text=True,**kw)
 def ssh_ps(code,capture=False):
- return run(["ssh","norgate","powershell","-NoProfile","-Command",code],capture_output=capture).stdout if capture else ""
+ encoded=base64.b64encode(code.encode("utf-16le")).decode("ascii")
+ return run(["ssh","norgate","powershell","-NoProfile","-EncodedCommand",encoded],capture_output=capture).stdout if capture else ""
 def task_info(task):
  code=f"$t=Get-ScheduledTask -TaskName '{task}' -ErrorAction SilentlyContinue; if ($null -eq $t) {{ 'Missing|NA' }} else {{ $i=Get-ScheduledTaskInfo -TaskName '{task}'; [string]$t.State+'|'+[string]$i.LastTaskResult }}"
  out=ssh_ps(code,True).strip().splitlines();return out[-1].strip() if out else "Missing|NA"
