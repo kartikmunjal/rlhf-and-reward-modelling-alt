@@ -29,7 +29,8 @@ def test_approved_amendment_is_hash_verified_and_applied():
     assert effective["data"]["independent_eval_prompts"] == 250
     assert effective["peft"]["rank"] == 16
     assert effective["smoke_gate"]["optimizer_steps"] == 2
-    assert len(effective["applied_amendments"]) == 4
+    assert len(effective["applied_amendments"]) == 8
+    assert effective["applied_amendments"][-1] == "recursive_self_improvement_v1_stage3_prompt_allocation_008"
 
 
 def test_canonical_protocol_hash_is_eol_portable(tmp_path):

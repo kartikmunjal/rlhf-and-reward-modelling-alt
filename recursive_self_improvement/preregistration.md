@@ -37,8 +37,6 @@ paired prompt bootstrap intervals report all capability differences.
 Rolling-2 iterative DPO runs for eight rounds from the verified SFT checkpoint,
 using a frozen K=3 human-preference reward ensemble as labeler. Each round uses
 256 on-policy prompts, two sampled candidates per prompt, and 200 update steps.
-The 2,048 prompts are assigned by ascending SHA-256 rank to eight contiguous,
-non-overlapping 256-prompt blocks; no improvement prompt is reused across rounds.
 The exact policy, preference buffer, generated candidates, ensemble member
 scores, training tokens, optimizer steps, runtime, and evaluation outputs are
 persisted per round.
@@ -52,9 +50,7 @@ below 1e-6 selects linear. No curve is extrapolated beyond round eight.
 ## Stage 2: capability versus compute
 
 Base, SFT, ordinary DPO, and all eight iterative checkpoints are evaluated on
-the identical independent prompts by the repository's already frozen Claude
-pairwise judge, evaluated in both candidate orders. This judge never supplies
-Stage-1 training labels. The x-axis is cumulative non-padding
+the identical independent prompts. The x-axis is cumulative non-padding
 training tokens, with optimizer steps, examples, wall time, and peak allocated
 GPU memory retained as diagnostics. Base has zero incremental training tokens.
 Linear versus saturating-exponential selection uses leave-one-checkpoint-out
