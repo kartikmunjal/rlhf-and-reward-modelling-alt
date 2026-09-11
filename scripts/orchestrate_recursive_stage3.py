@@ -20,6 +20,7 @@ def launch(phase,percent,round_index):
  code=f"Set-Location '{REMOTE}'; & '.\\scripts\\register_recursive_stage3_worker.ps1' -Phase {phase} -PercentSelf {percent} -Round {round_index}"
  ssh_ps(code);return task
 def wait_task(task,artifact):
+ missing_polls=0
  while True:
   info=task_info(task);print(json.dumps({"task":task,"state":info}),flush=True)
   state,result=info.split("|",1)
@@ -30,7 +31,14 @@ def wait_task(task,artifact):
    # started worker later publishes its atomic completion artifact.
    if exists:return
    raise RuntimeError(f"{task} failed: {info}, artifact={exists}")
-  if state=="Missing":raise RuntimeError(f"Missing task {task}")
+  if state=="Missing":
+   # Task Scheduler registration can be briefly eventually consistent over
+   # the OpenSSH/PowerShell boundary.  Do not mistake that control-plane lag
+   # for a scientific-worker failure.
+   missing_polls+=1
+   if missing_polls>12:raise RuntimeError(f"Missing task {task} after 60 seconds")
+   time.sleep(5);continue
+  missing_polls=0
   time.sleep(60)
 def main():
  c=load_effective_config(ROOT);local=ROOT/"results/recursive_self_improvement_v1/stage3"
