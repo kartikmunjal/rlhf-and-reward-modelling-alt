@@ -136,7 +136,9 @@ def analyze(config, evaluations, compute_rows, stage3_rows, stage3_training_audi
         "study_id": config["study_id"], "capability": capability,
         "stage1_round_gains": gains, "stage1_plateau_round": plateau_round,
         "stage1_curve": round_curve, "stage2_density_curve": density_curve,
-        "stage2_checkpoints_in_fit": complete, "stage3_round_metrics": stage3_rounds,
+        "stage2_checkpoints_in_fit": complete,
+        "stage2_compute": {name: compute[name] for name in complete},
+        "stage3_round_metrics": stage3_rounds,
         "stage3_vs_zero_percent": comparisons, "stage3_round4_length_shift_vs_zero": length_shifts,
         "stage3_training_label_agreement": label_agreement,
         "training_seeds": len(config["scope"]["training_seeds"]),
@@ -150,11 +152,48 @@ def write_results(metrics, output_dir: Path):
     if metrics["stage1_curve"].get("status") == "incomplete":
         lines.append("Status: incomplete; no empirical claim is made.")
     else:
-        lines.extend([f"Selected Stage-1 curve: **{metrics['stage1_curve']['selected']}**.", "", f"Plateau round: **{metrics['stage1_plateau_round'] or 'not detected'}**."])
+        lines.extend([
+            "## Stage 1: horizon and plateau", "",
+            "| Checkpoint | Win rate vs SFT | 95% CI | N | Incremental gain | Gain 95% CI |",
+            "|---|---:|---:|---:|---:|---:|",
+        ])
+        for checkpoint, entry in metrics["capability"].items():
+            win = entry["win_rate"]
+            if win is None: continue
+            gain = metrics["stage1_round_gains"].get(checkpoint)
+            gain_columns = "— | —" if gain is None else f"{gain['estimate']:.3f} | [{gain['ci95'][0]:.3f}, {gain['ci95'][1]:.3f}]"
+            lines.append(f"| `{checkpoint}` | {win['estimate']:.3f} | [{win['ci95'][0]:.3f}, {win['ci95'][1]:.3f}] | {win['n_trials']} | {gain_columns} |")
+        selected = metrics["stage1_curve"]["selected"]
+        candidates = metrics["stage1_curve"]["candidates"]
+        lines.extend([
+            "",
+            f"The frozen plateau rule first triggers at round **{metrics['stage1_plateau_round'] or 'not detected'}**. The selected descriptive curve is **{selected}** (linear LOO MSE {candidates['linear']['loo_mse']:.6g}; saturating-exponential LOO MSE {candidates['saturating_exponential']['loo_mse']:.6g}).",
+            "",
+            "## Stage 2: capability versus measured compute", "",
+            "| Checkpoint | Cumulative non-padding training tokens | Optimizer steps | Runtime (s) | Peak GPU bytes |",
+            "|---|---:|---:|---:|---:|",
+        ])
+        for checkpoint in metrics["stage2_checkpoints_in_fit"]:
+            row = metrics["stage2_compute"][checkpoint]
+            lines.append(f"| `{checkpoint}` | {row['cumulative_non_padding_training_tokens']:,} | {row.get('cumulative_optimizer_steps', '—')} | {row.get('cumulative_runtime_seconds', '—')} | {row.get('incremental_peak_allocated_gpu_memory_bytes', '—')} |")
+        density = metrics["stage2_density_curve"]
+        dc = density["candidates"]
+        lines.extend(["", f"The selected descriptive capability–compute curve is **{density['selected']}** (linear LOO MSE {dc['linear']['loo_mse']:.6g}; saturating-exponential LOO MSE {dc['saturating_exponential']['loo_mse']:.6g})."])
     if any(value is not None for value in metrics["stage3_vs_zero_percent"].values()):
-        lines.extend(["", "## Stage 3 primary comparisons", "", "| Self labels | Round-4 win-rate difference vs 0% | 95% CI | N | Holm p |", "|---:|---:|---:|---:|---:|"])
+        lines.extend(["", "## Stage 3: self-label reliance", "", "### Primary round-4 comparisons", "", "| Self labels | Round-4 win-rate difference vs 0% | 95% CI | N | Holm p |", "|---:|---:|---:|---:|---:|"])
         for percent, value in metrics["stage3_vs_zero_percent"].items():
             if value is None: continue
             lines.append(f"| {percent}% | {value['estimate']:.3f} | [{value['ci95'][0]:.3f}, {value['ci95'][1]:.3f}] | {value['n_trials']} | {value['holm_adjusted_p_value']:.4f} |")
+        lines.extend(["", "### Per-round evaluator trajectory and diagnostics", "", "| Self labels | Round | K=3 win rate | 95% CI | N | Mean margin | Mean disagreement | Mean response tokens | Mean KL |", "|---:|---:|---:|---:|---:|---:|---:|---:|---:|"])
+        for percent, rounds in metrics["stage3_round_metrics"].items():
+            for round_index, values in rounds.items():
+                win = values["external_evaluator_win_rate"]
+                if win is None: continue
+                lines.append(f"| {percent}% | {round_index} | {win['estimate']:.3f} | [{win['ci95'][0]:.3f}, {win['ci95'][1]:.3f}] | {win['n_trials']} | {values['external_margin']['estimate']:.3f} | {values['ensemble_disagreement']['estimate']:.3f} | {values['response_tokens']['estimate']:.2f} | {values['kl_from_stage3_start']['estimate']:.4f} |")
+        lines.extend(["", "### Training-label agreement with evaluation-only K=3 ensemble", "", "| Self labels | Round | Label source | Agreement | 95% CI | N |", "|---:|---:|---|---:|---:|---:|"])
+        for percent, rounds in metrics["stage3_training_label_agreement"].items():
+            for round_index, sources in rounds.items():
+                for source, value in sources.items():
+                    lines.append(f"| {percent}% | {round_index} | {source} | {value['estimate']:.3f} | [{value['ci95'][0]:.3f}, {value['ci95'][1]:.3f}] | {value['n_trials']} |")
         lines.extend(["", "Intervals resample held-out prompts and do not include training-seed uncertainty (one training seed)."])
     (output_dir / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
