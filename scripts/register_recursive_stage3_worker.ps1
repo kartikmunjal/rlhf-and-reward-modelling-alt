@@ -8,9 +8,8 @@ $repo="C:\Users\Kunal Munjal\Desktop\Kartik\rlhf-recursive-run"
 $python="C:\Users\Kunal Munjal\Desktop\Kartik\rlhf-and-reward-modelling-alt\.venv-gpu\Scripts\python.exe"
 Set-Location $repo
 $task="RecursiveStage3_${Phase}_${PercentSelf}_${Round}"
-$log="logs\recursive_stage3_${PercentSelf}_${Round}_${Phase}.log"
-$arguments="/c `"`"$python`" scripts\run_recursive_stage3_worker.py $Phase --percent-self $PercentSelf --round $Round >> $log 2>&1`""
-$action=New-ScheduledTaskAction -Execute "cmd.exe" -Argument $arguments
+$arguments="scripts\run_recursive_stage3_worker.py $Phase --percent-self $PercentSelf --round $Round"
+$action=New-ScheduledTaskAction -Execute $python -Argument $arguments -WorkingDirectory $repo
 $trigger=New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(5)
 $principal=New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Highest
 $settings=New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Days 2) -RestartCount 2 -RestartInterval (New-TimeSpan -Minutes 2)
