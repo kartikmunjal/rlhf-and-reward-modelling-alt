@@ -68,6 +68,7 @@ def main() -> None:
                 / "checkpoints/recursive_self_improvement_v1"
                 / f"stage3_self_{percent}_round_{round_index}/run_manifest.json"
             )
+            training_ledger_path = manifest_path.parent / "training_preferences.jsonl"
             candidates = read_jsonl(candidate_path)
             preferences = read_jsonl(preference_path)
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -86,8 +87,19 @@ def main() -> None:
                 require(row["label_source"] == expected_source, f"Mixture assignment mismatch: {row['prompt_id']}")
             require(manifest.get("status") == "complete", f"Incomplete checkpoint: {manifest_path}")
             require(manifest.get("optimizer_steps") == config["stage1"]["dpo_steps_per_round"], f"Wrong optimizer steps: {manifest_path}")
-            require(manifest.get("preference_rows") in (expected_rows, expected_rows * 2), f"Wrong rolling buffer size: {manifest_path}")
-            require(manifest.get("preference_sha256") == sha256(preference_path) or round_index > 1, f"Round-1 preference hash mismatch: {manifest_path}")
+            expected_training_rows = []
+            for buffer_round in range(max(1, round_index - 1), round_index + 1):
+                expected_training_rows.extend(
+                    read_jsonl(
+                        ROOT
+                        / "results/recursive_self_improvement_v1/stage3"
+                        / f"self_{percent}/round_{buffer_round}/preferences.jsonl"
+                    )
+                )
+            training_rows = read_jsonl(training_ledger_path)
+            require(training_rows == expected_training_rows, f"Rolling-2 training ledger mismatch: {training_ledger_path}")
+            require(manifest.get("preference_rows") == len(training_rows), f"Wrong rolling buffer size: {manifest_path}")
+            require(manifest.get("preference_sha256") == sha256(training_ledger_path), f"Training-ledger hash mismatch: {manifest_path}")
             expected_source = (
                 "checkpoints\\recursive_self_improvement_v1\\iterative_dpo_round_3"
                 if round_index == 1
