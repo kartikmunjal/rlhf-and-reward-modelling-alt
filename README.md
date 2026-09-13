@@ -14,6 +14,41 @@ validated, how the training system scales from GPT-2-sized experiments toward
 7B+ constraints, and how the same outcome-vs-process evaluation logic transfers
 from chat models to agents.
 
+<!-- REPOSITORY-EVIDENCE-MAP:START -->
+## Evidence map
+
+The repository contains both executable research infrastructure and completed
+experiments. The table below lists only studies with committed result artifacts;
+historical notebook demonstrations and `--show_expected` outputs are not treated
+as empirical findings. See the [two-page research note](docs/portfolio_research_note.md)
+for the cross-project argument and limitations.
+
+| Study | Primary artifact-backed finding | Evidence boundary |
+|---|---|---|
+| [SummEval judge](llm_judge_summeval/) | Claude–human Spearman rho: relevance 0.540 [0.490, 0.592], consistency 0.587 [0.534, 0.642]; N=1274 | 80 source articles; pairwise coverage missed its frozen floor |
+| [Summarization training](summarization_finetune/) | SFT improved relevance 0.995 [0.884, 1.111] and consistency 0.596 [0.460, 0.722]; N=198 | One training seed; DPO failed the locked two-axis rule |
+| [Inference serving](inference_serving/) | vLLM added 2754.5 [2701.1, 2812.6] output tokens/s over HF; N=10 | One A5000; GPTQ quality equivalence and speculation throughput failed |
+| [Recursive self-improvement](recursive_self_improvement/) | 100% self labels changed round-4 win rate by -0.100 [-0.166, -0.036] vs 0%; N=250, Holm p=0.0220 | One training seed; self-likelihood is a narrow self-reliance proxy |
+| [Safety and fairness](results/safety_classifier_v1/report.md) | Any-label FPR 1.47% [1.29%, 1.68%] on N=14,256; adjacent-benign FPR 0.00% [0.00%, 6.02%] on N=60 | V1 complete; V2 selection remains interim (5/12 evaluated) |
+| [Multi-agent coordination](results/miscoordination_v1/report.md) | Shared ledger changed miscoordination by -14.0% [-24.0%, -4.0%]; N=50 matched pairs | Controlled task; global success was already saturated |
+| [PPO vs GRPO v2](results/ppo_grpo_v2/report.md) | GRPO−PPO exact match 0.290 [0.253, 0.333]; N_trials=3, 400 evaluations/trial | Synthetic arithmetic, Qwen LoRA; not pooled with GPT-2 studies |
+
+### How to read the repository
+
+1. Start with the [research note](docs/portfolio_research_note.md).
+2. Inspect each study's preregistration, generated report, metrics JSON, and provenance hashes.
+3. Use `src/` for reusable model/training components, `eval/` for agent harnesses,
+   and `scripts/` for named data, training, analysis, and publication entry points.
+4. Treat the later extension catalogue as an implementation record. A result is
+   portfolio evidence only when linked to a committed result artifact above.
+
+Regenerate this section and the research note with:
+
+```bash
+python scripts/publish_repository_research_note.py
+```
+<!-- REPOSITORY-EVIDENCE-MAP:END -->
+
 <!-- SUMMEVAL-RESULTS:START -->
 ## SummEval LLM-as-Judge Extension
 
@@ -700,7 +735,14 @@ Three prompts, three models. All responses sampled with `temperature=0.7, top_p=
 
 ---
 
-# RLHF Pipeline: Reward Modeling, PPO vs DPO, LoRA, Synthetic Data & Scaling
+## Implementation and Extension Catalogue
+
+> **Evidence boundary:** This catalogue documents implemented methods, runnable
+> entry points, notebooks, and historical demonstrations. Sections that use
+> `--show_expected`, preview tables, or prose examples are not measured research
+> results. For claims supported by committed metrics, confidence intervals, and
+> provenance artifacts, use the [evidence map](#evidence-map) and
+> [research note](docs/portfolio_research_note.md).
 
 > **Extended edition** — adds three new extensions on top of the base pipeline:
 > LoRA parameter-efficient fine-tuning (Ext 4), synthetic SFT data generation (Ext 5),
