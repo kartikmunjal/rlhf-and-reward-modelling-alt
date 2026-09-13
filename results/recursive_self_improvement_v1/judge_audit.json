@@ -1,0 +1,14 @@
+{
+  "estimated_usd": 6.399205,
+  "evaluation_rows_including_synthetic_sft_reference": 2750,
+  "input_tokens": 3481950,
+  "judged_prompt_checkpoint_pairs": 2500,
+  "output_tokens": 583451,
+  "position_consistency_rate": 0.8964,
+  "position_consistency_wilson_ci95": [
+    0.8838398915072507,
+    0.907743774070968
+  ],
+  "position_consistent_pairs": 2241,
+  "successful_calls": 5000
+}

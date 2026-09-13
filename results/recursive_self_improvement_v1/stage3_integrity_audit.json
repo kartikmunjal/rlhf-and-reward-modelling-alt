@@ -1,0 +1,212 @@
+{
+  "conditions": [
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "84215eebe0cf6dcab7c9204b7ee4a932d2cbef9f08932568d82a235c335a2921",
+      "external_labels": 256,
+      "optimizer_steps": 200,
+      "percent_self": 0,
+      "preference_rows_current_round": 256,
+      "round": 1,
+      "self_labels": 0
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "3c15b2ce11031a2bb9c33eebbb8b7e5b1b4a1c3c480a8eda75709625bb304df9",
+      "external_labels": 256,
+      "optimizer_steps": 200,
+      "percent_self": 0,
+      "preference_rows_current_round": 256,
+      "round": 2,
+      "self_labels": 0
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "9f92c112e9f79b13405dc0874c3b0a893e573651cf6fb70889aa941037afc4a0",
+      "external_labels": 256,
+      "optimizer_steps": 200,
+      "percent_self": 0,
+      "preference_rows_current_round": 256,
+      "round": 3,
+      "self_labels": 0
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "36c253622a3feb8780b3eac945e6be537929126381a58edea5d8804de19dad5d",
+      "external_labels": 256,
+      "optimizer_steps": 200,
+      "percent_self": 0,
+      "preference_rows_current_round": 256,
+      "round": 4,
+      "self_labels": 0
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "efbcb1780e88511fcaf25dc74a574b7039a7451b07821913e6dcf036833f13f8",
+      "external_labels": 188,
+      "optimizer_steps": 200,
+      "percent_self": 25,
+      "preference_rows_current_round": 256,
+      "round": 1,
+      "self_labels": 68
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "dc02fd17f02f845d9afd5da6c03f3d635f4af20d843435b739fc2ca3cf64385e",
+      "external_labels": 188,
+      "optimizer_steps": 200,
+      "percent_self": 25,
+      "preference_rows_current_round": 256,
+      "round": 2,
+      "self_labels": 68
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "8587f7a62804814c357b2f71bb10b274e69261173fdbcf487e3df2e523143b0d",
+      "external_labels": 194,
+      "optimizer_steps": 200,
+      "percent_self": 25,
+      "preference_rows_current_round": 256,
+      "round": 3,
+      "self_labels": 62
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "7cae9fca716a897c6bbaa8d6f230fe5aafa9bd19e391b38a63eba7b726f12408",
+      "external_labels": 198,
+      "optimizer_steps": 200,
+      "percent_self": 25,
+      "preference_rows_current_round": 256,
+      "round": 4,
+      "self_labels": 58
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "1a8a89ceb6a0e29b6856a1b5a374fb90562ef6572b8d98c30eeefdba260c7414",
+      "external_labels": 130,
+      "optimizer_steps": 200,
+      "percent_self": 50,
+      "preference_rows_current_round": 256,
+      "round": 1,
+      "self_labels": 126
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "b311e9fb3c3655f52a33df503803111575db75454745d627de8ec65302f77ef6",
+      "external_labels": 139,
+      "optimizer_steps": 200,
+      "percent_self": 50,
+      "preference_rows_current_round": 256,
+      "round": 2,
+      "self_labels": 117
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "55b2fb437e3d939d8b9abdf19d22a0e17c5e6eb939dbbf25682f61afd8f4f3d7",
+      "external_labels": 126,
+      "optimizer_steps": 200,
+      "percent_self": 50,
+      "preference_rows_current_round": 256,
+      "round": 3,
+      "self_labels": 130
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "77c508dd2d0747a57cf936f4a920daf85bc635839daedba0e78d2da3d645e74a",
+      "external_labels": 124,
+      "optimizer_steps": 200,
+      "percent_self": 50,
+      "preference_rows_current_round": 256,
+      "round": 4,
+      "self_labels": 132
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "e6c435c4bd74d153ab45e0b014f6cad0d3598fbd3196d5cb8b877f05d6f892f5",
+      "external_labels": 70,
+      "optimizer_steps": 200,
+      "percent_self": 75,
+      "preference_rows_current_round": 256,
+      "round": 1,
+      "self_labels": 186
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "0ec3efc8ef23880fbb70dd277af0b96d1f2ce406cfbee522d8ac764afdf6de74",
+      "external_labels": 62,
+      "optimizer_steps": 200,
+      "percent_self": 75,
+      "preference_rows_current_round": 256,
+      "round": 2,
+      "self_labels": 194
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "d97cbc8bcc0a426d5ecdf0cbb38475e43b48a618ead4e97ed7b8f8eff517211a",
+      "external_labels": 73,
+      "optimizer_steps": 200,
+      "percent_self": 75,
+      "preference_rows_current_round": 256,
+      "round": 3,
+      "self_labels": 183
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "547622ca611643bb98676c5f22e4b5a87250d9c69c625430365f4acca807abc6",
+      "external_labels": 70,
+      "optimizer_steps": 200,
+      "percent_self": 75,
+      "preference_rows_current_round": 256,
+      "round": 4,
+      "self_labels": 186
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "dc74ce72b60b280d68fc37ec2a37319a85fffe54b880e91b1b3743dd1122dda7",
+      "external_labels": 0,
+      "optimizer_steps": 200,
+      "percent_self": 100,
+      "preference_rows_current_round": 256,
+      "round": 1,
+      "self_labels": 256
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "3e89076f26c0b5a620099f897981ab9857a52e4fb2ee281ee96915273b74a782",
+      "external_labels": 0,
+      "optimizer_steps": 200,
+      "percent_self": 100,
+      "preference_rows_current_round": 256,
+      "round": 2,
+      "self_labels": 256
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "d30db948b21fb5a77df986d78d931615a1c100788e7c2c42e68d148e44f4af2b",
+      "external_labels": 0,
+      "optimizer_steps": 200,
+      "percent_self": 100,
+      "preference_rows_current_round": 256,
+      "round": 3,
+      "self_labels": 256
+    },
+    {
+      "candidate_rows": 256,
+      "checkpoint_manifest_sha256": "67369663493025375c380590488af0878da8dfa2f5bc4cbe459a44fee59c481f",
+      "external_labels": 0,
+      "optimizer_steps": 200,
+      "percent_self": 100,
+      "preference_rows_current_round": 256,
+      "round": 4,
+      "self_labels": 256
+    }
+  ],
+  "conditions_verified": 20,
+  "evaluation_ensemble_used_for_training": false,
+  "expected_conditions": 20,
+  "prompts_per_round": 256,
+  "same_prompt_blocks_across_conditions": true,
+  "status": "pass",
+  "study_id": "recursive_self_improvement_v1",
+  "unique_prompts_per_condition": 1024
+}

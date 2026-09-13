@@ -5,8 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from recursive_self_improvement.config import load_effective_config
+from recursive_self_improvement.statistics import wilson
 
-def read(path):return [json.loads(x) for x in Path(path).read_text(encoding="utf-8").splitlines() if x]
+def read(path):
+ with Path(path).open(encoding="utf-8") as handle:return [json.loads(line) for line in handle if line.strip()]
 def write(path,rows):
  with Path(path).open("w",encoding="utf-8",newline="\n") as h:
   for r in rows:h.write(json.dumps(r,sort_keys=True)+"\n")
@@ -30,6 +32,7 @@ def main():
  expected=len(c["scope"]["primary_family"])*c["data"]["independent_eval_prompts"]
  if len(output)!=expected:raise ValueError(f"expected {expected}, got {len(output)}")
  write(root/"evaluations.jsonl",output)
- usage={"successful_calls":len(records),"input_tokens":sum(r["input_tokens"] for r in records),"output_tokens":sum(r["output_tokens"] for r in records),"estimated_usd":(sum(r["input_tokens"] for r in records)+5*sum(r["output_tokens"] for r in records))/1e6,"valid_prompt_checkpoint_pairs":sum(r["valid"] for r in output),"position_consistency_rate":sum(r["position_consistent"] for r in output)/len(output)}
+ judged=[r for r in output if r["checkpoint"]!="sft" and r["valid"]];consistent=sum(r["position_consistent"] for r in judged);position=wilson(consistent,len(judged))
+ usage={"successful_calls":len(records),"input_tokens":sum(r["input_tokens"] for r in records),"output_tokens":sum(r["output_tokens"] for r in records),"estimated_usd":(sum(r["input_tokens"] for r in records)+5*sum(r["output_tokens"] for r in records))/1e6,"judged_prompt_checkpoint_pairs":len(judged),"evaluation_rows_including_synthetic_sft_reference":sum(r["valid"] for r in output),"position_consistent_pairs":consistent,"position_consistency_rate":position["rate"],"position_consistency_wilson_ci95":position["wilson_ci95"]}
  (root/"judge_audit.json").write_text(json.dumps(usage,indent=2,sort_keys=True)+"\n",encoding="utf-8");print(json.dumps(usage,indent=2))
 if __name__=="__main__":main()

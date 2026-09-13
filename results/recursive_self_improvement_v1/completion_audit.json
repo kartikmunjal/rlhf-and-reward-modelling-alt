@@ -1,0 +1,32 @@
+{
+  "published_artifact_sha256": {
+    "data/processed/recursive_self_improvement_v1/data_manifest.json": "17cf1ad524cb700d1727ec278ae2fc35284f114457ecdbdcb4811788a48ee28b",
+    "results/recursive_self_improvement_v1/compute.jsonl": "8ab24a08fe5d24994fb50aa4c42baee1479efaac4f33421ebae02c37add02093",
+    "results/recursive_self_improvement_v1/figures/stage1_round_curve.svg": "126ea89c75b82f970862be417b663211c7770dbb08245d75189b02effcf54991",
+    "results/recursive_self_improvement_v1/figures/stage2_capability_compute.svg": "b04fa6606fed03722ecc5208e66bd4a73b23167c3edabb1941837fc3a0cdafe1",
+    "results/recursive_self_improvement_v1/figures/stage3_self_reliance.svg": "702ae1989d5f9a904bd5b30aa5a8cd980d85a8757da2f997f8ddce5fe652a90d",
+    "results/recursive_self_improvement_v1/judge_audit.json": "39650c6f86f46c0401196dc57d27fa9d6ebf28accdaa417a8ee1e551bce48cb2",
+    "results/recursive_self_improvement_v1/metrics.json": "24d8520e3a6ae5132fac66315dce1d0064c6fc1689924916caa29d1a85090933",
+    "results/recursive_self_improvement_v1/report.md": "55270a07f322d9e6279ae6076929c35db56f8609fe6b6aed0a2381bbaa3cc090",
+    "results/recursive_self_improvement_v1/reward_ensemble_audit.json": "843945c3a5d83c944f121dfff2e45f0c895254f7d13e89c88c7ec324f2fbc6a4",
+    "results/recursive_self_improvement_v1/stage3_evaluation/evaluation_manifest.json": "58543d0ab6ce098dedeb47064f6e099f18f1caeb3498f63250b6693e1da75924",
+    "results/recursive_self_improvement_v1/stage3_integrity_audit.json": "326769ba389620e24e8db97ff5b7d27dd0500764b33c31e71e4c301d412673f9",
+    "results/recursive_self_improvement_v1/stage3_training_label_audit/audit_manifest.json": "6ea9049e1872a6e34e9cdfc45711b19ee0bd189a6215a3d0e12f10f10a299a26"
+  },
+  "raw_example_level_artifacts_excluded_from_git": [
+    "results/recursive_self_improvement_v1/stage3_evaluations.jsonl",
+    "results/recursive_self_improvement_v1/stage3_training_label_audit.jsonl",
+    "results/recursive_self_improvement_v1/claude_pairwise.jsonl"
+  ],
+  "requirements_verified": {
+    "disjoint_data_partitions": 5,
+    "generated_figures": 3,
+    "independent_judge_calls": 5000,
+    "stage2_checkpoints": 11,
+    "stage3_conditions": 20,
+    "stage3_evaluation_rows": 5000,
+    "stage3_training_labels_audited": 5120
+  },
+  "status": "pass",
+  "study_id": "recursive_self_improvement_v1"
+}

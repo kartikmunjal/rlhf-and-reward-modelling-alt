@@ -101,6 +101,7 @@ results/recursive_self_improvement_v1/*
 !results/recursive_self_improvement_v1/reward_ensemble_audit.json
 !results/recursive_self_improvement_v1/judge_audit.json
 !results/recursive_self_improvement_v1/stage3_integrity_audit.json
+!results/recursive_self_improvement_v1/completion_audit.json
 !results/recursive_self_improvement_v1/figures/
 !results/recursive_self_improvement_v1/figures/*.svg
 !results/recursive_self_improvement_v1/stage3_evaluation/

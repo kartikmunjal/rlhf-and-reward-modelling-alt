@@ -21,13 +21,20 @@ def load(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def replace_block(path: Path, block: str, *, insertion_anchor: str | None = None) -> None:
+def replace_block(path: Path, block: str, *, insertion_anchor: str | None = None, relocate: bool = False) -> None:
     text = path.read_text(encoding="utf-8")
     rendered = f"{START}\n{block.rstrip()}\n{END}"
-    if START in text:
+    if START in text and not relocate:
         before, remainder = text.split(START, 1)
         _, after = remainder.split(END, 1)
         text = before + rendered + after
+    elif START in text and relocate:
+        before, remainder = text.split(START, 1)
+        _, after = remainder.split(END, 1)
+        text = before + after
+        if not insertion_anchor or insertion_anchor not in text:
+            raise ValueError(f"Missing relocation anchor in {path}: {insertion_anchor}")
+        text = text.replace(insertion_anchor, rendered + "\n\n" + insertion_anchor, 1)
     elif insertion_anchor:
         if insertion_anchor not in text:
             raise ValueError(f"Missing insertion anchor in {path}: {insertion_anchor}")
@@ -47,7 +54,7 @@ def curve_line(label: str, curve: dict) -> str:
     return f"- {label}: `{curve['selected']}` selected by frozen LOO-MSE rule (linear {linear:.6g}; saturating exponential {saturation:.6g})."
 
 
-def build(metrics: dict, integrity: dict, config: dict) -> str:
+def build(metrics: dict, integrity: dict, judge_audit: dict, config: dict, link_prefix: str = "") -> str:
     if integrity.get("status") != "pass":
         raise ValueError("Stage-3 integrity audit has not passed")
     comparisons = metrics["stage3_vs_zero_percent"]
@@ -66,13 +73,15 @@ def build(metrics: dict, integrity: dict, config: dict) -> str:
         f"- Stage 2: base → SFT → ordinary DPO → iterative-DPO rounds 1–{config['stage1']['rounds']} on one disjoint held-out suite.",
         f"- Stage 3: {integrity['conditions_verified']} verified cells ({'/'.join(map(str, percentages))}% self labels × {config['stage3']['rounds_per_condition']} rounds), {integrity['prompts_per_round']} prompts per cell, from the identical round-{config['stage3']['starting_checkpoint'].rsplit('_', 1)[-1]} start.",
         "- The frozen K=3 human-preference reward ensemble was evaluation-only in Stage 3; it never generated a Stage-3 training label.",
+        f"- Stage 1 independent judging produced {judge_audit['successful_calls']:,} successful calls across {judge_audit['judged_prompt_checkpoint_pairs']:,} both-order pairs; position consistency was {judge_audit['position_consistency_rate']:.3f} [{judge_audit['position_consistency_wilson_ci95'][0]:.3f}, {judge_audit['position_consistency_wilson_ci95'][1]:.3f}] (Wilson 95% CI, N={judge_audit['judged_prompt_checkpoint_pairs']:,}).",
         "",
         "### Stage 1–2 findings",
         "",
         "| Checkpoint | Win rate vs SFT (paired prompt bootstrap 95% CI) |",
         "|---|---:|",
     ]
-    for checkpoint, entry in metrics["capability"].items():
+    for checkpoint in config["scope"]["primary_family"]:
+        entry = metrics["capability"][checkpoint]
         if entry["win_rate"] is not None:
             lines.append(f"| `{checkpoint}` | {ci(entry['win_rate'])} |")
     reward = metrics.get("reward_ensemble_validation")
@@ -117,16 +126,26 @@ def build(metrics: dict, integrity: dict, config: dict) -> str:
         lines.append(
             f"| {percent}% | {ci(values['external_evaluator_win_rate'])} | {shift} | {ci(values['kl_from_stage3_start'])} | {ci(values['ensemble_disagreement'])} |"
         )
+    self_agreement = metrics["stage3_training_label_agreement"]["100"][str(config["stage3"]["rounds_per_condition"])]["self"]
+    external_agreement = metrics["stage3_training_label_agreement"]["0"][str(config["stage3"]["rounds_per_condition"])]["external"]
+    hundred = metrics["stage3_round_metrics"]["100"][str(config["stage3"]["rounds_per_condition"])]
+    hundred_length = metrics["stage3_round4_length_shift_vs_zero"]["100"]
     lines.extend(
         [
             "",
-            "Training-label agreement with the frozen evaluator is reported by round and label source in the generated metrics, so apparent improvement can be checked for circular self-label behavior.",
+            f"At round 4, evaluator agreement was {ci(external_agreement)} for the 0%-self external labels and {ci(self_agreement)} for 100%-self likelihood labels. The fully self-labeled policy became shorter by {ci(hundred_length)} tokens while KL reached {ci(hundred['kl_from_stage3_start'])} and ensemble disagreement reached {ci(hundred['ensemble_disagreement'])}. This pattern is inconsistent with a verbosity exploit and is instead diagnostic evidence of policy drift under a weakly aligned self-generated signal; it is an association, not a causal decomposition.",
+            "",
+            f"![Stage 1 round trajectory]({link_prefix}results/recursive_self_improvement_v1/figures/stage1_round_curve.svg)",
+            "",
+            f"![Stage 2 capability-compute curve]({link_prefix}results/recursive_self_improvement_v1/figures/stage2_capability_compute.svg)",
+            "",
+            f"![Stage 3 self-reliance trajectories]({link_prefix}results/recursive_self_improvement_v1/figures/stage3_self_reliance.svg)",
             "",
             "### Scope boundaries",
             "",
             "This is a one-seed, small-model controlled study. Prompt-bootstrap intervals quantify held-out-prompt uncertainty, not training-seed variation. Self-likelihood ranking is a narrow operationalization of self-reliance, not deliberative self-judgment. The selected curves describe only the observed checkpoints and are not extrapolation laws. PPO/GRPO remain excluded because the existing artifacts use a different model family; no new checkpoint was manufactured to fill that matrix.",
             "",
-            "Reproduce from [`recursive_self_improvement/preregistration.md`](recursive_self_improvement/preregistration.md), [`recursive_self_improvement/study_config.json`](recursive_self_improvement/study_config.json), and [`scripts/analyze_recursive_self_improvement.py`](scripts/analyze_recursive_self_improvement.py). Full generated results are in [`results/recursive_self_improvement_v1/report.md`](results/recursive_self_improvement_v1/report.md) and [`metrics.json`](results/recursive_self_improvement_v1/metrics.json).",
+            f"Reproduce from [`recursive_self_improvement/preregistration.md`]({link_prefix}recursive_self_improvement/preregistration.md), [`recursive_self_improvement/study_config.json`]({link_prefix}recursive_self_improvement/study_config.json), and [`scripts/analyze_recursive_self_improvement.py`]({link_prefix}scripts/analyze_recursive_self_improvement.py). Full generated results are in [`results/recursive_self_improvement_v1/report.md`]({link_prefix}results/recursive_self_improvement_v1/report.md) and [`metrics.json`]({link_prefix}results/recursive_self_improvement_v1/metrics.json).",
         ]
     )
     return "\n".join(lines)
@@ -136,12 +155,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--metrics", type=Path, default=Path("results/recursive_self_improvement_v1/metrics.json"))
     parser.add_argument("--integrity", type=Path, default=Path("results/recursive_self_improvement_v1/stage3_integrity_audit.json"))
+    parser.add_argument("--judge-audit", type=Path, default=Path("results/recursive_self_improvement_v1/judge_audit.json"))
     parser.add_argument("--main-readme", type=Path, default=Path("README.md"))
     parser.add_argument("--module-readme", type=Path, default=Path("recursive_self_improvement/README.md"))
     args = parser.parse_args()
-    block = build(load(args.metrics), load(args.integrity), load_effective_config(ROOT))
-    replace_block(args.main_readme, block, insertion_anchor="## Safety Classifier & Fairness Extension")
-    replace_block(args.module_readme, block)
+    metrics, integrity, judge, config = load(args.metrics), load(args.integrity), load(args.judge_audit), load_effective_config(ROOT)
+    replace_block(args.main_readme, build(metrics, integrity, judge, config), insertion_anchor="<!-- SAFETY-RESULTS:START -->", relocate=True)
+    replace_block(args.module_readme, build(metrics, integrity, judge, config, "../"))
     print(args.main_readme)
     print(args.module_readme)
 

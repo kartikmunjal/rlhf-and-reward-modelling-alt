@@ -1,0 +1,53 @@
+{
+  "failed_attempts_retained": [
+    {
+      "manifest_sha256": "489c0175eb5f1e46bb946eac2b05e12b11e9befd37dc2ee0999edf9473053aee",
+      "seed": 20260909,
+      "status": "excluded_failed_protocol_attempt",
+      "validation_pairwise_accuracy": 0.562
+    }
+  ],
+  "member_count": 3,
+  "members": [
+    {
+      "gate_passed": true,
+      "manifest_sha256": "3cedf420d5d40010fe8f2f90436d64e9d591b8c228a59a4e98292d01aa74ffaa",
+      "minimum_pairwise_accuracy": 0.6,
+      "seed": 20260909,
+      "validation_correct": 600,
+      "validation_examples": 1000,
+      "validation_pairwise_accuracy": 0.6,
+      "wilson_ci95": [
+        0.5693094295142662,
+        0.6299252187886226
+      ]
+    },
+    {
+      "gate_passed": true,
+      "manifest_sha256": "eb0ef4a6ec6021204cb3eeb2887a656acb4f07209b2f2cdcbed50fff6fc5ce92",
+      "minimum_pairwise_accuracy": 0.6,
+      "seed": 20260910,
+      "validation_correct": 610,
+      "validation_examples": 1000,
+      "validation_pairwise_accuracy": 0.61,
+      "wilson_ci95": [
+        0.5794035195028067,
+        0.6397545936303712
+      ]
+    },
+    {
+      "gate_passed": true,
+      "manifest_sha256": "aef881c32d5bd187b7aad5c7e1826a29c883d3fb7407299d79cd4b798bb78b04",
+      "minimum_pairwise_accuracy": 0.6,
+      "seed": 20260911,
+      "validation_correct": 618,
+      "validation_examples": 1000,
+      "validation_pairwise_accuracy": 0.618,
+      "wilson_ci95": [
+        0.5874883403629351,
+        0.6476085446344738
+      ]
+    }
+  ],
+  "status": "pass"
+}
