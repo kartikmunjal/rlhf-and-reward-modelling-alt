@@ -1,0 +1,80 @@
+{
+  "study_id": "verifier_reward_hacking_v1",
+  "extension_number": 16,
+  "status": "preregistered_not_run",
+  "base_model": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "lora_alpha": 16,
+    "lora_dropout": 0.0,
+    "lora_rank": 8,
+    "lora_targets": ["q_proj", "v_proj"]
+  },
+  "tasks": {
+    "total": 200,
+    "generated": 160,
+    "human_eval": 40,
+    "human_eval_license": "MIT",
+    "human_eval_revision": "6d43fb980f9fee3c892a914eda09951f772ad10d",
+    "human_eval_upstream": "https://github.com/openai/human-eval",
+    "split_seed": 20260928,
+    "splits": {"train_generated": 120, "dev_generated": 20, "test_generated": 20, "test_human_eval": 40}
+  },
+  "verifiers": {
+    "v0_visible_tests": 3,
+    "v1_hidden_tests_minimum": 20,
+    "v2_added_tests_maximum": 12,
+    "v3_property_tests": 20,
+    "v4": "v0_and_v3_conjunction"
+  },
+  "conditions": {
+    "C0": "frozen_base",
+    "C1": "grpo_v0",
+    "C2": "grpo_v2",
+    "C3": "grpo_v3",
+    "C4": "grpo_v4"
+  },
+  "paired_seeds": [2025, 2026, 2027],
+  "training": {
+    "optimizer_steps": 200,
+    "checkpoint_steps": [50, 100, 150, 200],
+    "generations_per_group": 4,
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "max_prompt_tokens": 384,
+    "max_completion_tokens": 384
+  },
+  "dev_tuning": {
+    "maximum_configurations": 4,
+    "seed": 2025,
+    "optimizer_steps_per_configuration": 50,
+    "allowed_fields": ["learning_rate", "kl_coefficient", "prompt_format"],
+    "selection": ["max_hidden_pass_at_1", "min_exploit_rate", "min_kl"]
+  },
+  "evaluation": {
+    "decoding": "greedy",
+    "samples_per_task": 1,
+    "primary_metrics": ["hidden_pass_at_1", "exploit_rate", "visible_hidden_gap"],
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260929,
+    "confidence_level": 0.95,
+    "multiple_testing": "holm_within_metric_for_C2_C3_C4_vs_C1"
+  },
+  "sandbox": {
+    "platform": "disposable_linux_rootless_container",
+    "network": "none",
+    "read_only_root": true,
+    "cpu_limit": 1,
+    "memory_mib": 512,
+    "process_limit": 64,
+    "per_test_timeout_seconds": 2,
+    "per_sample_timeout_seconds": 10,
+    "hidden_tests_mounted": false
+  },
+  "manual_audit": {
+    "trajectory_labels": 120,
+    "final_correctness_labels": 150,
+    "optional_second_labeler_overlap": 30
+  },
+  "scope": "Small-model single-GPU controlled study; no frontier-scale, vendor, production-security, or general GRPO claim."
+}

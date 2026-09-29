@@ -1,0 +1,24 @@
+{
+  "external_sources": {
+    "base_model": {
+      "id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    "human_eval": {
+      "license": "MIT",
+      "revision": "6d43fb980f9fee3c892a914eda09951f772ad10d",
+      "upstream": "https://github.com/openai/human-eval"
+    }
+  },
+  "files": {
+    "verifier_reward_hacking/PREREGISTRATION.md": {
+      "sha256": "316482384c7feec88a218f3419fb75379881458836e3da96f7a24d078bfef599"
+    },
+    "verifier_reward_hacking/study_config.json": {
+      "sha256": "510d5a1ede7f0d1f8edf152595b60eb5c9b17e8a2dc968cf5474b2b53f0454c1"
+    }
+  },
+  "frozen_at_utc": "2026-09-29T03:14:12.867452+00:00",
+  "status": "frozen_before_data_or_results",
+  "study_id": "verifier_reward_hacking_v1"
+}
