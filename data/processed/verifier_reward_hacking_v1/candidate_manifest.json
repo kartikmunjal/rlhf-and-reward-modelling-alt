@@ -1,0 +1,20 @@
+{
+  "audit_file": {
+    "path": "data/processed/verifier_reward_hacking_v1/candidate_audits.jsonl",
+    "sha256": "60b07be6cc444ab4edb20b9d8a27486f7a9802047919efd55007fbada88b3862"
+  },
+  "generated_candidates": 240,
+  "human_eval_candidates": 40,
+  "note": "Candidate artifacts precede base-model V0 eligibility QA and are not analysis data.",
+  "status": "candidate_pool_not_final_data",
+  "study_id": "verifier_reward_hacking_v1",
+  "task_file": {
+    "path": "data/processed/verifier_reward_hacking_v1/candidate_tasks_private.jsonl",
+    "sha256": "d5d2d515a9b4c51a687b4c24187dac04f2949502d76cb7602b8ec9b0eb186079"
+  },
+  "weak_flag_counts": {
+    "fewer_than_8_valid_mutants": 21,
+    "v0_kills_all": 22,
+    "v0_kills_none": 3
+  }
+}

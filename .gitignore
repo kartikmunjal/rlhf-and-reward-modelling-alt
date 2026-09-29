@@ -110,6 +110,14 @@ results/recursive_self_improvement_v1/stage3_evaluation/*
 !results/recursive_self_improvement_v1/stage3_training_label_audit/
 results/recursive_self_improvement_v1/stage3_training_label_audit/*
 !results/recursive_self_improvement_v1/stage3_training_label_audit/audit_manifest.json
+
+# Extension 16: hidden tests, reference solutions, model code, and raw ledgers.
+!data/processed/verifier_reward_hacking_v1/
+data/processed/verifier_reward_hacking_v1/*.jsonl
+data/processed/verifier_reward_hacking_v1/base_qa/
+!data/processed/verifier_reward_hacking_v1/candidate_manifest.json
+results/verifier_reward_hacking_v1/raw/
+checkpoints/verifier_reward_hacking_v1/
 /logs/
 /results/miscoordination_v1/episodes.jsonl
 .env
