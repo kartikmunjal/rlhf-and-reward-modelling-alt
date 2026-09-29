@@ -49,6 +49,22 @@ python scripts/publish_repository_research_note.py
 ```
 <!-- REPOSITORY-EVIDENCE-MAP:END -->
 
+## Extension 16 — Programmatic-Verifier Reward Hacking (in progress)
+
+This preregistered study tests whether Qwen2.5-0.5B GRPO optimization learns
+code that passes an incomplete visible verifier while failing held-out tests,
+then compares mutation-test, property-test, and conjunctive verifier hardening
+under the same training budget. The task builder, mutation audit, rootless
+container boundary, resumable base-model eligibility screen, C1–C4 GRPO
+pipeline, hierarchical bootstrap analysis, and blinded manual-audit tooling are
+implemented. No pilot or confirmatory result is claimed yet.
+
+The frozen design and live status are in
+[`verifier_reward_hacking/`](verifier_reward_hacking/). Hidden tests, reference
+solutions, generated code, and raw rollout ledgers are deliberately excluded
+from Git. This extension enters the evidence map only after all three seeds,
+the held-out evaluation, and the required manual audits are complete.
+
 <!-- SUMMEVAL-RESULTS:START -->
 ## SummEval LLM-as-Judge Extension
 

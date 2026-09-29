@@ -88,7 +88,11 @@ def main() -> None:
         rows.append({"prompt": text, "task_id": task.task_id})
     dataset = Dataset.from_list(rows)
     sandbox = SandboxConfig(runtime=args.runtime, image=args.image)
-    reward = SandboxedVerifierReward(tasks, audits, args.condition, sandbox)
+    reward = SandboxedVerifierReward(
+        tasks, audits, args.condition, sandbox,
+        ledger_path=args.output_dir / "raw_training_trajectories_private.jsonl",
+        metadata={"condition": args.condition, "seed": args.seed, "run_kind": args.run_kind},
+    )
     peft = LoraConfig(r=model_cfg["lora_rank"], lora_alpha=model_cfg["lora_alpha"], lora_dropout=model_cfg["lora_dropout"], target_modules=model_cfg["lora_targets"], task_type="CAUSAL_LM")
     training_args = GRPOConfig(
         output_dir=str(args.output_dir), max_steps=args.steps, per_device_train_batch_size=4,
@@ -100,6 +104,9 @@ def main() -> None:
         save_total_limit=None, report_to="none", seed=args.seed, remove_unused_columns=False,
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    raw_trajectory_path = args.output_dir / "raw_training_trajectories_private.jsonl"
+    if raw_trajectory_path.exists():
+        raise RuntimeError("Raw trajectory ledger already exists; use a new output directory to preserve failed-attempt provenance")
     manifest_path = args.output_dir / "run_manifest.json"
     manifest = {
         "study_id": study["study_id"], "status": "running", "run_kind": args.run_kind,
@@ -131,6 +138,7 @@ def main() -> None:
             "gpu": torch.cuda.get_device_name(0), "torch_version": torch.__version__,
             "transformers_version": transformers.__version__, "python": platform.python_version(),
             "trajectory_sha256": sha256_file(trajectory_path),
+            "raw_training_trajectory_sha256": sha256_file(raw_trajectory_path),
             "checkpoint_hashes": {path.name: directory_hash(path) for path in checkpoints},
             "final_adapter_sha256": directory_hash(args.output_dir / "final"),
         })

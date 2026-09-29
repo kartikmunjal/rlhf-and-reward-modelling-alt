@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
+import json
+from pathlib import Path
 
 from .evaluation import evaluate_completion
 from .sandbox import SandboxConfig
@@ -38,20 +40,32 @@ def completion_text(value) -> str:  # TRL versions may return text or chat messa
 
 
 class SandboxedVerifierReward:
-    def __init__(self, tasks: dict[str, CodeTask], audits: dict[str, dict], condition: str, sandbox: SandboxConfig, workers: int = 4):
+    def __init__(self, tasks: dict[str, CodeTask], audits: dict[str, dict], condition: str, sandbox: SandboxConfig, workers: int = 4, ledger_path: Path | None = None, metadata: dict | None = None):
         self.tasks = tasks
         self.audits = audits
         self.condition = condition
         self.sandbox = sandbox
         self.workers = workers
+        self.ledger_path = ledger_path
+        self.metadata = metadata or {}
+        self.batch_index = 0
 
-    def _score(self, completion, task_id: str) -> float:
+    def _score(self, completion, task_id: str):
         task = self.tasks[str(task_id)]
         cases = verifier_cases(task, self.condition, self.audits[task.task_id])
-        result = evaluate_completion(completion_text(completion), task, cases, self.sandbox)
-        return float(result["passed"])
+        text = completion_text(completion)
+        result = evaluate_completion(text, task, cases, self.sandbox)
+        return float(result["passed"]), text, result
 
     def __call__(self, completions, task_id, **kwargs):
         del kwargs
+        self.batch_index += 1
         with ThreadPoolExecutor(max_workers=self.workers) as pool:
-            return list(pool.map(self._score, completions, [str(value) for value in task_id]))
+            rows = list(pool.map(self._score, completions, [str(value) for value in task_id]))
+        if self.ledger_path:
+            self.ledger_path.parent.mkdir(parents=True, exist_ok=True)
+            with self.ledger_path.open("a", encoding="utf-8", newline="\n") as handle:
+                for identifier, (score, text, result) in zip(task_id, rows):
+                    record = {**self.metadata, "reward_batch_index": self.batch_index, "task_id": str(identifier), "completion": text, "reward": score, "verifier_result": result}
+                    handle.write(json.dumps(record, sort_keys=True, ensure_ascii=False) + "\n")
+        return [row[0] for row in rows]
