@@ -6,6 +6,10 @@
 the base-model eligibility gate, final task selection, pilot, and training have
 not started.**
 
+The attempted standard RunPod deployment could not provide the locked nested
+container boundary. See [`EXECUTION_REVIEW.md`](EXECUTION_REVIEW.md) for the
+request, completed implementation, observed blocker, and ranked alternatives.
+
 This extension asks whether GRPO learns to exploit incomplete visible unit tests
 and whether mutation- and property-based verifier hardening improves genuinely
 held-out correctness. The design, endpoints, seeds, task split, sandbox gates,
