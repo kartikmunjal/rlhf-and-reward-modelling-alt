@@ -22,9 +22,14 @@ jobs:
           # Install CPU-only torch first to avoid the GPU wheel being pulled in
           pip install torch==2.4.0 --index-url https://download.pytorch.org/whl/cpu
           # Install all declared dependencies (requirements.txt includes peft, etc.)
-          pip install -r requirements.txt
+          pip install -c constraints-ci.txt -r requirements.txt
           # Install the package in editable mode so `src.*` imports resolve
-          pip install -e ".[dev]"
+          pip install -c constraints-ci.txt -e ".[dev]"
 
       - name: Run tests
-        run: pytest tests/ -v --tb=short
+        run: python -m pytest tests/ -v --tb=short
+
+      - name: Verify generated research documentation
+        run: |
+          python scripts/publish_repository_research_note.py
+          git diff --exit-code -- README.md docs/portfolio_research_note.md

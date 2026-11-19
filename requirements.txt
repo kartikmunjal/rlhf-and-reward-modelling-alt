@@ -1,15 +1,15 @@
 # Core ML
-torch>=2.1.0
-transformers>=4.36.0
-datasets>=2.16.0
-accelerate>=0.25.0
-tokenizers>=0.15.0
+torch>=2.1.0,<3
+transformers>=4.46.0,<5
+datasets>=2.16.0,<5
+accelerate>=0.25.0,<2
+tokenizers>=0.20.0,<0.22
 
 # RLHF / RL training
-trl>=0.15.2
+trl>=0.15.2,<0.16
 
 # Efficient fine-tuning (optional, for LoRA experimentation)
-peft>=0.7.0
+peft>=0.14.0,<0.15
 
 # Data science
 numpy>=1.26.0
